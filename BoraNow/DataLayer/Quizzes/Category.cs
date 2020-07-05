@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Recodme.RD.BoraNow.DataLayer.Quiz
+namespace Recodme.RD.BoraNow.DataLayer.Quizzes
 {
     public class Category : NamedEntity
     {

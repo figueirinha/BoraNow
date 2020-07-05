@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Recodme.RD.BoraNow.DataLayer.Quiz
+namespace Recodme.RD.BoraNow.DataLayer.Quizzes
 {
     public class Result : Entity
     {
