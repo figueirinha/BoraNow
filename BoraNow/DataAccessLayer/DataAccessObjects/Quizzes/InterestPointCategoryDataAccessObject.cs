@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
 {
-    class InterestPointCategoryDataAccessObject
+    public class InterestPointCategoryDataAccessObject
     {
     }
 }
