@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Recodme.RD.BoraNow.DataAccessLayer.Context;
+using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizs
+namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
 {
     public class QuizDataAccessObject
     {
@@ -37,7 +38,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizs
 
         public async Task CreateAsync(Quiz Quiz)
         {
-            await _context.Quizes.AddAsync(Quiz);
+            await _context.Quiz.AddAsync(Quiz);
             await _context.SaveChangesAsync();
         }
         #endregion
@@ -45,12 +46,12 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizs
         #region Read
         public Quiz Read(Guid id)
         {
-            return _context.Quizes.FirstOrDefault(x => x.Id == id);
+            return _context.Quiz.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<Quiz> ReadAsync(Guid id)
         {
-            Func<Quiz> result = () => _context.Quizes.FirstOrDefault(x => x.Id == id);
+            Func<Quiz> result = () => _context.Quiz.FirstOrDefault(x => x.Id == id);
             return await new Task<Quiz>(result);
 
 

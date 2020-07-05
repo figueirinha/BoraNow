@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Recodme.RD.BoraNow.DataAccessLayer.Properties;
-using Recodme.RD.BoraNow.DataLayer.Quiz;
+using Recodme.RD.BoraNow.DataLayer.Quizzes;
 
 namespace Recodme.RD.BoraNow.DataAccessLayer.Context
 {
