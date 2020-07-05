@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Recodme.RD.BoraNow.DataLayer.Quiz
 {
-    public class CategoryQuizAnwser : Entity
+    public class CategoryQuizAnswer : Entity
     {
         [ForeignKey("Category")]
         public Guid CategoryId { get; set; }
@@ -14,16 +14,16 @@ namespace Recodme.RD.BoraNow.DataLayer.Quiz
 
         [ForeignKey("QuizAnswer")]
         public Guid QuizAnswerId { get; set; }
-        public virtual QuizAnwser QuizAnwser { get; set; }
+        public virtual QuizAnswer QuizAnwser { get; set; }
 
 
-        public CategoryQuizAnwser(Guid categoryId, Guid quizAnwerId) : base()
+        public CategoryQuizAnswer(Guid categoryId, Guid quizAnwerId) : base()
         {
             CategoryId = categoryId;
             QuizAnswerId = quizAnwerId;
         }
 
-        public CategoryQuizAnwser(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, Guid categoryId, Guid quizAnwerId) : base(id, createAt, updateAt, isDeleted)
+        public CategoryQuizAnswer(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, Guid categoryId, Guid quizAnwerId) : base(id, createAt, updateAt, isDeleted)
         {
             CategoryId = categoryId;
             QuizAnswerId = quizAnwerId;
