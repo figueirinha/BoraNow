@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quiz
+namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
 {
     class InterestPointCategoryDataAccessObject
     {
