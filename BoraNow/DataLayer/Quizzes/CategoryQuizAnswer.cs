@@ -14,19 +14,19 @@ namespace Recodme.RD.BoraNow.DataLayer.Quizzes
 
         [ForeignKey("QuizAnswer")]
         public Guid QuizAnswerId { get; set; }
-        public virtual QuizAnswer QuizAnwser { get; set; }
+        public virtual QuizAnswer QuizAnswser { get; set; }
 
 
-        public CategoryQuizAnswer(Guid categoryId, Guid quizAnwerId) : base()
+        public CategoryQuizAnswer(Guid categoryId, Guid quizAnswerId) : base()
         {
             CategoryId = categoryId;
-            QuizAnswerId = quizAnwerId;
+            QuizAnswerId = quizAnswerId;
         }
 
-        public CategoryQuizAnswer(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, Guid categoryId, Guid quizAnwerId) : base(id, createAt, updateAt, isDeleted)
+        public CategoryQuizAnswer(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, Guid categoryId, Guid quizAnswerId) : base(id, createAt, updateAt, isDeleted)
         {
             CategoryId = categoryId;
-            QuizAnswerId = quizAnwerId;
+            QuizAnswerId = quizAnswerId;
         }
     }
 }
