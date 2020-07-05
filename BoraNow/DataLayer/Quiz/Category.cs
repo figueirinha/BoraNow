@@ -8,7 +8,7 @@ namespace Recodme.RD.BoraNow.DataLayer.Quiz
     public class Category : NamedEntity
     {
         public virtual ICollection<InterestPointCategory> CategoryInterestPoints { get; set; }
-        public virtual ICollection<CategoryQuizAnwser> CategoryQuizAnswers { get; set; }
+        public virtual ICollection<CategoryQuizAnswer> CategoryQuizAnswers { get; set; }
 
         public Category(string name) : base(name)
         {

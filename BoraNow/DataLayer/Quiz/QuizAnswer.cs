@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Recodme.RD.BoraNow.DataLayer.Quiz
 {
-    public class QuizAnwser : Entity
+    public class QuizAnswer : Entity
     {
         private string _answer;
 
@@ -28,15 +28,15 @@ namespace Recodme.RD.BoraNow.DataLayer.Quiz
         [ForeignKey("QuizQuestion")]
         public Guid QuizQuestionId { get; set; }
         public virtual QuizQuestion QuizQuestion { get; set; }
-        public virtual ICollection<CategoryQuizAnwser> QuizAnswerCategories { get; set; }
+        public virtual ICollection<CategoryQuizAnswer> QuizAnswerCategories { get; set; }
 
-        public QuizAnwser(string answer, Guid quizQuestionId) : base()
+        public QuizAnswer(string answer, Guid quizQuestionId) : base()
         {
             _answer = answer;
             QuizQuestionId = quizQuestionId;
         }
 
-        public QuizAnwser(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string answer, Guid quizQuestionId) : base(id, createAt, updateAt, isDeleted)
+        public QuizAnswer(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string answer, Guid quizQuestionId) : base(id, createAt, updateAt, isDeleted)
         {
             _answer = answer;
             QuizQuestionId = quizQuestionId;
