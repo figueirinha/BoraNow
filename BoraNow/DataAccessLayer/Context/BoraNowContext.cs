@@ -6,5 +6,6 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Context
 {
     class BoraNowContext
     {
+
     }
 }
