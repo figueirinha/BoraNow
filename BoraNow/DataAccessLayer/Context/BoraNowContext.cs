@@ -5,7 +5,7 @@ using Recodme.RD.BoraNow.DataLayer.Quizzes;
 
 namespace Recodme.RD.BoraNow.DataAccessLayer.Context
 {
-    class BoraNowContext : IdentityDbContext
+    public class BoraNowContext : IdentityDbContext
     {
         public BoraNowContext() : base()
         {

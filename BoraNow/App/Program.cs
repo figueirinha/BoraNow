@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Recodme.RD.BoraNow.DataAccessLayer.Context;
+using System;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.App
 {
@@ -6,7 +7,8 @@ namespace Recodme.RD.BoraNow.PresentationLayer.App
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var context = new BoraNowContext();
+            context.Database.EnsureCreated();
         }
     }
 }
