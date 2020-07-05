@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Recodme.RD.BoraNow.DataAccessLayer.Properties;
 using Recodme.RD.BoraNow.DataLayer.Quiz;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Recodme.RD.BoraNow.DataAccessLayer.Context
 {
