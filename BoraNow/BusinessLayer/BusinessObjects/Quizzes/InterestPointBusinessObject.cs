@@ -9,7 +9,7 @@ using System.Transactions;
 
 namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
 {
-    class InterestPointBusinessObject 
+    public class InterestPointBusinessObject 
     {
 
         private InterestPointDataAccessObject _dao;
