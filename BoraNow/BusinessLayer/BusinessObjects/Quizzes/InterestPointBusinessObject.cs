@@ -1,5 +1,4 @@
-﻿using Recodme.RD.BoraNow.BusinessLayer.Base;
-using Recodme.RD.BoraNow.BusinessLayer.OperationResults;
+﻿using Recodme.RD.BoraNow.BusinessLayer.OperationResults;
 using Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
@@ -10,7 +9,7 @@ using System.Transactions;
 
 namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
 {
-    class InterestPointBusinessObject : BaseBusinessObject
+    class InterestPointBusinessObject 
     {
 
         private InterestPointDataAccessObject _dao;
