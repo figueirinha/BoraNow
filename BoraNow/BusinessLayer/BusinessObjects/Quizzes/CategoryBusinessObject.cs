@@ -3,7 +3,6 @@ using Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
