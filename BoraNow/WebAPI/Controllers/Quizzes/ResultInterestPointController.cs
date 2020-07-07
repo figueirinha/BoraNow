@@ -14,7 +14,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResultInterestPointInterestPointController : ControllerBase
+    public class ResultInterestPointController : ControllerBase
     {
         private ResultInterestPointBusinessObject _bo = new ResultInterestPointBusinessObject();
 
@@ -41,7 +41,6 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
             else return new ObjectResult(HttpStatusCode.InternalServerError);
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult<List<ResultInterestPointViewModel>> List()
         {

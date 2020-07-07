@@ -41,7 +41,6 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
             else return new ObjectResult(HttpStatusCode.InternalServerError);
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult<List<QuizAnswerViewModel>> List()
         {
