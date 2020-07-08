@@ -12,7 +12,6 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.ResultInterestPoint
         public Guid ResultId { get; set; }
         public Guid InterestPointId { get; set; }
 
-
         public ResultInterestPoint ToResultInterestPoint()
         {
             return new ResultInterestPoint(ResultId, InterestPointId);
