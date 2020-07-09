@@ -60,7 +60,7 @@ namespace Marco_Teste
             var oldId = ip.Id;
             bo.Delete(ip.Id);
             ip = bo.List().Result[0];
-            Assert.IsTrue(ip.Id == oldId);
+            Assert.IsTrue(ip.Id == oldId); 
         }
 
     }
