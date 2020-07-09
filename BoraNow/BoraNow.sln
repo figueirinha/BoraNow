@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAcce
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationLayer", "PresentationLayer", "{C5B4396C-D706-4D6A-99C5-721AF9762DBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{56C7F7A9-2593-412C-9DC7-F4C6AA3257E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{56C7F7A9-2593-412C-9DC7-F4C6AA3257E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{CE00B171-A5D2-4868-91DA-18134A828883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "App\App.csproj", "{CE00B171-A5D2-4868-91DA-18134A828883}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marco_Teste", "Marco_Teste\Marco_Teste.csproj", "{3421AF26-3B53-4466-BFB4-4E965805606B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{CE00B171-A5D2-4868-91DA-18134A828883}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE00B171-A5D2-4868-91DA-18134A828883}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE00B171-A5D2-4868-91DA-18134A828883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3421AF26-3B53-4466-BFB4-4E965805606B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3421AF26-3B53-4466-BFB4-4E965805606B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3421AF26-3B53-4466-BFB4-4E965805606B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3421AF26-3B53-4466-BFB4-4E965805606B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
