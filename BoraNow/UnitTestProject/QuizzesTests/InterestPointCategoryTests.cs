@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UnitTestProjectBoraNow.QuizzesTests
+namespace Recodme.RD.BoraNow.UnitTestProject.QuizzesTests
 {
     class InterestPointCategoryTests
     {

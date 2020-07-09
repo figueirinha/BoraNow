@@ -1,11 +1,13 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+ï»¿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Marco_Teste
+namespace Recodme.RD.BoraNow.UnitTestProject.QuizzesTests
 {
     public class OperationResult { public bool Success { get; set; } }
-
 
     [TestClass]
     public class InterestPointTest
@@ -14,22 +16,22 @@ namespace Marco_Teste
         [TestMethod]
         public void TestCreatInterestPoint()
         {
-            var ip = new InterestPoint("Estação do Rossio", "Estação de comboio", "rua do Rossio", "C:/foto", "9:00", 
+            var ip = new InterestPoint("EstaÃ§Ã£o do Rossio", "EstaÃ§Ã£o de comboio", "rua do Rossio", "C:/foto", "9:00",
                                                                                         "21:00", "SAB", true, true);
             var bo = new InterestPointBusinessObject();
             bo.Create(ip);
             var result = new OperationResult() { Success = true };
             var ipCreated = bo.Read(ip.Id);
-            Assert.IsTrue(ipCreated.Result.Address == ip.Address && ipCreated.Result.ClosingDays == ip.ClosingDays 
-                && ipCreated.Result.ClosingHours == ip.ClosingHours && ipCreated.Result.CovidSafe == ip.CovidSafe 
-                && ipCreated.Result.Description == ip.Description && ipCreated.Result.PhotoPath == ip.PhotoPath 
+            Assert.IsTrue(ipCreated.Result.Address == ip.Address && ipCreated.Result.ClosingDays == ip.ClosingDays
+                && ipCreated.Result.ClosingHours == ip.ClosingHours && ipCreated.Result.CovidSafe == ip.CovidSafe
+                && ipCreated.Result.Description == ip.Description && ipCreated.Result.PhotoPath == ip.PhotoPath
                 && ipCreated.Result.Status == ip.Status && ipCreated.Result.Name == ip.Name);
         }
 
         [TestMethod]
         public void TestUpdatInterestPoint()
         {
-            var newIp = new InterestPoint("Estação do Areeiro", "Estação de metro", "Rua do Areeiro", "C:/foto/Areeiro", "6:00",
+            var newIp = new InterestPoint("EstaÃ§Ã£o do Areeiro", "EstaÃ§Ã£o de metro", "Rua do Areeiro", "C:/foto/Areeiro", "6:00",
                                                                                         "01:00", "SEG", false, false);
             var bo = new InterestPointBusinessObject();
             var ip = bo.List().Result[0];
@@ -60,7 +62,7 @@ namespace Marco_Teste
             var oldId = ip.Id;
             bo.Delete(ip.Id);
             ip = bo.List().Result[0];
-            Assert.IsTrue(ip.Id == oldId); 
+            Assert.IsTrue(ip.Id == oldId);
         }
 
     }

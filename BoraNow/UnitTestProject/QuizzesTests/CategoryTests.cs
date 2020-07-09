@@ -1,11 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
-using System.Security.Cryptography.Xml;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace UnitTestProjectBoraNow
+namespace Recodme.RD.BoraNow.UnitTestProject.QuizzesTests
 {
     public class OperationResult { public bool Success { get; set; } }
 
