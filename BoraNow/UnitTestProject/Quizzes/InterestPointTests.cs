@@ -22,6 +22,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
 
             var resCreate = cbo.Create(interestPoint);
             var resGet = cbo.Read(interestPoint.Id);
+
             Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
 
@@ -54,7 +55,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             item.ClosingHours = interestPoint.ClosingHours;
             item.Description = interestPoint.Description;
             item.OpeningHours = interestPoint.OpeningHours;
-            item.PhotoPath = interestPoint.PhotoPath ;
+            item.PhotoPath = interestPoint.PhotoPath;
             item.CovidSafe = interestPoint.CovidSafe;
             item.Status = interestPoint.Status;
 
@@ -62,10 +63,10 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             resList = ipbo.List();
 
             Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Name == interestPoint.Name
-                && resList.Result.First().Address == interestPoint.ClosingDays
+                && resList.Result.First().Address == interestPoint.Address
                 && resList.Result.First().ClosingHours == interestPoint.ClosingHours
                 && resList.Result.First().Description == interestPoint.Description
-                && resList.Result.First().OpeningHours == interestPoint.Description
+                && resList.Result.First().ClosingDays == interestPoint.ClosingDays
                 && resList.Result.First().OpeningHours == interestPoint.OpeningHours
                 && resList.Result.First().PhotoPath == interestPoint.PhotoPath
                 && resList.Result.First().CovidSafe == interestPoint.CovidSafe

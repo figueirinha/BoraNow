@@ -39,7 +39,9 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var resList = qbo.List();
 
             var quiz = resList.Result.FirstOrDefault();
-            quiz.Title = "BoraNow Quiz";
+            var newQuiz = new Quiz("BoraNow Quiz");
+
+            quiz.Title = newQuiz.Title;
 
             var resUpdate = qbo.Update(quiz);
             resList = qbo.List();

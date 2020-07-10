@@ -17,20 +17,20 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         public void TestCreateQuizAnswer()
         {
             BoraNowSeeder.Seed();
-            var qa = new QuizAnswerBusinessObject();
-            var qq = new QuizQuestionBusinessObject();
-            var quiz = new QuizBusinessObject();
+            var qabo = new QuizAnswerBusinessObject();
+            var qqbo = new QuizQuestionBusinessObject();
+            var quizbo = new QuizBusinessObject();
 
             var newQuiz = new Quiz("Where you wanna go?");
             var newQuizQuestion = new QuizQuestion("Where you wanna go?", newQuiz.Id);
+
+            quizbo.Create(newQuiz);
+            qqbo.Create(newQuizQuestion);
+
             var newQuizAnswer = new QuizAnswer("Beach", newQuizQuestion.Id);
 
-            qq.Create(newQuizQuestion);
-            quiz.Create(newQuiz);
-            
-
-            var resCreate = qa.Create(newQuizAnswer);
-            var resGet = qa.Read(newQuizAnswer.Id);           
+            var resCreate = qabo.Create(newQuizAnswer);
+            var resGet = qabo.Read(newQuizAnswer.Id);           
 
             Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
@@ -53,26 +53,27 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var qqbo = new QuizQuestionBusinessObject();
             var quizbo= new QuizBusinessObject();
             var resList = qabo.List();
+            var quizAnswer = resList.Result.FirstOrDefault();
+
 
             var newQuiz = new Quiz("Where you wanna go?");
             var newQuizQuestion = new QuizQuestion("Where you wanna go?", newQuiz.Id);
-            var newQuizAnswer = new QuizAnswer("yes", newQuizQuestion.Id);
-            var quizAnswer = resList.Result.FirstOrDefault();
 
-            qqbo.Create(newQuizQuestion);
             quizbo.Create(newQuiz);
-            quizAnswer.QuizQuestionId = newQuizAnswer.QuizQuestionId;
-            quizAnswer.Answer = newQuizAnswer.Answer;
+            qqbo.Create(newQuizQuestion);
+
+            quizAnswer.QuizQuestionId = newQuizQuestion.Id;
+            quizAnswer.Answer = "yes";
 
             var resUpdate= qabo.Update(quizAnswer);
             resList = qabo.List();
 
-            Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Answer == newQuizAnswer.Answer
-                && resList.Result.First().QuizQuestionId == newQuizAnswer.QuizQuestionId);
+            Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Answer == "yes"
+                && resList.Result.First().QuizQuestionId == newQuizQuestion.Id);
         }
 
         [TestMethod]
-        public void TestDeleteQuizAnswerId()
+        public void TestDeleteQuizAnswer()
         {
             BoraNowSeeder.Seed();
             var bo = new QuizAnswerBusinessObject();
