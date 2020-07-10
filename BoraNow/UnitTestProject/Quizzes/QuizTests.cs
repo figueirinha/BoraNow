@@ -2,6 +2,7 @@
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
+using System.Linq;
 
 namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
 {
@@ -17,29 +18,44 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var _bo = new QuizBusinessObject();
             var resCreate = _bo.Create(_Quiz);
             var resGet = _bo.Read(_Quiz.Id);
+
             Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
-        //[TestMethod]
-        //public void TestUpdateQuiz()
-        //{
-        //    var newTitleQuiz = "Quiz Bora Now";
-        //    var _bo = new QuizBusinessObject();
-        //    var _Quiz = _bo.List().Result[0];
-        //    _Quiz.Title = newTitleQuiz;
-        //    _bo.Update(_Quiz);
-        //    _Quiz = _bo.List().Result[0];
-        //    Assert.IsTrue(_Quiz.Title == newTitleQuiz);
-        //}
-        //[TestMethod]
-        //public void TestDeleteQuizId()
-        //{
-        //    var _bo = new QuizBusinessObject();
-        //    var _Quiz = _bo.List().Result[0];
-        //    var existingId = _Quiz.Id;
-        //    _bo.Delete(_Quiz.Id);
-        //    _Quiz = _bo.List().Result[0];
-        //    Assert.IsTrue(_Quiz.Id == existingId);
-        //}
 
+        [TestMethod]
+        public void TestListQuiz()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new QuizBusinessObject();
+            var resList = bo.List();
+
+            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+        }
+        [TestMethod]
+        public void TestUpdateQuiz()
+        {
+            BoraNowSeeder.Seed();
+            var qbo = new QuizBusinessObject();
+            var resList = qbo.List();
+
+            var quiz = resList.Result.FirstOrDefault();
+            quiz.Title = "BoraNow Quiz";
+
+            var resUpdate = qbo.Update(quiz);
+            resList = qbo.List();
+            Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Title == quiz.Title);
+        }
+        [TestMethod]
+        public void TesDeletetQuiz()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new QuizBusinessObject();
+            var resList = bo.List();
+            var resDelete = bo.Delete(resList.Result.First().Id);
+            resList = bo.List();
+
+            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
+
+        }
     }
 }
