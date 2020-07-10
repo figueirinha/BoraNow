@@ -53,11 +53,10 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         public void TestUpdateCategoryQuizAnswer()
         {
             BoraNowSeeder.Seed();
-            var bo = new CategoryQuizAnswerBusinessObject();
-            var resList = bo.List();
+            var cqbo = new CategoryQuizAnswerBusinessObject();
+            var resList = cqbo.List();
             var item = resList.Result.FirstOrDefault();
 
-            var cqbo = new CategoryQuizAnswerBusinessObject();
             var qbo = new QuizBusinessObject();
             var qqbo = new QuizQuestionBusinessObject();
             var qabo = new QuizAnswerBusinessObject();
@@ -75,8 +74,8 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
 
             item.QuizAnswerId = quizAnswer.Id;
             item.CategoryId = category.Id;
-            var resUpdate = bo.Update(item);
-            resList = bo.List();
+            var resUpdate = cqbo.Update(item);
+            resList = cqbo.List();
 
             Assert.IsTrue(resList.Success && resUpdate.Success &&
                 resList.Result.First().CategoryId == item.CategoryId && resList.Result.First().QuizAnswerId == item.QuizAnswerId);

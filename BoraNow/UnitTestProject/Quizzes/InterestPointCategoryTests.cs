@@ -1,6 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
+using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
+using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
@@ -10,8 +14,74 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
     public class InterestPointCategoryTests
     {
         [TestMethod]
-        public void TestCreateInterestPoint()
+        public void TestCreateInterestPointCategory()
         {
+            BoraNowSeeder.Seed();
+            var ipcbo = new InterestPointCategoryBusinessObject();
+            var ipbo = new InterestPointBusinessObject();
+            var cbo = new CategoryBusinessObject();
+
+            var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true);
+            var category = new Category("vegan");
+            var interestPointCategory = new InterestPointCategory(interestPoint.Id, category.Id);
+
+            ipbo.Create(interestPoint);
+            cbo.Create(category);
+
+            var resCreate = ipcbo.Create(interestPointCategory);
+            var resGet = ipcbo.Read(interestPointCategory.Id);
+
+            Assert.IsTrue(resGet.Success && resCreate.Success && resGet.Result != null);
+        }
+
+        [TestMethod]
+        public void TestListInterestPointCategory()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new InterestPointCategoryBusinessObject();
+            var resList = bo.List();
+
+            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+
+        }
+
+        [TestMethod]
+        public void TestUpdateInterestpointCategory()
+        {
+            BoraNowSeeder.Seed();
+            var ipcbo = new InterestPointCategoryBusinessObject();
+            var resList = ipcbo.List();
+            var item = resList.Result.FirstOrDefault();
+
+            var ipbo = new InterestPointBusinessObject();
+            var cbo = new CategoryBusinessObject();
+
+            var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true);
+            var category = new Category("vegan");
+
+            ipbo.Create(interestPoint);
+            cbo.Create(category);
+
+            item.InterestPointId = interestPoint.Id;
+            item.CategoryId = category.Id;
+            var resUpdate = ipcbo.Update(item);
+            resList = ipcbo.List();
+
+            Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().InterestPointId == interestPoint.Id
+                && resList.Result.First().CategoryId == category.Id);
+
+        }
+
+        [TestMethod]
+        public void TestDeleteInterestPointCategory()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new InterestPointCategoryBusinessObject();
+            var resList = bo.List();
+            var resDelete = bo.Delete(resList.Result.First().Id);
+            resList = bo.List();
+
+            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
 
         }
     }
