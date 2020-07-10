@@ -1,6 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
+using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
+using System.Linq;
+
 
 namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
 {
@@ -11,32 +14,51 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         [TestMethod]
         public void TestCreateCategory()
         {
-            var _category = new Category("Praia");
-            var _bo = new CategoryBusinessObject();
-            _bo.Create(_category);
-            var _categoryCreated = _bo.Read(_category.Id);
-            Assert.IsTrue(_categoryCreated.Result.Name == _category.Name);
+            BoraNowSeeder.Seed();
+            var cbo = new CategoryBusinessObject();
+
+            var category = new Category("Beach");
+
+            var resCreate = cbo.Create(category);
+            var resGet = cbo.Read(category.Id);
+            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
+
+        [TestMethod]
+        public void TestListCategory()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new CategoryBusinessObject();
+            var resList = bo.List();
+
+            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+        }
+
         [TestMethod]
         public void TestUpdateCategory()
         {
-            var newNameCategory = "Bar";
-            var _bo = new CategoryBusinessObject();
-            var _category = _bo.List().Result[0];
-            _category.Name = newNameCategory;
-            _bo.Update(_category);
-            _category = _bo.List().Result[0];
-            Assert.IsTrue(_category.Name == newNameCategory);
+            BoraNowSeeder.Seed();
+            var bo = new CategoryBusinessObject();
+            var resList = bo.List();
+
+            var category = resList.Result.FirstOrDefault();
+            category.Name = "Bar";
+      
+            var resUpdate = bo.Update(category);
+            resList = bo.List();
+            Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Name == category.Name);
         }
+
         [TestMethod]
         public void TestDeleteCategoryId()
         {
-            var _bo = new CategoryBusinessObject();
-            var _category = _bo.List().Result[0];
-            var existingId = _category.Id;
-            _bo.Delete(_category.Id);
-            _category = _bo.List().Result[0];
-            Assert.IsTrue(_category.Id == existingId);
+            BoraNowSeeder.Seed();
+            var bo = new CategoryBusinessObject();
+            var resList = bo.List();
+            var resDelete = bo.Delete(resList.Result.First().Id);
+            resList = bo.List();
+
+            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
         }
 
     }
