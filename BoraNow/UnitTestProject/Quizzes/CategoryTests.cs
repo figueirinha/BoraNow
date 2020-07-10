@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
 
-namespace UnitTestProject
+namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
 {
 
     [TestClass]
