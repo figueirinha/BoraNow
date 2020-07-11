@@ -52,8 +52,9 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
 
         public async Task<Category> ReadAsync(Guid id)
         {
-            Func<Category> result = () => _context.Category.FirstOrDefault(x => x.Id == id);
-            return await new Task<Category>(result);
+            //Func<Category> result = () => _context.Category.FirstOrDefault(x => x.Id == id);
+            //return await new Task<Category>(result);
+            return await Task.Run(() => _context.Set<Category>().FirstOrDefault(x => x.Id == id));
 
 
         }
