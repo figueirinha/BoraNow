@@ -1,4 +1,5 @@
 ﻿using Recodme.RD.BoraNow.DataLayer.Base;
+using Recodme.RD.BoraNow.DataLayer.Feedbacks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -128,6 +129,7 @@ namespace Recodme.RD.BoraNow.DataLayer.Quizzes
 
         public virtual ICollection<InterestPointCategory> CategoryInterestPoints { get; set; }
         public virtual ICollection<ResultInterestPoint> InterestPointResults { get; set; } 
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
         
         public InterestPoint(string name, string description, string address, string photoPath, string openingHours, 
             string closingHours, string closingDays, bool covidSafe, bool status) : base(name)

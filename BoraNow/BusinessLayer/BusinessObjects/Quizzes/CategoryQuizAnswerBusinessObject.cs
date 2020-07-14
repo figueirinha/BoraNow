@@ -110,12 +110,12 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
         #endregion 
 
         #region Create
-        public OperationResult Create(CategoryQuizAnswer CategoryQuizAnswer)
+        public OperationResult Create(CategoryQuizAnswer categoryQuizAnswer)
         {
             try
             {
 
-                _dao.Create(CategoryQuizAnswer);
+                _dao.Create(categoryQuizAnswer);
                 return new OperationResult() { Success = true };
 
             }
@@ -124,11 +124,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult> CreateAsync(CategoryQuizAnswer CategoryQuizAnswer)
+        public async Task<OperationResult> CreateAsync(CategoryQuizAnswer categoryQuizAnswer)
         {
             try
             {
-                await _dao.CreateAsync(CategoryQuizAnswer);
+                await _dao.CreateAsync(categoryQuizAnswer);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -184,11 +184,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
         #endregion
 
         #region Update
-        public OperationResult Update(CategoryQuizAnswer CategoryQuizAnswer)
+        public OperationResult Update(CategoryQuizAnswer categoryQuizAnswer)
         {
             try
             {
-                _dao.Update(CategoryQuizAnswer);
+                _dao.Update(categoryQuizAnswer);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -196,11 +196,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult> UpdateAsync(CategoryQuizAnswer CategoryQuizAnswer)
+        public async Task<OperationResult> UpdateAsync(CategoryQuizAnswer categoryQuizAnswer)
         {
             try
             {
-                await _dao.UpdateAsync(CategoryQuizAnswer);
+                await _dao.UpdateAsync(categoryQuizAnswer);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -211,11 +211,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
         #endregion
 
         #region Delete
-        public OperationResult Delete(CategoryQuizAnswer CategoryQuizAnswer)
+        public OperationResult Delete(CategoryQuizAnswer categoryQuizAnswer)
         {
             try
             {
-                _dao.Delete(CategoryQuizAnswer);
+                _dao.Delete(categoryQuizAnswer);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -223,11 +223,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = true, Exception = e };
             }
         }
-        public async Task<OperationResult> DeleteAsync(CategoryQuizAnswer CategoryQuizAnswer)
+        public async Task<OperationResult> DeleteAsync(CategoryQuizAnswer categoryQuizAnswer)
         {
             try
             {
-                await _dao.DeleteAsync(CategoryQuizAnswer);
+                await _dao.DeleteAsync(categoryQuizAnswer);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)

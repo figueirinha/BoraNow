@@ -60,24 +60,24 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
         #endregion
 
         #region Update
-        public void Update(Quiz Quiz)
+        public void Update(Quiz quiz)
         {
-            _context.Entry(Quiz).State = EntityState.Modified;
+            _context.Entry(quiz).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
-        public async Task UpdateAsync(Quiz Quiz)
+        public async Task UpdateAsync(Quiz quiz)
         {
-            _context.Entry(Quiz).State = EntityState.Modified;
+            _context.Entry(quiz).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
         #endregion
 
         #region Delete
-        public void Delete(Quiz Quiz)
+        public void Delete(Quiz quiz)
         {
-            Quiz.IsDeleted = true;
-            Update(Quiz);
+            quiz.IsDeleted = true;
+            Update(quiz);
         }
         public void Delete(Guid id)
         {
@@ -85,10 +85,10 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
             if (item == null) return;
             Delete(item);
         }
-        public async Task DeleteAsync(Quiz Quiz)
+        public async Task DeleteAsync(Quiz quiz)
         {
-            Quiz.IsDeleted = true;
-            await UpdateAsync(Quiz);
+            quiz.IsDeleted = true;
+            await UpdateAsync(quiz);
         }
         public async Task DeleteAsync(Guid id)
         {
