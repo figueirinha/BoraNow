@@ -7,7 +7,7 @@ using System.Linq;
 namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
 {
     [TestClass]
-    public class CategoryQuizAnswerTests
+    public class  CategoryQuizAnswerTests
     {
         [TestMethod]
         public void TestCreateCategoryQuizAnswer()
