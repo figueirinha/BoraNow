@@ -109,12 +109,12 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
         #endregion 
 
         #region Create
-        public OperationResult Create(Quiz Quiz)
+        public OperationResult Create(Quiz quiz)
         {
             try
             {
 
-                _dao.Create(Quiz);
+                _dao.Create(quiz);
                 return new OperationResult() { Success = true };
 
             }
@@ -123,11 +123,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult> CreateAsync(Quiz Quiz)
+        public async Task<OperationResult> CreateAsync(Quiz quiz)
         {
             try
             {
-                await _dao.CreateAsync(Quiz);
+                await _dao.CreateAsync(quiz);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -183,11 +183,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
         #endregion
 
         #region Update
-        public OperationResult Update(Quiz Quiz)
+        public OperationResult Update(Quiz quiz)
         {
             try
             {
-                _dao.Update(Quiz);
+                _dao.Update(quiz);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -195,11 +195,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult> UpdateAsync(Quiz Quiz)
+        public async Task<OperationResult> UpdateAsync(Quiz quiz)
         {
             try
             {
-                await _dao.UpdateAsync(Quiz);
+                await _dao.UpdateAsync(quiz);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -210,11 +210,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
         #endregion
 
         #region Delete
-        public OperationResult Delete(Quiz Quiz)
+        public OperationResult Delete(Quiz quiz)
         {
             try
             {
-                _dao.Delete(Quiz);
+                _dao.Delete(quiz);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -222,11 +222,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = true, Exception = e };
             }
         }
-        public async Task<OperationResult> DeleteAsync(Quiz Quiz)
+        public async Task<OperationResult> DeleteAsync(Quiz quiz)
         {
             try
             {
-                await _dao.DeleteAsync(Quiz);
+                await _dao.DeleteAsync(quiz);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)

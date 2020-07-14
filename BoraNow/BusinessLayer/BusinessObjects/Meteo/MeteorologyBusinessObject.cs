@@ -1,24 +1,24 @@
 ﻿using Recodme.RD.BoraNow.BusinessLayer.OperationResults;
-using Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes;
-using Recodme.RD.BoraNow.DataLayer.Quizzes;
+using Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Meteo;
+using Recodme.RD.BoraNow.DataLayer.Meteo;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
+namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Meteo
 {
-   public class InterestPointCategoryBusinessObject
+    public class MeteorologyBusinessObject
     {
-        private InterestPointCategoryDataAccessObject _dao;
-        public InterestPointCategoryBusinessObject()
+        private MeteorologyDataAccessObject _dao;
+        public MeteorologyBusinessObject()
         {
-            _dao = new InterestPointCategoryDataAccessObject();
+            _dao = new MeteorologyDataAccessObject();
         }
 
         #region List
-        public OperationResult<List<InterestPointCategory>> List()
+        public OperationResult<List<Meteorology>> List()
         {
             try
             {
@@ -31,16 +31,16 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 {
                     var result = _dao.List();
                     ts.Complete();
-                    return new OperationResult<List<InterestPointCategory>>() { Success = true, Result = result };
+                    return new OperationResult<List<Meteorology>>() { Success = true, Result = result };
                 }
             }
             catch (Exception e)
             {
-                return new OperationResult<List<InterestPointCategory>>() { Success = false, Exception = e };
+                return new OperationResult<List<Meteorology>>() { Success = false, Exception = e };
             }
         }
 
-        public async Task<OperationResult<List<InterestPointCategory>>> ListAsync()
+        public async Task<OperationResult<List<Meteorology>>> ListAsync()
         {
             try
             {
@@ -53,12 +53,12 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 {
                     var result = await _dao.ListAsync();
                     ts.Complete();
-                    return new OperationResult<List<InterestPointCategory>>() { Success = true, Result = result };
+                    return new OperationResult<List<Meteorology>>() { Success = true, Result = result };
                 }
             }
             catch (Exception e)
             {
-                return new OperationResult<List<InterestPointCategory>>() { Success = false, Exception = e };
+                return new OperationResult<List<Meteorology>>() { Success = false, Exception = e };
             }
         }
         #endregion
@@ -106,15 +106,15 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult<int>() { Success = false, Exception = e };
             }
         }
-        #endregion 
+        #endregion
 
         #region Create
-        public OperationResult Create(InterestPointCategory interestPointCategory)
+        public OperationResult Create(Meteorology meteorology)
         {
             try
             {
 
-                _dao.Create(interestPointCategory);
+                _dao.Create(meteorology);
                 return new OperationResult() { Success = true };
 
             }
@@ -123,11 +123,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult> CreateAsync(InterestPointCategory interestPointCategory)
+        public async Task<OperationResult> CreateAsync(Meteorology meteorology)
         {
             try
             {
-                await _dao.CreateAsync(interestPointCategory);
+                await _dao.CreateAsync(meteorology);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -138,7 +138,7 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
         #endregion
 
         #region Read
-        public OperationResult<InterestPointCategory> Read(Guid id)
+        public OperationResult<Meteorology> Read(Guid id)
         {
             try
             {
@@ -151,15 +151,15 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 {
                     var res = _dao.Read(id);
                     transactionScope.Complete();
-                    return new OperationResult<InterestPointCategory>() { Success = true, Result = res };
+                    return new OperationResult<Meteorology>() { Success = true, Result = res };
                 }
             }
             catch (Exception e)
             {
-                return new OperationResult<InterestPointCategory>() { Success = false, Exception = e };
+                return new OperationResult<Meteorology>() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult<InterestPointCategory>> ReadAsync(Guid id)
+        public async Task<OperationResult<Meteorology>> ReadAsync(Guid id)
         {
             try
             {
@@ -172,22 +172,22 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 {
                     var res = await _dao.ReadAsync(id);
                     transactionScope.Complete();
-                    return new OperationResult<InterestPointCategory>() { Success = true, Result = res };
+                    return new OperationResult<Meteorology>() { Success = true, Result = res };
                 }
             }
             catch (Exception e)
             {
-                return new OperationResult<InterestPointCategory>() { Success = false, Exception = e };
+                return new OperationResult<Meteorology>() { Success = false, Exception = e };
             }
         }
         #endregion
 
         #region Update
-        public OperationResult Update(InterestPointCategory interestPointCategory)
+        public OperationResult Update(Meteorology meteorology)
         {
             try
             {
-                _dao.Update(interestPointCategory);
+                _dao.Update(meteorology);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -195,11 +195,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult> UpdateAsync(InterestPointCategory interestPointCategory)
+        public async Task<OperationResult> UpdateAsync(Meteorology meteorology)
         {
             try
             {
-                await _dao.UpdateAsync(interestPointCategory);
+                await _dao.UpdateAsync(meteorology);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -210,11 +210,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
         #endregion
 
         #region Delete
-        public OperationResult Delete(InterestPointCategory interestPointCategory)
+        public OperationResult Delete(Meteorology meteorology)
         {
             try
             {
-                _dao.Delete(interestPointCategory);
+                _dao.Delete(meteorology);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -222,11 +222,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = true, Exception = e };
             }
         }
-        public async Task<OperationResult> DeleteAsync(InterestPointCategory interestPointCategory)
+        public async Task<OperationResult> DeleteAsync(Meteorology meteorology)
         {
             try
             {
-                await _dao.DeleteAsync(interestPointCategory);
+                await _dao.DeleteAsync(meteorology);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -260,6 +260,5 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
             }
         }
         #endregion
-
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Recodme.RD.BoraNow.DataAccessLayer.Context;
+using Recodme.RD.BoraNow.DataLayer.Feedbacks;
+using Recodme.RD.BoraNow.DataLayer.Meteo;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,9 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
             var result = new Result("questionário nº 1", DateTime.Now, quiz.Id);
             var resultInterestPoint = new ResultInterestPoint(result.Id, interestPoint.Id);
 
+            var meteorology = new Meteorology(19, 27, 0, 1, 0, DateTime.Now.AddDays(1));
+            var feedback = new Feedback("very nice yes yes", 5, DateTime.Now.AddDays(-1), interestPoint.Id);
+
             _ctx.Category.AddRange(category);
             _ctx.Quiz.AddRange(quiz);
             _ctx.QuizQuestion.AddRange(quizQuestion);
@@ -32,6 +37,9 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
             _ctx.InterestPointCategory.AddRange(interestPointCategory);
             _ctx.Result.AddRange(result);
             _ctx.ResultInterestPoint.AddRange(resultInterestPoint);
+
+            _ctx.Feedback.AddRange(feedback);
+            _ctx.Meteorology.AddRange(meteorology);
                       
             _ctx.SaveChanges();
         }

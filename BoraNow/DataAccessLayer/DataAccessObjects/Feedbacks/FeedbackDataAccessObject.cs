@@ -1,84 +1,82 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Recodme.RD.BoraNow.DataAccessLayer.Context;
-using Recodme.RD.BoraNow.DataLayer.Quizzes;
+using Recodme.RD.BoraNow.DataLayer.Feedbacks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
+namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Feedbacks
 {
-    public class CategoryDataAccessObject
+    public class FeedbackDataAccessObject
     {
         private BoraNowContext _context;
 
-        public CategoryDataAccessObject()
+        public FeedbackDataAccessObject()
         {
             _context = new BoraNowContext();
         }
 
         #region List
-        public List<Category> List()
+        public List<Feedback> List()
         {
-            return _context.Set<Category>().ToList();
+            return _context.Set<Feedback>().ToList();
         }
 
-        public async Task<List<Category>> ListAsync()
+        public async Task<List<Feedback>> ListAsync()
         {
-            return await _context.Set<Category>().ToListAsync();
+            return await _context.Set<Feedback>().ToListAsync();
         }
         #endregion
 
         #region Create
-        public void Create(Category category)
+        public void Create(Feedback feedback)
         {
-            _context.Category.Add(category);
+            _context.Feedback.Add(feedback);
             _context.SaveChanges();
         }
 
-        public async Task CreateAsync(Category category)
+        public async Task CreateAsync(Feedback feedback)
         {
-            await _context.Category.AddAsync(category);
+            await _context.Feedback.AddAsync(feedback);
             await _context.SaveChangesAsync();
         }
         #endregion
 
         #region Read
-        public Category Read(Guid id)
+        public Feedback Read(Guid id)
         {
-            return _context.Category.FirstOrDefault(x => x.Id == id);
+            return _context.Feedback.FirstOrDefault(x => x.Id == id);
         }
 
-        public async Task<Category> ReadAsync(Guid id)
+        public async Task<Feedback> ReadAsync(Guid id)
         {
             //Func<Category> result = () => _context.Category.FirstOrDefault(x => x.Id == id);
             //return await new Task<Category>(result);
-            return await Task.Run(() => _context.Set<Category>().FirstOrDefault(x => x.Id == id));
-
-
+            return await Task.Run(() => _context.Set<Feedback>().FirstOrDefault(x => x.Id == id));
         }
         #endregion
 
         #region Update
-        public void Update(Category category)
+        public void Update(Feedback feedback)
         {
-            _context.Entry(category).State = EntityState.Modified;
+            _context.Entry(feedback).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
-        public async Task UpdateAsync(Category category)
+        public async Task UpdateAsync(Feedback feedback)
         {
-            _context.Entry(category).State = EntityState.Modified;
+            _context.Entry(feedback).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
         #endregion
 
         #region Delete
-        public void Delete(Category category)
+        public void Delete(Feedback feedback)
         {
-            category.IsDeleted = true;
-            Update(category);
+            feedback.IsDeleted = true;
+            Update(feedback);
         }
         public void Delete(Guid id)
         {
@@ -86,10 +84,10 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
             if (item == null) return;
             Delete(item);
         }
-        public async Task DeleteAsync(Category category)
+        public async Task DeleteAsync(Feedback feedback)
         {
-            category.IsDeleted = true;
-            await UpdateAsync(category);
+            feedback.IsDeleted = true;
+            await UpdateAsync(feedback);
         }
         public async Task DeleteAsync(Guid id)
         {

@@ -28,8 +28,25 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var resCreate = rbo.Create(_result);
             var resGet = rbo.Read(_result.Id);
             Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
-        } 
-        
+        }
+
+        [TestMethod]
+        public void TestCreateResultAsync()
+        {
+            BoraNowSeeder.Seed();
+            var rbo = new ResultBusinessObject();
+            var qbo = new QuizBusinessObject();
+
+            var quiz = new Quiz("Quiz 1");
+            qbo.Create(quiz);
+
+            var _result = new Result("Q1 Result", DateTime.UtcNow, quiz.Id);
+
+            var resCreate = rbo.CreateAsync(_result).Result;
+            var resGet = rbo.ReadAsync(_result.Id).Result;
+            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
+        }
+
         [TestMethod]
         public void TestListResult()
         {
@@ -38,7 +55,16 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var resList = bo.List();
             Assert.IsTrue(resList.Success && resList.Result.Count == 1);
         }
-        
+
+        [TestMethod]
+        public void TestListResultAsync()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new ResultBusinessObject();
+            var resList = bo.ListAsync().Result;
+            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+        }
+
         [TestMethod]
         public void TestUpdateResult()
         {
@@ -61,13 +87,46 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         }
 
         [TestMethod]
-        public void TestDeleteResultId()
+        public void TestUpdateResultAsync()
+        {
+            BoraNowSeeder.Seed();
+            var rbo = new ResultBusinessObject();
+            var resList = rbo.List();
+            var item = resList.Result.FirstOrDefault();
+
+            var qbo = new QuizBusinessObject();
+            var quiz = new Quiz("Quiz 2");
+            qbo.Create(quiz);
+
+            item.QuizId = quiz.Id;
+            var resUpdate = rbo.UpdateAsync(item).Result;
+            resList = rbo.ListAsync().Result;
+
+            Assert.IsTrue(resList.Success && resUpdate.Success &&
+                resList.Result.First().QuizId == item.QuizId);
+
+        }
+
+        [TestMethod]
+        public void TestDeleteResult()
         {
             BoraNowSeeder.Seed();
             var bo = new ResultBusinessObject();
             var resList = bo.List();
             var resDelete = bo.Delete(resList.Result.First().Id);
             resList = bo.List();
+
+            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
+        }
+
+        [TestMethod]
+        public void TestDeleteResultAsync()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new ResultBusinessObject();
+            var resList = bo.List();
+            var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
+            resList = bo.ListAsync().Result;
 
             Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
         }

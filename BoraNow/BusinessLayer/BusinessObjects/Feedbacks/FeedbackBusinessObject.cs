@@ -1,24 +1,27 @@
-﻿using Recodme.RD.BoraNow.BusinessLayer.OperationResults;
-using Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes;
-using Recodme.RD.BoraNow.DataLayer.Quizzes;
+﻿using Microsoft.EntityFrameworkCore;
+using Recodme.RD.BoraNow.BusinessLayer.OperationResults;
+using Recodme.RD.BoraNow.DataAccessLayer.Context;
+using Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Feedbacks;
+using Recodme.RD.BoraNow.DataLayer.Feedbacks;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
+namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Feedbacks
 {
-   public class InterestPointCategoryBusinessObject
+    public class FeedbackBusinessObject
     {
-        private InterestPointCategoryDataAccessObject _dao;
-        public InterestPointCategoryBusinessObject()
+        private FeedbackDataAccessObject _dao;
+        public FeedbackBusinessObject()
         {
-            _dao = new InterestPointCategoryDataAccessObject();
+            _dao = new FeedbackDataAccessObject();
         }
 
         #region List
-        public OperationResult<List<InterestPointCategory>> List()
+        public OperationResult<List<Feedback>> List()
         {
             try
             {
@@ -31,16 +34,16 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 {
                     var result = _dao.List();
                     ts.Complete();
-                    return new OperationResult<List<InterestPointCategory>>() { Success = true, Result = result };
+                    return new OperationResult<List<Feedback>>() { Success = true, Result = result };
                 }
             }
             catch (Exception e)
             {
-                return new OperationResult<List<InterestPointCategory>>() { Success = false, Exception = e };
+                return new OperationResult<List<Feedback>>() { Success = false, Exception = e };
             }
         }
 
-        public async Task<OperationResult<List<InterestPointCategory>>> ListAsync()
+        public async Task<OperationResult<List<Feedback>>> ListAsync()
         {
             try
             {
@@ -53,12 +56,12 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 {
                     var result = await _dao.ListAsync();
                     ts.Complete();
-                    return new OperationResult<List<InterestPointCategory>>() { Success = true, Result = result };
+                    return new OperationResult<List<Feedback>>() { Success = true, Result = result };
                 }
             }
             catch (Exception e)
             {
-                return new OperationResult<List<InterestPointCategory>>() { Success = false, Exception = e };
+                return new OperationResult<List<Feedback>>() { Success = false, Exception = e };
             }
         }
         #endregion
@@ -106,15 +109,15 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult<int>() { Success = false, Exception = e };
             }
         }
-        #endregion 
+        #endregion
 
         #region Create
-        public OperationResult Create(InterestPointCategory interestPointCategory)
+        public OperationResult Create(Feedback feedback)
         {
             try
             {
 
-                _dao.Create(interestPointCategory);
+                _dao.Create(feedback);
                 return new OperationResult() { Success = true };
 
             }
@@ -123,11 +126,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult> CreateAsync(InterestPointCategory interestPointCategory)
+        public async Task<OperationResult> CreateAsync(Feedback feedback)
         {
             try
             {
-                await _dao.CreateAsync(interestPointCategory);
+                await _dao.CreateAsync(feedback);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -138,7 +141,7 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
         #endregion
 
         #region Read
-        public OperationResult<InterestPointCategory> Read(Guid id)
+        public OperationResult<Feedback> Read(Guid id)
         {
             try
             {
@@ -151,15 +154,15 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 {
                     var res = _dao.Read(id);
                     transactionScope.Complete();
-                    return new OperationResult<InterestPointCategory>() { Success = true, Result = res };
+                    return new OperationResult<Feedback>() { Success = true, Result = res };
                 }
             }
             catch (Exception e)
             {
-                return new OperationResult<InterestPointCategory>() { Success = false, Exception = e };
+                return new OperationResult<Feedback>() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult<InterestPointCategory>> ReadAsync(Guid id)
+        public async Task<OperationResult<Feedback>> ReadAsync(Guid id)
         {
             try
             {
@@ -172,22 +175,22 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 {
                     var res = await _dao.ReadAsync(id);
                     transactionScope.Complete();
-                    return new OperationResult<InterestPointCategory>() { Success = true, Result = res };
+                    return new OperationResult<Feedback>() { Success = true, Result = res };
                 }
             }
             catch (Exception e)
             {
-                return new OperationResult<InterestPointCategory>() { Success = false, Exception = e };
+                return new OperationResult<Feedback>() { Success = false, Exception = e };
             }
         }
         #endregion
 
         #region Update
-        public OperationResult Update(InterestPointCategory interestPointCategory)
+        public OperationResult Update(Feedback feedback)
         {
             try
             {
-                _dao.Update(interestPointCategory);
+                _dao.Update(feedback);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -195,11 +198,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult> UpdateAsync(InterestPointCategory interestPointCategory)
+        public async Task<OperationResult> UpdateAsync(Feedback feedback)
         {
             try
             {
-                await _dao.UpdateAsync(interestPointCategory);
+                await _dao.UpdateAsync(feedback);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -210,11 +213,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
         #endregion
 
         #region Delete
-        public OperationResult Delete(InterestPointCategory interestPointCategory)
+        public OperationResult Delete(Feedback feedback)
         {
             try
             {
-                _dao.Delete(interestPointCategory);
+                _dao.Delete(feedback);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
@@ -222,11 +225,11 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes
                 return new OperationResult() { Success = true, Exception = e };
             }
         }
-        public async Task<OperationResult> DeleteAsync(InterestPointCategory interestPointCategory)
+        public async Task<OperationResult> DeleteAsync(Feedback feedback)
         {
             try
             {
-                await _dao.DeleteAsync(interestPointCategory);
+                await _dao.DeleteAsync(feedback);
                 return new OperationResult() { Success = true };
             }
             catch (Exception e)
