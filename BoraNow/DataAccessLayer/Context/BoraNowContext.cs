@@ -4,6 +4,7 @@ using Recodme.RD.BoraNow.DataAccessLayer.Properties;
 using Recodme.RD.BoraNow.DataLayer.Feedbacks;
 using Recodme.RD.BoraNow.DataLayer.Meteo;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
+using Recodme.RD.BoraNow.DataLayer.Users;
 
 namespace Recodme.RD.BoraNow.DataAccessLayer.Context
 {
@@ -45,6 +46,10 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Context
 
         public DbSet<Feedback> Feedback { get; set; }
         public DbSet<Meteorology> Meteorology { get; set; }
+
+
+        public DbSet<Company> Company { get; set; }
+        public DbSet<Country> Country { get; set; }
 
     }
 }
