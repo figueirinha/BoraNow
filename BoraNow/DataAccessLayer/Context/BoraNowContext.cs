@@ -49,9 +49,12 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Context
         public DbSet<Feedback> Feedback { get; set; }
         public DbSet<Meteorology> Meteorology { get; set; }
 
-
+        public DbSet<Visitor> Visitor { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Role> Role { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<Country> Country { get; set; }
+        public DbSet<Profile> Profile { get; set; }
 
     }
 }
