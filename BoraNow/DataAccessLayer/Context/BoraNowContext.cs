@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Recodme.RD.BoraNow.DataAccessLayer.Properties;
 using Recodme.RD.BoraNow.DataLayer.Feedbacks;
 using Recodme.RD.BoraNow.DataLayer.Meteo;
+using Recodme.RD.BoraNow.DataLayer.Newsletters;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
 
 namespace Recodme.RD.BoraNow.DataAccessLayer.Context
@@ -42,7 +43,8 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Context
         public DbSet<Result> Result  { get; set; }
         public DbSet<ResultInterestPoint> ResultInterestPoint  { get; set; }
 
-
+        public DbSet<Newsletter> Newsletter { get; set; }
+        public DbSet<InterestPointNewsletter> InterestPointNewsletter { get; set; }
         public DbSet<Feedback> Feedback { get; set; }
         public DbSet<Meteorology> Meteorology { get; set; }
 

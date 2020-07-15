@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Recodme.RD.BoraNow.DataLayer.Users
 {
-    class Visitor
+     class Visitor
     {
     }
 }
