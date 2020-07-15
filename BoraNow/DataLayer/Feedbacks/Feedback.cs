@@ -11,6 +11,8 @@ namespace Recodme.RD.BoraNow.DataLayer.Feedbacks
     public class Feedback : Entity
     {
         private string _description;
+
+        [Required]
         public string Description
         {
             get
@@ -26,6 +28,7 @@ namespace Recodme.RD.BoraNow.DataLayer.Feedbacks
 
         private int _stars;
 
+        [Required]
         [Range(1, 5)]
         public int Stars
         {
