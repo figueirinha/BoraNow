@@ -74,7 +74,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Feedbacks
         public void TestUpdateFeedback()
         {
             BoraNowSeeder.Seed();
-            var fbo = new FeedbackBusinessObject();
+            var fbo = new  FeedbackBusinessObject();
             var resList = fbo.List();
             var item = resList.Result.FirstOrDefault();
 
