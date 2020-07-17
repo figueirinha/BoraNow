@@ -74,20 +74,22 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
         public virtual Profile Profile { get; set; }
     
 
-        public Visitor(string firstName, string lastName, DateTime birthDate, string gender) : base()
+        public Visitor(string firstName, string lastName, DateTime birthDate, string gender, Guid profileId) : base()
         {
             _firstName = firstName;
             _lastName = lastName;
             _birthDate = birthDate;
             _gender = gender;
+            ProfileId = profileId;
         }
 
-        public Visitor(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string firstName, string lastName, DateTime birthDate, string gender) : base(id, createAt, updateAt, isDeleted)
+        public Visitor(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string firstName, string lastName, DateTime birthDate, string gender, Guid profileId) : base(id, createAt, updateAt, isDeleted)
         {
             _firstName = firstName;
             _lastName = lastName;
             _birthDate = birthDate;
             _gender = gender;
+            ProfileId = profileId;
         }
     }
 }

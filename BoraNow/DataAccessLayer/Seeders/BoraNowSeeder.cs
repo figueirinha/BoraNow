@@ -1,7 +1,10 @@
-﻿using Recodme.RD.BoraNow.DataAccessLayer.Context;
+﻿using Microsoft.AspNetCore.Mvc;
+using Recodme.RD.BoraNow.DataAccessLayer.Context;
 using Recodme.RD.BoraNow.DataLayer.Feedbacks;
 using Recodme.RD.BoraNow.DataLayer.Meteo;
+using Recodme.RD.BoraNow.DataLayer.Newsletters;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
+using Recodme.RD.BoraNow.DataLayer.Users;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,8 +28,20 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
             var result = new Result("questionário nº 1", DateTime.Now, quiz.Id);
             var resultInterestPoint = new ResultInterestPoint(result.Id, interestPoint.Id);
 
+            var newsletter = new Newsletter("AAA", "abc");
+            var interestPointNewsletter = new InterestPointNewsletter(interestPoint.Id, newsletter.Id);
+
             var meteorology = new Meteorology(19, 27, 0, 1, 0, DateTime.Now.AddDays(1));
             var feedback = new Feedback("very nice yes yes", 5, DateTime.Now.AddDays(-1), interestPoint.Id);
+
+            var role = new Role("ASD");
+            var user = new User("ASDF", "123e", role.Id);
+            var country = new Country("AA");
+            var profile = new Profile("asdf", "ser", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+            var company = new Company("A", "BS", "12453546", "23453554", profile.Id);
+            var visitor = new Visitor("BB", "CC", DateTime.Now, "EE", profile.Id);
+
+            
 
             _ctx.Category.AddRange(category);
             _ctx.Quiz.AddRange(quiz);
@@ -38,9 +53,19 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
             _ctx.Result.AddRange(result);
             _ctx.ResultInterestPoint.AddRange(resultInterestPoint);
 
+            _ctx.Newsletter.AddRange(newsletter);
+            _ctx.InterestPointNewsletter.AddRange(interestPointNewsletter);
+
             _ctx.Feedback.AddRange(feedback);
             _ctx.Meteorology.AddRange(meteorology);
-                      
+
+            _ctx.Role.AddRange(role);
+            _ctx.User.AddRange(user);
+            _ctx.Country.AddRange(country);
+            _ctx.Profile.AddRange(profile);
+            _ctx.Company.AddRange(company);
+            _ctx.Visitor.AddRange(visitor);
+
             _ctx.SaveChanges();
         }
     }
