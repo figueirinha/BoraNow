@@ -15,7 +15,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Feedbacks
     [ApiController]
     public class FeedbackController : ControllerBase
     {
-        private FeedbackBusinessObject _bo = new FeedbackBusinessObject();
+        private FeedbackBusinessObject _bo =  new FeedbackBusinessObject();
 
         [HttpPost]
         public ActionResult Create([FromBody] FeedbackViewModel fvm)
