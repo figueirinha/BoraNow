@@ -1,8 +1,11 @@
 ﻿using Recodme.RD.BoraNow.DataLayer.Base;
 using Recodme.RD.BoraNow.DataLayer.Feedbacks;
+using Recodme.RD.BoraNow.DataLayer.Newsletters;
+using Recodme.RD.BoraNow.DataLayer.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Recodme.RD.BoraNow.DataLayer.Quizzes
@@ -126,13 +129,17 @@ namespace Recodme.RD.BoraNow.DataLayer.Quizzes
                 RegisterChange();
             }
         }
+        [ForeignKey("Company")]
+        public Guid CompanyId { get; set; }
+        public virtual Company Company { get; set; }
 
         public virtual ICollection<InterestPointCategory> CategoryInterestPoints { get; set; }
         public virtual ICollection<ResultInterestPoint> InterestPointResults { get; set; } 
         public virtual ICollection<Feedback> Feedbacks { get; set; }
+        public virtual ICollection<InterestPointNewsletter> InterestPointNewsletters { get; set; }
         
         public InterestPoint(string name, string description, string address, string photoPath, string openingHours, 
-            string closingHours, string closingDays, bool covidSafe, bool status) : base(name)
+            string closingHours, string closingDays, bool covidSafe, bool status, Guid companyId) : base(name)
         {
             _description = description;
             _address = address;
@@ -142,11 +149,12 @@ namespace Recodme.RD.BoraNow.DataLayer.Quizzes
             _closingDays = closingDays;
             _covidSafe = covidSafe;
             _status = status;
+            CompanyId = companyId;
         }
 
         public InterestPoint(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string name, string description, 
             string address, string photoPath, string openingHours, string closingHours, string closingDays, bool covidSafe, 
-            bool status) : base(id, createAt, updateAt, isDeleted, name)
+            bool status, Guid companyId) : base(id, createAt, updateAt, isDeleted, name)
         {
             _description = description;
             _address = address;
@@ -156,6 +164,7 @@ namespace Recodme.RD.BoraNow.DataLayer.Quizzes
             _closingDays = closingDays;
             _covidSafe = covidSafe;
             _status = status;
+            CompanyId = companyId;
         }
     }
 }

@@ -13,10 +13,11 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Feedbacks
         public int Stars { get; set; }
         public DateTime Date { get; set; }
         public Guid InterestPointId { get; set; }
+        public Guid VisitorId { get; set; }
 
         public Feedback ToFeedback()
         {
-            return new Feedback(Description, Stars, Date, InterestPointId);
+            return new Feedback(Description, Stars, Date, InterestPointId, VisitorId);
         }
 
         public static FeedbackViewModel Parse(Feedback fd)
@@ -27,7 +28,8 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Feedbacks
                 Description = fd.Description,
                 Stars = fd.Stars,
                 Date = fd.Date,
-                InterestPointId = fd.InterestPointId
+                InterestPointId = fd.InterestPointId,
+                VisitorId = fd.VisitorId
             };
         }
     }

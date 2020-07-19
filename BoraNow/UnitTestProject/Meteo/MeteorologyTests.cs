@@ -13,7 +13,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Meteo
     public class MeteorologyTests
     {
         [TestMethod]
-        public void TestCreaeMeeteorology()
+        public void TestCreateMeteorology()
         {
             BoraNowSeeder.Seed();
             var mbo = new MeteorologyBusinessObject();

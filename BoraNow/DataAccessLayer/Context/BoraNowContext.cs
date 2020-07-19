@@ -46,6 +46,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Context
 
         public DbSet<Newsletter> Newsletter { get; set; }
         public DbSet<InterestPointNewsletter> InterestPointNewsletter { get; set; }
+
         public DbSet<Feedback> Feedback { get; set; }
         public DbSet<Meteorology> Meteorology { get; set; }
 
