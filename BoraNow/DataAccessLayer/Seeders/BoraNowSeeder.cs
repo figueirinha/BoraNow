@@ -13,7 +13,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
 {
     public static class BoraNowSeeder
     {
-        public static void Seed()
+        public static void  Seed()
         {
             using var _ctx = new BoraNowContext();
             _ctx.Database.EnsureDeleted();
