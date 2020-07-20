@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Feedbacks;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
+using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
 using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
 using Recodme.RD.BoraNow.DataLayer.Feedbacks;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
+using Recodme.RD.BoraNow.DataLayer.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +21,12 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Feedbacks
         {
             BoraNowSeeder.Seed();
             var fbo = new FeedbackBusinessObject();
+            var pbo = new ProfileBusinessObject();
+            var cbo = new CompanyBusinessObject();
             var ipbo = new InterestPointBusinessObject();
 
+            var profile = new Profile("a","b",Guid.NewGuid(),)
+            var company = new Company("a","b","c","d",);
             var interestpoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true);
             ipbo.Create(interestpoint);
 

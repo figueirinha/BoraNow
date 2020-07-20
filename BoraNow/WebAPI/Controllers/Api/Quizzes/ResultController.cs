@@ -10,7 +10,7 @@ using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
-namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
+namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Quizzes
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,7 +21,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
         [HttpPost]
         public ActionResult Create([FromBody] ResultViewModel vm)
         {
-            var c = new Result(vm.Title, vm.Date, vm.QuizId);
+            var c = new Result(vm.Title, vm.Date, vm.QuizId, vm.VisitorId);
 
             var res = _bo.Create(c);
             var code = res.Success ? HttpStatusCode.OK : HttpStatusCode.InternalServerError;
@@ -62,11 +62,12 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
             var current = currentResult.Result;
             if (current == null) return NotFound();
             if (current.Title == c.Title && current.Date == c.Date
-                && current.QuizId == c.QuizId) return new ObjectResult(HttpStatusCode.NotModified);
+                && current.QuizId == c.QuizId && current.VisitorId == c.VisitorId) return new ObjectResult(HttpStatusCode.NotModified);
 
             if (current.Title != c.Title) current.Title = c.Title;
             if (current.Date != c.Date) current.Date = c.Date;
             if (current.QuizId != c.QuizId) current.QuizId = c.QuizId;
+            if (current.VisitorId != c.VisitorId) current.VisitorId = c.VisitorId;
             var updateResult = _bo.Update(current);
             if (!updateResult.Success) return new ObjectResult(HttpStatusCode.InternalServerError);
             return Ok();

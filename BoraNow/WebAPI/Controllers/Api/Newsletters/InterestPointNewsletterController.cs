@@ -6,7 +6,7 @@ using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Newsletters;
 using Recodme.RD.BoraNow.DataLayer.Newsletters;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters;
 
-namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Newsletters
+namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Newsletters
 {
     [Route("api/[controller]")]
     [ApiController]

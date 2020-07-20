@@ -1,4 +1,6 @@
 ﻿using Recodme.RD.BoraNow.DataLayer.Base;
+using Recodme.RD.BoraNow.DataLayer.Feedbacks;
+using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -73,6 +75,8 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
         public Guid ProfileId { get; set; }
         public virtual Profile Profile { get; set; }
     
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
+        public virtual ICollection<Result> Results { get; set; }
 
         public Visitor(string firstName, string lastName, DateTime birthDate, string gender, Guid profileId) : base()
         {

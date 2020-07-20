@@ -28,6 +28,8 @@ namespace Recodme.RD.BoraNow.DataLayer.Quizzes
         [ForeignKey("QuizQuestion")]
         public Guid QuizQuestionId { get; set; }
         public virtual QuizQuestion QuizQuestion { get; set; }
+
+
         public virtual ICollection<CategoryQuizAnswer> QuizAnswerCategories { get; set; }
 
         public QuizAnswer(string answer, Guid quizQuestionId) : base()

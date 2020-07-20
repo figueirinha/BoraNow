@@ -9,7 +9,7 @@ using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Meteo;
 using Recodme.RD.BoraNow.DataLayer.Meteo;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Meteo;
 
-namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Meteo
+namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Meteo
 {
     [Route("api/[controller]")]
     [ApiController]

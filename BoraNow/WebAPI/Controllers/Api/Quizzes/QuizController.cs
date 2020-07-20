@@ -10,7 +10,7 @@ using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
-namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
+namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Quizzes
 {
     [Route("api/[controller]")]
     [ApiController]

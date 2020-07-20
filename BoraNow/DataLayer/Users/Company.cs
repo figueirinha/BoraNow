@@ -1,4 +1,5 @@
 ﻿using Recodme.RD.BoraNow.DataLayer.Base;
+using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -53,6 +54,8 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
         [ForeignKey("Profile")]
         public Guid ProfileId { get; set; }
         public virtual Profile Profile { get; set; }
+
+        public virtual ICollection<InterestPoint> InterestPoints { get; set; }
 
         public Company(string name, string representative, string phoneNumber, string vatNumber, Guid profileId) : base(name)
         {

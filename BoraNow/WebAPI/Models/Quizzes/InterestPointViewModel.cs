@@ -18,10 +18,11 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
         public string ClosingDays { get; set; }
         public bool CovidSafe { get; set; }
         public bool Status { get; set; }
+        public Guid CompanyId { get; set; }
 
         public InterestPoint ToInterestPoint()
         {
-            return new InterestPoint(Name, Description, Address, PhotoPath, OpeningHours, ClosingHours, ClosingDays, CovidSafe, Status);
+            return new InterestPoint(Name, Description, Address, PhotoPath, OpeningHours, ClosingHours, ClosingDays, CovidSafe, Status, CompanyId);
         }
 
         public static InterestPointViewModel Parse(InterestPoint interestPoint)
@@ -37,7 +38,8 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
                 ClosingHours = interestPoint.ClosingHours,
                 ClosingDays = interestPoint.ClosingDays,
                 CovidSafe = interestPoint.CovidSafe,
-                Status = interestPoint.Status
+                Status = interestPoint.Status,
+                CompanyId = interestPoint.CompanyId
             };
         }
     }

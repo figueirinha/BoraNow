@@ -12,12 +12,14 @@ namespace Recodme.RD.BoraNow.DataLayer.Newsletters
 
         [ForeignKey("InterestPoint")]
         public Guid InterestPointId { get; set; }
+        public virtual InterestPoint InterestPoint { get; set; }
+
 
         [ForeignKey("NewsLetter")]
         public Guid NewsLetterId { get; set; }
-
-        public virtual InterestPoint InterestPoint { get; set; }
         public virtual Newsletter Newsletter { get; set; }
+
+
         public InterestPointNewsletter(Guid interestPointId, Guid newsLetterId): base()
         {
             InterestPointId = interestPointId;

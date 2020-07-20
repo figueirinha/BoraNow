@@ -10,7 +10,7 @@ using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
-namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
+namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Quizzes
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -22,7 +22,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
         public ActionResult Create([FromBody] InterestPointViewModel vm)
         {
             var c = new InterestPoint(vm.Name, vm.Description, vm.Address, vm.PhotoPath, vm.OpeningHours,
-            vm.ClosingHours, vm.ClosingDays, vm.CovidSafe, vm.Status);
+            vm.ClosingHours, vm.ClosingDays, vm.CovidSafe, vm.Status, vm.CompanyId);
 
             var res = _bo.Create(c);
             var code = res.Success ? HttpStatusCode.OK : HttpStatusCode.InternalServerError;
@@ -66,7 +66,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
                 && current.Address == c.Address && current.PhotoPath == c.PhotoPath
                 && current.OpeningHours == c.OpeningHours && current.ClosingHours == c.ClosingHours
                 && current.ClosingDays == c.ClosingDays && current.CovidSafe == c.CovidSafe
-                && current.Status == c.Status) return new ObjectResult(HttpStatusCode.NotModified);
+                && current.Status == c.Status && current.CompanyId == c.CompanyId) return new ObjectResult(HttpStatusCode.NotModified);
 
             if (current.Address != c.Address) current.Address = c.Address;
             if (current.Name != c.Name) current.Name = c.Name;
@@ -77,6 +77,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Quizzes
             if (current.ClosingDays != c.ClosingDays) current.ClosingDays = c.ClosingDays;
             if (current.CovidSafe != c.CovidSafe) current.CovidSafe = c.CovidSafe;
             if (current.Status != c.Status) current.Status = c.Status;
+            if (current.CompanyId != c.CompanyId) current.CompanyId = c.CompanyId;
             var updateResult = _bo.Update(current);
             if (!updateResult.Success) return new ObjectResult(HttpStatusCode.InternalServerError);
             return Ok();

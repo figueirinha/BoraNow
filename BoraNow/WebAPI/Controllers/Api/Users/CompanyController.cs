@@ -9,7 +9,7 @@ using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
 using Recodme.RD.BoraNow.DataLayer.Users;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
 
-namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Users
+namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Users
 {
     [Route("api/[controller]")]
     [ApiController]
