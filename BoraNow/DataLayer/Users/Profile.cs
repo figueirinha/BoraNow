@@ -40,36 +40,25 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
         public Guid CountryId { get; set; }
         public virtual Country Country { get; set; }
 
-        [ForeignKey("Visitor")]
-        public Guid VisitorId { get; set; }
-        public virtual Visitor Visitor { get; set; }
+      
+        public virtual ICollection<Visitor> Visitors { get; set; }
 
-        [ForeignKey("Company")]
-        public Guid CompanyId { get; set; }
-        public virtual Company Company { get; set; }
+        public virtual ICollection<Company> Companies { get; set; }
+       
+        public virtual ICollection<User> Users { get; set; }
 
-        [ForeignKey("User")]
-        public Guid UserId { get; set; }
-        public virtual User User { get; set; }
-
-        public Profile(string description, string photoPath, Guid countryId, Guid visitorId, Guid companyId, Guid userId) : base()
+        public Profile(string description, string photoPath, Guid countryId) : base()
         {
             _description = description;
             _photoPath = photoPath;
-            CountryId = countryId;
-            VisitorId = visitorId;
-            CompanyId = companyId;
-            UserId = userId;
+            CountryId = countryId;          
         }
 
-        public Profile(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string description, string photoPath, Guid countryId, Guid visitorId, Guid companyId, Guid userId) : base(id, createAt, updateAt, isDeleted)
+        public Profile(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string description, string photoPath, Guid countryId) : base(id, createAt, updateAt, isDeleted)
         {
             _description = description;
             _photoPath = photoPath;
-            CountryId = countryId;
-            VisitorId = visitorId;
-            CompanyId = companyId;
-            UserId = userId;
+            CountryId = countryId;       
         }
     }
 }
