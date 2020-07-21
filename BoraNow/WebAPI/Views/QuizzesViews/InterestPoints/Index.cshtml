@@ -1,7 +1,51 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
-<h1>Index</h1>
+@model IEnumerable<InterestPointViewModel>
 
+<h2>Interest Points</h2>
+
+<p>
+    <a asp-action="Create">Create</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                <th>@Html.DisplayNameFor(model => model.Address)</th>
+                <th>@Html.DisplayNameFor(model => model.PhotoPath)</th>
+                <th>@Html.DisplayNameFor(model => model.OpeningHours)</th>
+                <th>@Html.DisplayNameFor(model => model.ClosingHours)</th>
+                <th>@Html.DisplayNameFor(model => model.ClosingDays)</th>
+                <th>@Html.DisplayNameFor(model => model.CovidSafe)</th>
+                <th>@Html.DisplayNameFor(model => model.Status)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var interestPoint in Model)
+            {
+            <tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@interestPoint.Id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@interestPoint.Id">Details</a>
+                    <a asp-action="Delete" asp-route-id="@interestPoint.Id">Delete</a>
+                </td>
+                <td>@Html.DisplayFor(x => interestPoint.Name)</td>
+                <td>@Html.DisplayFor(x => interestPoint.Description)</td>
+                <td>@Html.DisplayFor(x => interestPoint.Address)</td>
+                <td>@Html.DisplayFor(x => interestPoint.PhotoPath)</td>
+                <td>@Html.DisplayFor(x => interestPoint.OpeningHours)</td>
+                <td>@Html.DisplayFor(x => interestPoint.ClosingHours)</td>
+                <td>@Html.DisplayFor(x => interestPoint.ClosingDays)</td>
+                <td>@Html.DisplayFor(x => interestPoint.CovidSafe)</td>
+                <td>@Html.DisplayFor(x => interestPoint.Status)</td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>

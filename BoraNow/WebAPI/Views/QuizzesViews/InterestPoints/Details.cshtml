@@ -1,7 +1,64 @@
-﻿
-@{
-    ViewData["Title"] = "Details";
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
-<h1>Details</h1>
+@model InterestPointViewModel
 
+<h2>Interest Point - Details</h2>
+<br />
+<div>
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.PhotoPath)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.PhotoPath)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.OpeningHours)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.OpeningHours)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.ClosingHours)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.ClosingHours)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.ClosingDays)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.ClosingDays)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.CovidSafe)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.CovidSafe)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+</div>

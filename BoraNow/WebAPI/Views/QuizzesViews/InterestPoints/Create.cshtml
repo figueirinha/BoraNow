@@ -1,7 +1,94 @@
-﻿
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
+
+@model InterestPointViewModel
+
 @{
-    ViewData["Title"] = "Create";
+    ViewBag.Title = "Create";
 }
 
-<h1>Create</h1>
+<p>
+    <a asp-action="Create"><i class="fas fa-plus">Create</i></a>
+</p>
 
+<h2>Interest Point - New</h2>
+<br />
+<div class="row">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+        <div class="form-group">
+            <label asp-for="Address" class="control-label"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+        <div class="form-group">
+            <label asp-for="PhotoPath" class="control-label"></label>
+            <input asp-for="PhotoPath" class="form-control" />
+            <span asp-validation-for="PhotoPath" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+        <div class="form-group">
+            <label asp-for="OpeningHours" class="control-label"></label>
+            <input asp-for="OpeningHours" class="form-control" />
+            <span asp-validation-for="OpeningHours" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+        <div class="form-group">
+            <label asp-for="ClosingHours" class="control-label"></label>
+            <input asp-for="ClosingHours" class="form-control" />
+            <span asp-validation-for="ClosingHours" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+        <div class="form-group">
+            <label asp-for="ClosingDays" class="control-label"></label>
+            <input asp-for="ClosingDays" class="form-control" />
+            <span asp-validation-for="ClosingDays" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+        <div class="form-group">
+            <label asp-for="CovidSafe" class="control-label"></label>
+            <input asp-for="CovidSafe" class="form-control" />
+            <span asp-validation-for="CovidSafe" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+        <div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <input asp-for="Status" class="form-control" />
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CompanyId" class="control-label"></label>
+            <select asp-for="CompanyId" class="form-control" asp-items="@ViewBag.Companies"></select>
+            <span asp-validation-for="CompanyId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
