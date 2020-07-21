@@ -35,9 +35,9 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Context
             base.OnModelCreating(builder);
         }
 
-        public DbSet<Category> Category { get; set; }
+        public DbSet<CategoryInterestPoint> Category { get; set; }
         public DbSet<InterestPoint> InterestPoint  { get; set; }
-        public DbSet<InterestPointCategory> InterestPointCategory  { get; set; }
+        public DbSet<InterestPointCategoryInterestPoint> InterestPointCategory  { get; set; }
         public DbSet<Quiz> Quiz  { get; set; }
         public DbSet<QuizAnswer> QuizAnswer  { get; set; }
         public DbSet<QuizQuestion> QuizQuestion  { get; set; }

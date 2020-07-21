@@ -133,7 +133,7 @@ namespace Recodme.RD.BoraNow.DataLayer.Quizzes
         public Guid CompanyId { get; set; }
         public virtual Company Company { get; set; }
 
-        public virtual ICollection<InterestPointCategory> CategoryInterestPoints { get; set; }
+        public virtual ICollection<InterestPointCategoryInterestPoint> CategoryInterestPoints { get; set; }
         public virtual ICollection<ResultInterestPoint> InterestPointResults { get; set; } 
         public virtual ICollection<Feedback> Feedbacks { get; set; }
         public virtual ICollection<InterestPointNewsletter> InterestPointNewsletters { get; set; }

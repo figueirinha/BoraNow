@@ -14,14 +14,14 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Quizzes
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InterestPointCategoryController : ControllerBase
+    public class CategoryInterestPointController : ControllerBase
     {
-        private InterestPointCategoryBusinessObject _bo = new InterestPointCategoryBusinessObject();
+        private CategoryInterestPointBusinessObject _bo = new CategoryInterestPointBusinessObject();
 
         [HttpPost]
-        public ActionResult Create([FromBody] InterestPointCategoryViewModel vm)
+        public ActionResult Create([FromBody] CategoryInterestPointViewModel vm)
         {
-            var c = new InterestPointCategory(vm.InterestPointId, vm.CategoryId);
+            var c = new CategoryInterestPoint(vm.Name);
 
             var res = _bo.Create(c);
             var code = res.Success ? HttpStatusCode.OK : HttpStatusCode.InternalServerError;
@@ -29,42 +29,41 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Quizzes
         }
 
         [HttpGet("{id}")]
-        public ActionResult<InterestPointCategoryViewModel> Get(Guid id)
+        public ActionResult<CategoryInterestPointViewModel> Get(Guid id)
         {
             var res = _bo.Read(id);
             if (res.Success)
             {
                 if (res.Result == null) return NotFound();
-                var cvm = InterestPointCategoryViewModel.Parse(res.Result);
+                var cvm = CategoryInterestPointViewModel.Parse(res.Result);
                 return cvm;
             }
             else return new ObjectResult(HttpStatusCode.InternalServerError);
         }
 
-        [HttpGet]
-        public ActionResult<List<InterestPointCategoryViewModel>> List()
+       [HttpGet]
+        public ActionResult<List<CategoryInterestPointViewModel>> List()
         {
             var res = _bo.List();
             if (!res.Success) return new ObjectResult(HttpStatusCode.InternalServerError);
-            var list = new List<InterestPointCategoryViewModel>();
+            var list = new List<CategoryInterestPointViewModel>();
             foreach (var item in res.Result)
             {
-                list.Add(InterestPointCategoryViewModel.Parse(item));
+                list.Add(CategoryInterestPointViewModel.Parse(item));
             }
             return list;
         }
 
         [HttpPut]
-        public ActionResult Update([FromBody] InterestPointCategoryViewModel c)
+        public ActionResult Update([FromBody] CategoryInterestPointViewModel c)
         {
             var currentResult = _bo.Read(c.Id);
             if (!currentResult.Success) return new ObjectResult(HttpStatusCode.InternalServerError);
             var current = currentResult.Result;
             if (current == null) return NotFound();
-            if (current.CategoryId == c.CategoryId && current.InterestPointId == c.InterestPointId) return new ObjectResult(HttpStatusCode.NotModified);
+            if (current.Name == c.Name) return new ObjectResult(HttpStatusCode.NotModified);
 
-            if (current.CategoryId != c.CategoryId) current.CategoryId = c.CategoryId;
-            if (current.InterestPointId != c.InterestPointId) current.InterestPointId = c.InterestPointId;
+            if (current.Name != c.Name) current.Name = c.Name;
             var updateResult = _bo.Update(current);
             if (!updateResult.Success) return new ObjectResult(HttpStatusCode.InternalServerError);
             return Ok();

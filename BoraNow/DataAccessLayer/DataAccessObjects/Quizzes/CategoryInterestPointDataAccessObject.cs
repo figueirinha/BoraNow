@@ -9,35 +9,35 @@ using System.Threading.Tasks;
 
 namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
 {
-    public class CategoryDataAccessObject
+    public class CategoryInterestPointDataAccessObject
     {
         private BoraNowContext _context;
 
-        public CategoryDataAccessObject()
+        public CategoryInterestPointDataAccessObject()
         {
             _context = new BoraNowContext();
         }
 
         #region List
-        public List<Category> List()
+        public List<CategoryInterestPoint> List()
         {
-            return _context.Set<Category>().ToList();
+            return _context.Set<CategoryInterestPoint>().ToList();
         }
 
-        public async Task<List<Category>> ListAsync()
+        public async Task<List<CategoryInterestPoint>> ListAsync()
         {
-            return await _context.Set<Category>().ToListAsync();
+            return await _context.Set<CategoryInterestPoint>().ToListAsync();
         }
         #endregion
 
         #region Create
-        public void Create(Category category)
+        public void Create(CategoryInterestPoint category)
         {
             _context.Category.Add(category);
             _context.SaveChanges();
         }
 
-        public async Task CreateAsync(Category category)
+        public async Task CreateAsync(CategoryInterestPoint category)
         {
             await _context.Category.AddAsync(category);
             await _context.SaveChangesAsync();
@@ -45,29 +45,29 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
         #endregion
 
         #region Read
-        public Category Read(Guid id)
+        public CategoryInterestPoint Read(Guid id)
         {
             return _context.Category.FirstOrDefault(x => x.Id == id);
         }
 
-        public async Task<Category> ReadAsync(Guid id)
+        public async Task<CategoryInterestPoint> ReadAsync(Guid id)
         {
             //Func<Category> result = () => _context.Category.FirstOrDefault(x => x.Id == id);
             //return await new Task<Category>(result);
-            return await Task.Run(() => _context.Set<Category>().FirstOrDefault(x => x.Id == id));
+            return await Task.Run(() => _context.Set<CategoryInterestPoint>().FirstOrDefault(x => x.Id == id));
 
 
         }
         #endregion
 
         #region Update
-        public void Update(Category category)
+        public void Update(CategoryInterestPoint category)
         {
             _context.Entry(category).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
-        public async Task UpdateAsync(Category category)
+        public async Task UpdateAsync(CategoryInterestPoint category)
         {
             _context.Entry(category).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -75,7 +75,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
         #endregion
 
         #region Delete
-        public void Delete(Category category)
+        public void Delete(CategoryInterestPoint category)
         {
             category.IsDeleted = true;
             Update(category);
@@ -86,7 +86,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
             if (item == null) return;
             Delete(item);
         }
-        public async Task DeleteAsync(Category category)
+        public async Task DeleteAsync(CategoryInterestPoint category)
         {
             category.IsDeleted = true;
             await UpdateAsync(category);

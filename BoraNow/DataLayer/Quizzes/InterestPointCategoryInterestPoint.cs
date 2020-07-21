@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Recodme.RD.BoraNow.DataLayer.Quizzes
 {
-    public class InterestPointCategory : Entity
+    public class InterestPointCategoryInterestPoint : Entity
     {
         [ForeignKey("InterestPoint")]
         public Guid InterestPointId { get; set; }
@@ -14,15 +14,15 @@ namespace Recodme.RD.BoraNow.DataLayer.Quizzes
 
         [ForeignKey("Category")]
         public Guid CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public virtual CategoryInterestPoint Category { get; set; }
 
-        public InterestPointCategory(Guid interestPointId, Guid categoryId) : base()
+        public InterestPointCategoryInterestPoint(Guid interestPointId, Guid categoryId) : base()
         {
             InterestPointId = interestPointId;
             CategoryId = categoryId;
         }
 
-        public InterestPointCategory(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, Guid interestPointId, Guid categoryId) : base(id, createAt, updateAt, isDeleted)
+        public InterestPointCategoryInterestPoint(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, Guid interestPointId, Guid categoryId) : base(id, createAt, updateAt, isDeleted)
         {
             InterestPointId = interestPointId;
             CategoryId = categoryId;

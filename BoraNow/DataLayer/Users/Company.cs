@@ -51,26 +51,26 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
             }
         }
 
-        [ForeignKey("Profile")]
-        public Guid ProfileId { get; set; }
-        public virtual Profile Profile { get; set; }
+        //[ForeignKey("Profile")]
+        //public Guid ProfileId { get; set; }
+        //public virtual Profile Profile { get; set; }
 
         public virtual ICollection<InterestPoint> InterestPoints { get; set; }
 
-        public Company(string name, string representative, string phoneNumber, string vatNumber, Guid profileId) : base(name)
+        public Company(string name, string representative, string phoneNumber, string vatNumber) : base(name)
         {
             _representative = representative;
             _phoneNumber = phoneNumber;
             _vatNumber = vatNumber;
-            ProfileId = profileId;
+            //ProfileId = profileId;
         }
 
-        public Company(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string name, string representative, string phoneNumber, string vatNumber, Guid profileId) : base(id, createAt, updateAt, isDeleted, name)
+        public Company(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string name, string representative, string phoneNumber, string vatNumber) : base(id, createAt, updateAt, isDeleted, name)
         {
             _representative = representative;
             _phoneNumber = phoneNumber;
             _vatNumber = vatNumber;
-            ProfileId = profileId;
+            //ProfileId = profileId;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
             using var _ctx = new BoraNowContext();
             _ctx.Database.EnsureDeleted();
             _ctx.Database.EnsureCreated();
-            var category = new Category("VeganFood");
+            var category = new CategoryInterestPoint("VeganFood");
             var quiz = new Quiz("BoraNow quiz");
             var quizQuestion = new QuizQuestion("do you like food?", quiz.Id);
             var quizAnswer = new QuizAnswer("yes yes", quizQuestion.Id);
@@ -24,12 +24,12 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
            
             var country = new Country("AA");
             var profile = new Profile("asdf", "ser", country.Id);
-            var company = new Company("A", "BS", "12453546", "23453554", profile.Id);
-            var visitor = new Visitor("BB", "CC", DateTime.Now, "EE", profile.Id);
+            var company = new Company("A", "BS", "12453546", "23453554");
+            var visitor = new Visitor("BB", "CC", DateTime.Now, "EE");
 
 
             var interestPoint = new InterestPoint("Abc", "very good food", "abc street", "C//uhuh", "3 am", "5 pm", "fridays", true, true, company.Id);
-            var interestPointCategory = new InterestPointCategory(interestPoint.Id, category.Id);
+            var interestPointCategory = new InterestPointCategoryInterestPoint(interestPoint.Id, category.Id);
             var result = new Result("questionário nº 1", DateTime.Now, quiz.Id, visitor.Id);
             var resultInterestPoint = new ResultInterestPoint(result.Id, interestPoint.Id);
 

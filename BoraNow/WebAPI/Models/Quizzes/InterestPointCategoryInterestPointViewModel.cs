@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
 {
-    public class InterestPointCategoryViewModel
+    public class InterestPointCategoryInterestPointViewModel
     {
         public Guid Id { get; set; }
         public Guid InterestPointId { get; set; }
         public Guid CategoryId { get; set; }
 
 
-        public InterestPointCategory ToInterestPointCategory()
+        public InterestPointCategoryInterestPoint ToInterestPointCategory()
         {
-            return new InterestPointCategory(InterestPointId, CategoryId);
+            return new InterestPointCategoryInterestPoint(InterestPointId, CategoryId);
         }
 
-        public static InterestPointCategoryViewModel Parse(InterestPointCategory interestPointCategory)
+        public static InterestPointCategoryInterestPointViewModel Parse(InterestPointCategoryInterestPoint interestPointCategory)
         {
-            return new InterestPointCategoryViewModel()
+            return new InterestPointCategoryInterestPointViewModel()
             {
                 Id = interestPointCategory.Id,
                 InterestPointId = interestPointCategory.InterestPointId,

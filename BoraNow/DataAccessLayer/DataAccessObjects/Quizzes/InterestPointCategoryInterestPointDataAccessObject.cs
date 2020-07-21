@@ -9,35 +9,35 @@ using System.Threading.Tasks;
 
 namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
 {
-    public class InterestPointCategoryDataAccessObject
+    public class InterestPointCategoryInterestPointDataAccessObject
     {
         private BoraNowContext _context;
 
-        public InterestPointCategoryDataAccessObject()
+        public InterestPointCategoryInterestPointDataAccessObject()
         {
             _context = new BoraNowContext();
         }
 
         #region List
-        public List<InterestPointCategory> List()
+        public List<InterestPointCategoryInterestPoint> List()
         {
-            return _context.Set<InterestPointCategory>().ToList();
+            return _context.Set<InterestPointCategoryInterestPoint>().ToList();
         }
 
-        public async Task<List<InterestPointCategory>> ListAsync()
+        public async Task<List<InterestPointCategoryInterestPoint>> ListAsync()
         {
-            return await _context.Set<InterestPointCategory>().ToListAsync();
+            return await _context.Set<InterestPointCategoryInterestPoint>().ToListAsync();
         }
         #endregion
 
         #region Create
-        public void Create(InterestPointCategory interestPointCategory)
+        public void Create(InterestPointCategoryInterestPoint interestPointCategory)
         {
             _context.InterestPointCategory.Add(interestPointCategory);
             _context.SaveChanges();
         }
 
-        public async Task CreateAsync(InterestPointCategory interestPointCategory)
+        public async Task CreateAsync(InterestPointCategoryInterestPoint interestPointCategory)
         {
             await _context.InterestPointCategory.AddAsync(interestPointCategory);
             await _context.SaveChangesAsync();
@@ -45,29 +45,29 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
         #endregion
 
         #region Read
-        public InterestPointCategory Read(Guid id)
+        public InterestPointCategoryInterestPoint Read(Guid id)
         {
             return _context.InterestPointCategory.FirstOrDefault(x => x.Id == id);
         }
 
-        public async Task<InterestPointCategory> ReadAsync(Guid id)
+        public async Task<InterestPointCategoryInterestPoint> ReadAsync(Guid id)
         {
             //Func<InterestPointCategory> result = () => _context.InterestPointCategory.FirstOrDefault(x => x.Id == id);
             //return await new Task<InterestPointCategory>(result);
-            return await Task.Run(() => _context.Set<InterestPointCategory>().FirstOrDefault(x => x.Id == id));
+            return await Task.Run(() => _context.Set<InterestPointCategoryInterestPoint>().FirstOrDefault(x => x.Id == id));
 
 
         }
         #endregion
 
         #region Update
-        public void Update(InterestPointCategory interestPointCategory)
+        public void Update(InterestPointCategoryInterestPoint interestPointCategory)
         {
             _context.Entry(interestPointCategory).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
-        public async Task UpdateAsync(InterestPointCategory interestPointCategory)
+        public async Task UpdateAsync(InterestPointCategoryInterestPoint interestPointCategory)
         {
             _context.Entry(interestPointCategory).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -75,7 +75,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
         #endregion
 
         #region Delete
-        public void Delete(InterestPointCategory interestPointCategory)
+        public void Delete(InterestPointCategoryInterestPoint interestPointCategory)
         {
             interestPointCategory.IsDeleted = true;
             Update(interestPointCategory);
@@ -86,7 +86,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.DataAccessObjects.Quizzes
             if (item == null) return;
             Delete(item);
         }
-        public async Task DeleteAsync(InterestPointCategory interestPointCategory)
+        public async Task DeleteAsync(InterestPointCategoryInterestPoint interestPointCategory)
         {
             interestPointCategory.IsDeleted = true;
             await UpdateAsync(interestPointCategory);

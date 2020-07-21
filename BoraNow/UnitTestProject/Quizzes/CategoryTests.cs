@@ -15,9 +15,9 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         public void TestCreateCategory()
         {
             BoraNowSeeder.Seed();
-            var cbo = new CategoryBusinessObject();
+            var cbo = new CategoryInterestPointBusinessObject();
 
-            var category = new Category("Beach");
+            var category = new CategoryInterestPoint("Beach");
 
             var resCreate = cbo.Create(category);
             var resGet = cbo.Read(category.Id);
@@ -28,9 +28,9 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         public void TestCreateCategoryAsync()
         {
             BoraNowSeeder.Seed();
-            var cbo = new CategoryBusinessObject();
+            var cbo = new CategoryInterestPointBusinessObject();
 
-            var category = new Category("Beach");
+            var category = new CategoryInterestPoint("Beach");
 
             var resCreate = cbo.CreateAsync(category).Result;
             var resGet = cbo.ReadAsync(category.Id).Result;
@@ -41,7 +41,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         public void TestListCategory()
         {
             BoraNowSeeder.Seed();
-            var bo = new CategoryBusinessObject();
+            var bo = new CategoryInterestPointBusinessObject();
             var resList = bo.List();
 
             Assert.IsTrue(resList.Success && resList.Result.Count == 1);
@@ -51,7 +51,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         public void TestListCategoryAsync()
         {
             BoraNowSeeder.Seed();
-            var bo = new CategoryBusinessObject();
+            var bo = new CategoryInterestPointBusinessObject();
             var resList = bo.ListAsync().Result;
 
             Assert.IsTrue(resList.Success && resList.Result.Count == 1);
@@ -61,7 +61,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         public void TestUpdateCategory()
         {
             BoraNowSeeder.Seed();
-            var bo = new CategoryBusinessObject();
+            var bo = new CategoryInterestPointBusinessObject();
             var resList = bo.List();
 
             var category = resList.Result.FirstOrDefault();
@@ -76,7 +76,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         public void TestUpdateCategoryAsync()
         {
             BoraNowSeeder.Seed();
-            var bo = new CategoryBusinessObject();
+            var bo = new CategoryInterestPointBusinessObject();
             var resList = bo.List();
 
             var category = resList.Result.FirstOrDefault();
@@ -91,7 +91,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         public void TestDeleteCategory()
         {
             BoraNowSeeder.Seed();
-            var bo = new CategoryBusinessObject();
+            var bo = new CategoryInterestPointBusinessObject();
             var resList = bo.List();
             var resDelete = bo.Delete(resList.Result.First().Id);
             resList = bo.List();
@@ -103,7 +103,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         public void TestDeleteCategoryAsync()
         {
             BoraNowSeeder.Seed();
-            var bo = new CategoryBusinessObject();
+            var bo = new CategoryInterestPointBusinessObject();
             var resList = bo.List();
             var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
             resList = bo.ListAsync().Result;

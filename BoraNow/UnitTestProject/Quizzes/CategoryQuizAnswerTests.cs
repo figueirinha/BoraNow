@@ -17,13 +17,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var qbo = new QuizBusinessObject();
             var qqbo = new QuizQuestionBusinessObject();
             var qabo = new QuizAnswerBusinessObject();
-            var cbo = new CategoryBusinessObject();
+            var cbo = new CategoryInterestPointBusinessObject();
             
     
             var quiz = new Quiz("this quiz");
             var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
             var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
-            var category = new Category("vegan");
+            var category = new CategoryInterestPoint("vegan");
             qbo.Create(quiz);
             qqbo.Create(quizQuestion);
             qabo.Create(quizAnswer);
@@ -44,13 +44,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var qbo = new QuizBusinessObject();
             var qqbo = new QuizQuestionBusinessObject();
             var qabo = new QuizAnswerBusinessObject();
-            var cbo = new CategoryBusinessObject();
+            var cbo = new CategoryInterestPointBusinessObject();
 
 
             var quiz = new Quiz("this quiz");
             var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
             var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
-            var category = new Category("vegan");
+            var category = new CategoryInterestPoint("vegan");
             qbo.Create(quiz);
             qqbo.Create(quizQuestion);
             qabo.Create(quizAnswer);
@@ -94,13 +94,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var qbo = new QuizBusinessObject();
             var qqbo = new QuizQuestionBusinessObject();
             var qabo = new QuizAnswerBusinessObject();
-            var cbo = new CategoryBusinessObject();
+            var cbo = new CategoryInterestPointBusinessObject();
 
 
             var quiz = new Quiz("this quiz");
             var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
             var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
-            var category = new Category("vegan");
+            var category = new CategoryInterestPoint("vegan");
             qbo.Create(quiz);
             qqbo.Create(quizQuestion);
             qabo.Create(quizAnswer);
@@ -126,13 +126,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var qbo = new QuizBusinessObject();
             var qqbo = new QuizQuestionBusinessObject();
             var qabo = new QuizAnswerBusinessObject();
-            var cbo = new CategoryBusinessObject();
+            var cbo = new CategoryInterestPointBusinessObject();
 
 
             var quiz = new Quiz("this quiz");
             var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
             var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
-            var category = new Category("vegan");
+            var category = new CategoryInterestPoint("vegan");
             qbo.Create(quiz);
             qqbo.Create(quizQuestion);
             qabo.Create(quizAnswer);
