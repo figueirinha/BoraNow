@@ -75,8 +75,6 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
         public Guid ProfileId { get; set; }
         public virtual Profile Profile { get; set; }
 
-        public virtual ICollection<Feedback> Feedbacks { get; set; }
-
         public Visitor(string firstName, string lastName, DateTime birthDate, string gender, Guid profileId) : base()
         {
             _firstName = firstName;

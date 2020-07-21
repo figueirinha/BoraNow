@@ -40,11 +40,9 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
         public Guid CountryId { get; set; }
         public virtual Country Country { get; set; }
 
-      
-        public virtual ICollection<Feedback> Feedbacks{ get; set; }
-
         public virtual ICollection<Company> Companies { get; set; }
-       
+        public virtual ICollection<Visitor> Visitors { get; set; }
+
 
         public Profile(string description, string photoPath, Guid countryId) : base()
         {

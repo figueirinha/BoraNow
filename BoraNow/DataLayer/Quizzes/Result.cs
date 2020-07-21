@@ -45,22 +45,26 @@ namespace Recodme.RD.BoraNow.DataLayer.Quizzes
         [ForeignKey("Quiz")]
         public Guid QuizId { get; set; }
         public virtual Quiz Quiz { get; set; }
-               
+
+        [ForeignKey("Visitor")]
+        public Guid VisitorId { get; set; }
 
         public virtual ICollection<ResultInterestPoint> InterestPointResults { get; set; }
 
-        public Result(string title, DateTime date, Guid quizId) : base()
+        public Result(string title, DateTime date, Guid quizId, Guid visitorId) : base()
         {
             _title = title;
             _date = date;
             QuizId = quizId;
+            VisitorId = visitorId;
         }
 
-        public Result(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string title, DateTime date, Guid quizId) : base(id, createAt, updateAt, isDeleted)
+        public Result(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string title, DateTime date, Guid quizId, Guid visitorId) : base(id, createAt, updateAt, isDeleted)
         {
             _title = title;
             _date = date;
             QuizId = quizId;
+            VisitorId = visitorId;
         }
     }
 }
