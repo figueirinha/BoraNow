@@ -1,176 +1,176 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
-using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
-using Recodme.RD.BoraNow.DataLayer.Quizzes;
-using System.Linq;
+﻿//using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
+//using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
+//using Recodme.RD.BoraNow.DataLayer.Quizzes;
+//using System.Linq;
 
-namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
-{
-    [TestClass]
-    public class  CategoryQuizAnswerTests
-    {
-        [TestMethod]
-        public void TestCreateCategoryQuizAnswer()
-        {
-            BoraNowSeeder.Seed();
-            var cqbo = new CategoryQuizAnswerBusinessObject();
-            var qbo = new QuizBusinessObject();
-            var qqbo = new QuizQuestionBusinessObject();
-            var qabo = new QuizAnswerBusinessObject();
-            var cbo = new CategoryInterestPointBusinessObject();
+//namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
+//{
+//    [TestClass]
+//    public class  CategoryQuizAnswerTests
+//    {
+//        [TestMethod]
+//        public void TestCreateCategoryQuizAnswer()
+//        {
+//            BoraNowSeeder.Seed();
+//            var cqbo = new CategoryQuizAnswerBusinessObject();
+//            var qbo = new QuizBusinessObject();
+//            var qqbo = new QuizQuestionBusinessObject();
+//            var qabo = new QuizAnswerBusinessObject();
+//            var cbo = new CategoryInterestPointBusinessObject();
             
     
-            var quiz = new Quiz("this quiz");
-            var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
-            var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
-            var category = new CategoryInterestPoint("vegan");
-            qbo.Create(quiz);
-            qqbo.Create(quizQuestion);
-            qabo.Create(quizAnswer);
-            cbo.Create(category);
+//            var quiz = new Quiz("this quiz");
+//            var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
+//            var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
+//            var category = new CategoryInterestPoint("vegan");
+//            qbo.Create(quiz);
+//            qqbo.Create(quizQuestion);
+//            qabo.Create(quizAnswer);
+//            cbo.Create(category);
           
-            var categoryQuiz = new CategoryQuizAnswer(category.Id, quizAnswer.Id);
-            var resCreate = cqbo.Create(categoryQuiz);
-            var resGet = cqbo.Read(categoryQuiz.Id);
+//            var categoryQuiz = new CategoryQuizAnswer(category.Id, quizAnswer.Id);
+//            var resCreate = cqbo.Create(categoryQuiz);
+//            var resGet = cqbo.Read(categoryQuiz.Id);
 
-            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
-        }
+//            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
+//        }
 
-        [TestMethod]
-        public void TestCreateCategoryQuizAnswerAsync()
-        {
-            BoraNowSeeder.Seed();
-            var cqbo = new CategoryQuizAnswerBusinessObject();
-            var qbo = new QuizBusinessObject();
-            var qqbo = new QuizQuestionBusinessObject();
-            var qabo = new QuizAnswerBusinessObject();
-            var cbo = new CategoryInterestPointBusinessObject();
-
-
-            var quiz = new Quiz("this quiz");
-            var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
-            var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
-            var category = new CategoryInterestPoint("vegan");
-            qbo.Create(quiz);
-            qqbo.Create(quizQuestion);
-            qabo.Create(quizAnswer);
-            cbo.Create(category);
-
-            var categoryQuiz = new CategoryQuizAnswer(category.Id, quizAnswer.Id);
-            var resCreate = cqbo.CreateAsync(categoryQuiz).Result;
-            var resGet = cqbo.ReadAsync(categoryQuiz.Id).Result;
-
-            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
-        }
-
-        [TestMethod]
-        public void TestListCategoryQuizAnswer()
-        {
-            BoraNowSeeder.Seed();
-            var bo = new CategoryQuizAnswerBusinessObject();
-            var resList = bo.List();
-
-            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
-        }
-
-        [TestMethod]
-        public void TestListCategoryQuizAnswerAsync()
-        {
-            BoraNowSeeder.Seed();
-            var bo = new CategoryQuizAnswerBusinessObject();
-            var resList = bo.ListAsync().Result;
-
-            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
-        }
-
-        [TestMethod]
-        public void TestUpdateCategoryQuizAnswer()
-        {
-            BoraNowSeeder.Seed();
-            var cqbo = new CategoryQuizAnswerBusinessObject();
-            var resList = cqbo.List();
-            var item = resList.Result.FirstOrDefault();
-
-            var qbo = new QuizBusinessObject();
-            var qqbo = new QuizQuestionBusinessObject();
-            var qabo = new QuizAnswerBusinessObject();
-            var cbo = new CategoryInterestPointBusinessObject();
+//        [TestMethod]
+//        public void TestCreateCategoryQuizAnswerAsync()
+//        {
+//            BoraNowSeeder.Seed();
+//            var cqbo = new CategoryQuizAnswerBusinessObject();
+//            var qbo = new QuizBusinessObject();
+//            var qqbo = new QuizQuestionBusinessObject();
+//            var qabo = new QuizAnswerBusinessObject();
+//            var cbo = new CategoryInterestPointBusinessObject();
 
 
-            var quiz = new Quiz("this quiz");
-            var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
-            var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
-            var category = new CategoryInterestPoint("vegan");
-            qbo.Create(quiz);
-            qqbo.Create(quizQuestion);
-            qabo.Create(quizAnswer);
-            cbo.Create(category);
+//            var quiz = new Quiz("this quiz");
+//            var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
+//            var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
+//            var category = new CategoryInterestPoint("vegan");
+//            qbo.Create(quiz);
+//            qqbo.Create(quizQuestion);
+//            qabo.Create(quizAnswer);
+//            cbo.Create(category);
 
-            item.QuizAnswerId = quizAnswer.Id;
-            item.CategoryId = category.Id;
-            var resUpdate = cqbo.Update(item);
-            resList = cqbo.List();
+//            var categoryQuiz = new CategoryQuizAnswer(category.Id, quizAnswer.Id);
+//            var resCreate = cqbo.CreateAsync(categoryQuiz).Result;
+//            var resGet = cqbo.ReadAsync(categoryQuiz.Id).Result;
 
-            Assert.IsTrue(resList.Success && resUpdate.Success &&
-                resList.Result.First().CategoryId == item.CategoryId && resList.Result.First().QuizAnswerId == item.QuizAnswerId);
-        }
+//            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
+//        }
 
-        [TestMethod]
-        public void TestUpdateCategoryQuizAnswerAsync()
-        {
-            BoraNowSeeder.Seed();
-            var cqbo = new CategoryQuizAnswerBusinessObject();
-            var resList = cqbo.List();
-            var item = resList.Result.FirstOrDefault();
+//        [TestMethod]
+//        public void TestListCategoryQuizAnswer()
+//        {
+//            BoraNowSeeder.Seed();
+//            var bo = new CategoryQuizAnswerBusinessObject();
+//            var resList = bo.List();
 
-            var qbo = new QuizBusinessObject();
-            var qqbo = new QuizQuestionBusinessObject();
-            var qabo = new QuizAnswerBusinessObject();
-            var cbo = new CategoryInterestPointBusinessObject();
+//            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+//        }
 
+//        [TestMethod]
+//        public void TestListCategoryQuizAnswerAsync()
+//        {
+//            BoraNowSeeder.Seed();
+//            var bo = new CategoryQuizAnswerBusinessObject();
+//            var resList = bo.ListAsync().Result;
 
-            var quiz = new Quiz("this quiz");
-            var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
-            var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
-            var category = new CategoryInterestPoint("vegan");
-            qbo.Create(quiz);
-            qqbo.Create(quizQuestion);
-            qabo.Create(quizAnswer);
-            cbo.Create(category);
+//            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+//        }
 
-            item.QuizAnswerId = quizAnswer.Id;
-            item.CategoryId = category.Id;
-            var resUpdate = cqbo.UpdateAsync(item).Result;
-            resList = cqbo.ListAsync().Result;
+//        [TestMethod]
+//        public void TestUpdateCategoryQuizAnswer()
+//        {
+//            BoraNowSeeder.Seed();
+//            var cqbo = new CategoryQuizAnswerBusinessObject();
+//            var resList = cqbo.List();
+//            var item = resList.Result.FirstOrDefault();
 
-            Assert.IsTrue(resList.Success && resUpdate.Success &&
-                resList.Result.First().CategoryId == item.CategoryId && resList.Result.First().QuizAnswerId == item.QuizAnswerId);
-        }
-
-        [TestMethod]
-        public void TestDeleteCategoryQuizAnswer()
-        {
-            BoraNowSeeder.Seed();
-            var bo = new CategoryQuizAnswerBusinessObject();
-            var resList = bo.List();
-            var resDelete = bo.Delete(resList.Result.First().Id);
-            resList = bo.List();
-
-            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
-        }
+//            var qbo = new QuizBusinessObject();
+//            var qqbo = new QuizQuestionBusinessObject();
+//            var qabo = new QuizAnswerBusinessObject();
+//            var cbo = new CategoryInterestPointBusinessObject();
 
 
-        [TestMethod]
-        public void TestDeleteCategoryQuizAnswerAsync()
-        {
-            BoraNowSeeder.Seed();
-            var bo = new CategoryQuizAnswerBusinessObject();
-            var resList = bo.List();
-            var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
-            resList = bo.ListAsync().Result;
+//            var quiz = new Quiz("this quiz");
+//            var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
+//            var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
+//            var category = new CategoryInterestPoint("vegan");
+//            qbo.Create(quiz);
+//            qqbo.Create(quizQuestion);
+//            qabo.Create(quizAnswer);
+//            cbo.Create(category);
 
-            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
-        }
-    }
-}
+//            item.QuizAnswerId = quizAnswer.Id;
+//            item.CategoryId = category.Id;
+//            var resUpdate = cqbo.Update(item);
+//            resList = cqbo.List();
+
+//            Assert.IsTrue(resList.Success && resUpdate.Success &&
+//                resList.Result.First().CategoryId == item.CategoryId && resList.Result.First().QuizAnswerId == item.QuizAnswerId);
+//        }
+
+//        [TestMethod]
+//        public void TestUpdateCategoryQuizAnswerAsync()
+//        {
+//            BoraNowSeeder.Seed();
+//            var cqbo = new CategoryQuizAnswerBusinessObject();
+//            var resList = cqbo.List();
+//            var item = resList.Result.FirstOrDefault();
+
+//            var qbo = new QuizBusinessObject();
+//            var qqbo = new QuizQuestionBusinessObject();
+//            var qabo = new QuizAnswerBusinessObject();
+//            var cbo = new CategoryInterestPointBusinessObject();
+
+
+//            var quiz = new Quiz("this quiz");
+//            var quizQuestion = new QuizQuestion("do u like food?", quiz.Id);
+//            var quizAnswer = new QuizAnswer("yes", quizQuestion.Id);
+//            var category = new CategoryInterestPoint("vegan");
+//            qbo.Create(quiz);
+//            qqbo.Create(quizQuestion);
+//            qabo.Create(quizAnswer);
+//            cbo.Create(category);
+
+//            item.QuizAnswerId = quizAnswer.Id;
+//            item.CategoryId = category.Id;
+//            var resUpdate = cqbo.UpdateAsync(item).Result;
+//            resList = cqbo.ListAsync().Result;
+
+//            Assert.IsTrue(resList.Success && resUpdate.Success &&
+//                resList.Result.First().CategoryId == item.CategoryId && resList.Result.First().QuizAnswerId == item.QuizAnswerId);
+//        }
+
+//        [TestMethod]
+//        public void TestDeleteCategoryQuizAnswer()
+//        {
+//            BoraNowSeeder.Seed();
+//            var bo = new CategoryQuizAnswerBusinessObject();
+//            var resList = bo.List();
+//            var resDelete = bo.Delete(resList.Result.First().Id);
+//            resList = bo.List();
+
+//            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
+//        }
+
+
+//        [TestMethod]
+//        public void TestDeleteCategoryQuizAnswerAsync()
+//        {
+//            BoraNowSeeder.Seed();
+//            var bo = new CategoryQuizAnswerBusinessObject();
+//            var resList = bo.List();
+//            var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
+//            resList = bo.ListAsync().Result;
+
+//            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
+//        }
+//    }
+//}
  
