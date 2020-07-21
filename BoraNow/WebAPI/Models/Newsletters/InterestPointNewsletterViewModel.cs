@@ -7,7 +7,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters
     public class InterestPointNewsletterViewModel
     {
         public Guid Id { get; set; }
-        public Guid InterestPointId { get; set; }
+        public Guid InterestPointId { get; set;  }
         public Guid NewsLetterId { get; set; }
 
         public InterestPointNewsletter ToInterestPointNewsletter()
