@@ -18,18 +18,18 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             BoraNowSeeder.Seed();
             var vbo = new VisitorBusinessObject();
 
-            var countrybo = new CountryBusinessObject();
-            var pbo = new ProfileBusinessObject();
-            var companybo = new CompanyBusinessObject();
+            //var countrybo = new CountryBusinessObject();
+            //var pbo = new ProfileBusinessObject();
+            //var companybo = new CompanyBusinessObject();
 
-            var country = new Country("narnia");
-            var profile = new Profile("a", "b", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid()); 
-            var company = new Company("a", "b", "c", "d", profile.Id);
-            countrybo.Create(country);
-            pbo.Create(profile);
-            companybo.Create(company);
+            //var country = new Country("narnia");
+            //var profile = new Profile("a", "b", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid()); 
+            //var company = new Company("a", "b", "c", "d", profile.Id);
+            //countrybo.Create(country);
+            //pbo.Create(profile);
+            //companybo.Create(company);
 
-            var visitor = new Visitor("m", "f", DateTime.Now.AddYears(-24), "m", profile.Id);
+            var visitor = new Visitor("m", "f", DateTime.Now.AddYears(-24), "m");
 
             var resCreate = vbo.Create(visitor);
             var restGet = vbo.Read(visitor.Id);
@@ -43,18 +43,18 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             BoraNowSeeder.Seed();
             var vbo = new VisitorBusinessObject();
 
-            var countrybo = new CountryBusinessObject();
-            var pbo = new ProfileBusinessObject();
-            var companybo = new CompanyBusinessObject();
+            //var countrybo = new CountryBusinessObject();
+            //var pbo = new ProfileBusinessObject();
+            //var companybo = new CompanyBusinessObject();
 
-            var country = new Country("narnia");
-            var profile = new Profile("a", "b", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
-            var company = new Company("a", "b", "c", "d", profile.Id);
-            countrybo.Create(country);
-            pbo.Create(profile);
-            companybo.Create(company);
+            //var country = new Country("narnia");
+            //var profile = new Profile("a", "b", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+            //var company = new Company("a", "b", "c", "d", profile.Id);
+            //countrybo.Create(country);
+            //pbo.Create(profile);
+            //companybo.Create(company);
 
-            var visitor = new Visitor("m", "f", DateTime.Now.AddYears(-24), "m", profile.Id);
+            var visitor = new Visitor("m", "f", DateTime.Now.AddYears(-24), "m");
 
             var resCreate = vbo.CreateAsync(visitor).Result;
             var restGet = vbo.ReadAsync(visitor.Id).Result;
@@ -90,32 +90,32 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             var resList = vbo.List();
             var item = resList.Result.FirstOrDefault();
 
-            var countrybo = new CountryBusinessObject();
-            var pbo = new ProfileBusinessObject();
-            var companybo = new CompanyBusinessObject();
+            //var countrybo = new CountryBusinessObject();
+            //var pbo = new ProfileBusinessObject();
+            //var companybo = new CompanyBusinessObject();
 
-            var country = new Country("narnia");
-            var profile = new Profile("a", "b", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
-            var company = new Company("a", "b", "c", "d", profile.Id);
-            countrybo.Create(country);
-            pbo.Create(profile);
-            companybo.Create(company);
+            //var country = new Country("narnia");
+            //var profile = new Profile("a", "b", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+            //var company = new Company("a", "b", "c", "d", profile.Id);
+            //countrybo.Create(country);
+            //pbo.Create(profile);
+            //companybo.Create(company);
 
-            var visitor = new Visitor("m", "f", DateTime.Now.AddYears(-24), "m", profile.Id);
+            var visitor = new Visitor("m", "f", DateTime.Now.AddYears(-24), "m");
 
             item.FirstName = visitor.FirstName;
             item.LastName = visitor.LastName;
             item.BirthDate = visitor.BirthDate;
             item.Gender = visitor.Gender;
-            item.ProfileId = visitor.ProfileId;
+            //item.ProfileId = visitor.ProfileId;
 
             var resUpdate = vbo.Update(item);
             resList = vbo.List();
 
             Assert.IsTrue(resUpdate.Success && resList.Success &&
                 resList.Result.First().FirstName == visitor.FirstName && resList.Result.First().LastName == visitor.LastName &&
-                resList.Result.First().BirthDate == visitor.BirthDate && resList.Result.First().Gender == visitor.Gender &&
-                resList.Result.First().ProfileId == visitor.ProfileId);
+                resList.Result.First().BirthDate == visitor.BirthDate && resList.Result.First().Gender == visitor.Gender 
+                /*&& resList.Result.First().ProfileId == visitor.ProfileId*/);
         }
 
         [TestMethod]
@@ -126,32 +126,32 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             var resList = vbo.List();
             var item = resList.Result.FirstOrDefault();
 
-            var countrybo = new CountryBusinessObject();
-            var pbo = new ProfileBusinessObject();
-            var companybo = new CompanyBusinessObject();
+            //var countrybo = new CountryBusinessObject();
+            //var pbo = new ProfileBusinessObject();
+            //var companybo = new CompanyBusinessObject();
 
-            var country = new Country("narnia");
-            var profile = new Profile("a", "b", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
-            var company = new Company("a", "b", "c", "d", profile.Id);
-            countrybo.Create(country);
-            pbo.Create(profile);
-            companybo.Create(company);
+            //var country = new Country("narnia");
+            //var profile = new Profile("a", "b", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+            //var company = new Company("a", "b", "c", "d", profile.Id);
+            //countrybo.Create(country);
+            //pbo.Create(profile);
+            //companybo.Create(company);
 
-            var visitor = new Visitor("m", "f", DateTime.Now.AddYears(-24), "m", profile.Id);
+            var visitor = new Visitor("m", "f", DateTime.Now.AddYears(-24), "m"/*, profile.Id*/);
 
             item.FirstName = visitor.FirstName;
             item.LastName = visitor.LastName;
             item.BirthDate = visitor.BirthDate;
             item.Gender = visitor.Gender;
-            item.ProfileId = visitor.ProfileId;
+            //item.ProfileId = visitor.ProfileId;
 
             var resUpdate = vbo.UpdateAsync(item).Result;
             resList = vbo.ListAsync().Result;
 
             Assert.IsTrue(resUpdate.Success && resList.Success &&
                 resList.Result.First().FirstName == visitor.FirstName && resList.Result.First().LastName == visitor.LastName &&
-                resList.Result.First().BirthDate == visitor.BirthDate && resList.Result.First().Gender == visitor.Gender &&
-                resList.Result.First().ProfileId == visitor.ProfileId);
+                resList.Result.First().BirthDate == visitor.BirthDate && resList.Result.First().Gender == visitor.Gender 
+                /*&& resList.Result.First().ProfileId == visitor.ProfileId*/);
         }
 
         [TestMethod]

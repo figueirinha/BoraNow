@@ -1,135 +1,135 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
-using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
-using Recodme.RD.BoraNow.DataLayer.Quizzes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
+//using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
+//using Recodme.RD.BoraNow.DataLayer.Quizzes;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
 
-namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
-{
-    [TestClass]
-    public class ResultTests
-    {
-        [TestMethod]
-        public void TestCreateResult()
-        {
-            BoraNowSeeder.Seed();
-            var rbo = new ResultBusinessObject();
-            var qbo = new QuizBusinessObject();
+//namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
+//{
+//    [TestClass]
+//    public class ResultTests
+//    {
+//        [TestMethod]
+//        public void TestCreateResult()
+//        {
+//            BoraNowSeeder.Seed();
+//            var rbo = new ResultBusinessObject();
+//            var qbo = new QuizBusinessObject();
 
-            var quiz = new Quiz("Quiz 1");
-            qbo.Create(quiz);
+//            var quiz = new Quiz("Quiz 1");
+//            qbo.Create(quiz);
 
-            var _result = new Result("Q1 Result", DateTime.UtcNow, quiz.Id);
+//            var _result = new Result("Q1 Result", DateTime.UtcNow, quiz.Id);
 
-            var resCreate = rbo.Create(_result);
-            var resGet = rbo.Read(_result.Id);
-            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
-        }
+//            var resCreate = rbo.Create(_result);
+//            var resGet = rbo.Read(_result.Id);
+//            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
+//        }
 
-        [TestMethod]
-        public void TestCreateResultAsync()
-        {
-            BoraNowSeeder.Seed();
-            var rbo = new ResultBusinessObject();
-            var qbo = new QuizBusinessObject();
+//        [TestMethod]
+//        public void TestCreateResultAsync()
+//        {
+//            BoraNowSeeder.Seed();
+//            var rbo = new ResultBusinessObject();
+//            var qbo = new QuizBusinessObject();
 
-            var quiz = new Quiz("Quiz 1");
-            qbo.Create(quiz);
+//            var quiz = new Quiz("Quiz 1");
+//            qbo.Create(quiz);
 
-            var _result = new Result("Q1 Result", DateTime.UtcNow, quiz.Id);
+//            var _result = new Result("Q1 Result", DateTime.UtcNow, quiz.Id);
 
-            var resCreate = rbo.CreateAsync(_result).Result;
-            var resGet = rbo.ReadAsync(_result.Id).Result;
-            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
-        }
+//            var resCreate = rbo.CreateAsync(_result).Result;
+//            var resGet = rbo.ReadAsync(_result.Id).Result;
+//            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
+//        }
 
-        [TestMethod]
-        public void TestListResult()
-        {
-            BoraNowSeeder.Seed();
-            var bo = new ResultBusinessObject();
-            var resList = bo.List();
-            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
-        }
+//        [TestMethod]
+//        public void TestListResult()
+//        {
+//            BoraNowSeeder.Seed();
+//            var bo = new ResultBusinessObject();
+//            var resList = bo.List();
+//            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+//        }
 
-        [TestMethod]
-        public void TestListResultAsync()
-        {
-            BoraNowSeeder.Seed();
-            var bo = new ResultBusinessObject();
-            var resList = bo.ListAsync().Result;
-            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
-        }
+//        [TestMethod]
+//        public void TestListResultAsync()
+//        {
+//            BoraNowSeeder.Seed();
+//            var bo = new ResultBusinessObject();
+//            var resList = bo.ListAsync().Result;
+//            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+//        }
 
-        [TestMethod]
-        public void TestUpdateResult()
-        {
-            BoraNowSeeder.Seed();
-            var rbo = new ResultBusinessObject();
-            var resList = rbo.List();
-            var item = resList.Result.FirstOrDefault();
+//        [TestMethod]
+//        public void TestUpdateResult()
+//        {
+//            BoraNowSeeder.Seed();
+//            var rbo = new ResultBusinessObject();
+//            var resList = rbo.List();
+//            var item = resList.Result.FirstOrDefault();
 
-            var qbo = new QuizBusinessObject();
-            var quiz = new Quiz("Quiz 2");
-            qbo.Create(quiz);
+//            var qbo = new QuizBusinessObject();
+//            var quiz = new Quiz("Quiz 2");
+//            qbo.Create(quiz);
 
-            item.QuizId = quiz.Id;
-            var resUpdate = rbo.Update(item);
-            resList = rbo.List();
+//            item.QuizId = quiz.Id;
+//            var resUpdate = rbo.Update(item);
+//            resList = rbo.List();
 
-            Assert.IsTrue(resList.Success && resUpdate.Success &&
-                resList.Result.First().QuizId == item.QuizId);
+//            Assert.IsTrue(resList.Success && resUpdate.Success &&
+//                resList.Result.First().QuizId == item.QuizId);
 
-        }
+//        }
 
-        [TestMethod]
-        public void TestUpdateResultAsync()
-        {
-            BoraNowSeeder.Seed();
-            var rbo = new ResultBusinessObject();
-            var resList = rbo.List();
-            var item = resList.Result.FirstOrDefault();
+//        [TestMethod]
+//        public void TestUpdateResultAsync()
+//        {
+//            BoraNowSeeder.Seed();
+//            var rbo = new ResultBusinessObject();
+//            var resList = rbo.List();
+//            var item = resList.Result.FirstOrDefault();
 
-            var qbo = new QuizBusinessObject();
-            var quiz = new Quiz("Quiz 2");
-            qbo.Create(quiz);
+//            var qbo = new QuizBusinessObject();
+//            var quiz = new Quiz("Quiz 2");
+//            qbo.Create(quiz);
 
-            item.QuizId = quiz.Id;
-            var resUpdate = rbo.UpdateAsync(item).Result;
-            resList = rbo.ListAsync().Result;
+//            item.QuizId = quiz.Id;
+//            var resUpdate = rbo.UpdateAsync(item).Result;
+//            resList = rbo.ListAsync().Result;
 
-            Assert.IsTrue(resList.Success && resUpdate.Success &&
-                resList.Result.First().QuizId == item.QuizId);
+//            Assert.IsTrue(resList.Success && resUpdate.Success &&
+//                resList.Result.First().QuizId == item.QuizId);
 
-        }
+//        }
 
-        [TestMethod]
-        public void TestDeleteResult()
-        {
-            BoraNowSeeder.Seed();
-            var bo = new ResultBusinessObject();
-            var resList = bo.List();
-            var resDelete = bo.Delete(resList.Result.First().Id);
-            resList = bo.List();
+//        [TestMethod]
+//        public void TestDeleteResult()
+//        {
+//            BoraNowSeeder.Seed();
+//            var bo = new ResultBusinessObject();
+//            var resList = bo.List();
+//            var resDelete = bo.Delete(resList.Result.First().Id);
+//            resList = bo.List();
 
-            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
-        }
+//            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
+//        }
 
-        [TestMethod]
-        public void TestDeleteResultAsync()
-        {
-            BoraNowSeeder.Seed();
-            var bo = new ResultBusinessObject();
-            var resList = bo.List();
-            var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
-            resList = bo.ListAsync().Result;
+//        [TestMethod]
+//        public void TestDeleteResultAsync()
+//        {
+//            BoraNowSeeder.Seed();
+//            var bo = new ResultBusinessObject();
+//            var resList = bo.List();
+//            var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
+//            resList = bo.ListAsync().Result;
 
-            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
-        }
+//            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
+//        }
 
-    }
-}
+//    }
+//}

@@ -10,11 +10,11 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
         public string Representative { get; set; }
         public string PhoneNumber { get; set; }
         public string VatNumber { get; set; }
-        public Guid ProfileId { get; set; }
+        //public Guid ProfileId { get; set; }
 
         public Company ToCompany()
         {
-            return new Company(Name,Representative, PhoneNumber, VatNumber, ProfileId);
+            return new Company(Name,Representative, PhoneNumber, VatNumber/*, ProfileId*/);
         }
 
         public static CompanyViewModel Parse(Company company)
@@ -25,8 +25,8 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
                 Name = company.Name,
                 Representative = company.Representative,
                 PhoneNumber = company.PhoneNumber,
-                VatNumber = company.VatNumber,
-                ProfileId = company.ProfileId
+                VatNumber = company.VatNumber
+                //ProfileId = company.ProfileId
             };
         }
     }
