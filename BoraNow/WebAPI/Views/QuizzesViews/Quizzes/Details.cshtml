@@ -1,7 +1,16 @@
-﻿
-@{
-    ViewData["Title"] = "Details";
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
 
-<h1>Details</h1>
+@model QuizViewModel
 
+<h2>Newsletter - Details</h2>
+<br />
+<div>
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+    </dl>
+</div>

@@ -1,7 +1,37 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters
 
-<h1>Index</h1>
+@model IEnumerable<NewsletterViewModel>
 
+<h2>Newsletters</h2>
+
+<p>
+    <a asp-action="Create">Create</a>
+</p>
+
+<div class="table-responsive">
+    <table claa="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                <th>@Html.DisplayNameFor(model => model.Description)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var newsletter in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@newsletter.Id">Edit</a>
+                        <a asp-action="Details" asp-route-id="@newsletter.Id">Details</a>
+                        <a asp-action="Delete" asp-route-id="@newsletter.Id">Delete</a>
+                    </td>
+                    <td>@Html.DisplayFor(x => newsletter.Title)</td>
+                    <td>@Html.DisplayFor(x => newsletter.Description)</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
