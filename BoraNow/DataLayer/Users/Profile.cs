@@ -8,7 +8,7 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
 {
     public class Profile : Entity
     {
-        private string _description;
+        private string _description; 
         public string Description
         {
             get
