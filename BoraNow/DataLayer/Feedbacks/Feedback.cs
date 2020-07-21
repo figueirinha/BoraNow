@@ -65,7 +65,7 @@ namespace Recodme.RD.BoraNow.DataLayer.Feedbacks
         [ForeignKey("Visitor")]
         public Guid VisitorId { get; set; }
         public virtual Visitor Visitor { get; set; }
-   
+
         public Feedback(string description, int stars, DateTime date, Guid interestPointId, Guid visitorId) : base()
         {
             _description = description;

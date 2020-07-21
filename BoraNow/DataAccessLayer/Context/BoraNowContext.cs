@@ -36,7 +36,6 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Context
         }
 
         public DbSet<Category> Category { get; set; }
-        public DbSet<CategoryQuizAnswer> CategoryQuizAnswer  { get; set; }
         public DbSet<InterestPoint> InterestPoint  { get; set; }
         public DbSet<InterestPointCategory> InterestPointCategory  { get; set; }
         public DbSet<Quiz> Quiz  { get; set; }
@@ -55,6 +54,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Context
         public DbSet<Company> Company { get; set; }
         public DbSet<Country> Country { get; set; }
         public DbSet<Profile> Profile { get; set; }
+
 
     }
 }

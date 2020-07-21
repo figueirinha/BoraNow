@@ -95,5 +95,14 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Properties {
                 return ResourceManager.GetString("ConnectionStringMiguel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server=sql5063.site4now.net.Database=DB_A646A3_costa2020;User Id=DB_A646A3_costa2020_admin;Password=BoraNow2020;.
+        /// </summary>
+        public static string OnlineConnectionString {
+            get {
+                return ResourceManager.GetString("OnlineConnectionString", resourceCulture);
+            }
+        }
     }
 }
