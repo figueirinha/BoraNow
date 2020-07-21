@@ -20,7 +20,6 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
             var quiz = new Quiz("BoraNow quiz");
             var quizQuestion = new QuizQuestion("do you like food?", quiz.Id);
             var quizAnswer = new QuizAnswer("yes yes", quizQuestion.Id);
-            var categoryQuizAnswer = new CategoryQuizAnswer(category.Id, quizAnswer.Id);
 
            
             var country = new Country("AA");
@@ -31,7 +30,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
 
             var interestPoint = new InterestPoint("Abc", "very good food", "abc street", "C//uhuh", "3 am", "5 pm", "fridays", true, true, company.Id);
             var interestPointCategory = new InterestPointCategory(interestPoint.Id, category.Id);
-            var result = new Result("questionário nº 1", DateTime.Now, quiz.Id, visitor.Id);
+            var result = new Result("questionário nº 1", DateTime.Now, quiz.Id);
             var resultInterestPoint = new ResultInterestPoint(result.Id, interestPoint.Id);
 
             var newsletter = new Newsletter("AAA", "abc");
@@ -51,7 +50,6 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
             _ctx.Quiz.AddRange(quiz);
             _ctx.QuizQuestion.AddRange(quizQuestion);
             _ctx.QuizAnswer.AddRange(quizAnswer);
-            _ctx.CategoryQuizAnswer.AddRange(categoryQuizAnswer);
             _ctx.InterestPoint.AddRange(interestPoint);
             _ctx.InterestPointCategory.AddRange(interestPointCategory);
             _ctx.Result.AddRange(result);
@@ -62,7 +60,6 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
 
             _ctx.Feedback.AddRange(feedback);
             _ctx.Meteorology.AddRange(meteorology);
-
 
             _ctx.SaveChanges();
         }

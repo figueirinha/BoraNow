@@ -30,7 +30,6 @@ namespace Recodme.RD.BoraNow.DataLayer.Quizzes
         public virtual QuizQuestion QuizQuestion { get; set; }
 
 
-        public virtual ICollection<CategoryQuizAnswer> QuizAnswerCategories { get; set; }
 
         public QuizAnswer(string answer, Guid quizQuestionId) : base()
         {

@@ -45,7 +45,6 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
 
         public virtual ICollection<Company> Companies { get; set; }
        
-        public virtual ICollection<User> Users { get; set; }
 
         public Profile(string description, string photoPath, Guid countryId) : base()
         {

@@ -129,4 +129,7 @@
   <data name="ConnectionStringMiguel" xml:space="preserve">
     <value>Server=RECODME-MIGUELF\SQLEXPRESS;Database=BoraNow;Trusted_Connection=True;</value>
   </data>
+  <data name="OnlineConnectionString" xml:space="preserve">
+    <value>Server=sql5063.site4now.net.Database=DB_A646A3_costa2020;User Id=DB_A646A3_costa2020_admin;Password=BoraNow2020;</value>
+  </data>
 </root>
