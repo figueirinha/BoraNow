@@ -1,7 +1,41 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
 
-<h1>Index</h1>
+@model IEnumerable<VisitorViewModel>
 
+<h2>Visitors</h2>
+
+<p>
+    <a asp-action="Create">Create</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.BirthDate)</th>
+                <th>@Html.DisplayNameFor(model => model.Gender)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var visitor in Model)
+            {
+            <tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@visitor.Id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@visitor.Id">Details</a>
+                    <a asp-action="Delete" asp-route-id="@visitor.Id">Delete</a>
+                </td>
+                <td>@Html.DisplayFor(x => visitor.FirstName)</td>
+                <td>@Html.DisplayFor(x => visitor.LastName)</td>
+                <td>@Html.DisplayFor(x => visitor.BirthDate)</td>
+                <td>@Html.DisplayFor(x => visitor.Gender)</td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>

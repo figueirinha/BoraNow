@@ -1,8 +1,5 @@
 ﻿using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
 {
@@ -11,17 +8,17 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public CategoryInterestPoint ToCategory()
+        public CategoryInterestPoint ToCategoryInterestPoint()
         {
             return new CategoryInterestPoint(Name);
         }
 
-        public static CategoryInterestPointViewModel Parse(CategoryInterestPoint category)
+        public static CategoryInterestPointViewModel Parse(CategoryInterestPoint categoryInterestPoint)
         {
             return new CategoryInterestPointViewModel()
             {
-                Id = category.Id,
-                Name = category.Name             
+                Id = categoryInterestPoint.Id,
+                Name = categoryInterestPoint.Name             
             };
         }
     }
