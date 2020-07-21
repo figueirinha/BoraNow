@@ -9,7 +9,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
     public class ResultViewModel
     {
         public Guid Id { get; set; }
-        public String Title { get; set; }
+        public string Title { get; set; }
         public DateTime Date { get; set; }
         public Guid QuizId { get; set; }
         public Guid VisitorId { get; set; }
