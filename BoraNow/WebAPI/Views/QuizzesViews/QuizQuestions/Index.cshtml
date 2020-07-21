@@ -1,7 +1,34 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
 
-<h1>Index</h1>
+@model IEnumerable<QuizQuestionViewModel>
 
+    <h2>QuizQuestions</h2>
+
+<p>
+    <a asp-action="Create">Create</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Html.DisplayNameFor(model => model.Question)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quizQuestion in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@quizQuestion.Id">Edit</a>
+                        <a asp-action="Details" asp-route-id="@quizQuestion.Id">Details</a>
+                        <a asp-action="Delete" asp-route-id="@quizQuestion.Id">Delete</a>
+                    </td>
+                    <td>@Html.DisplayFor(x => quizQuestion.Question)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

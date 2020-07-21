@@ -1,162 +1,182 @@
-﻿//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
-//using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
-//using Recodme.RD.BoraNow.DataLayer.Quizzes;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
+using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
+using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
+using Recodme.RD.BoraNow.DataLayer.Quizzes;
+using Recodme.RD.BoraNow.DataLayer.Users;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-//namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
-//{
-//    [TestClass]
-//    public class InterestPointTests
-//    {
-//        [TestMethod]
-//        public void TestCreateInterestPoint()
-//        {
-//            BoraNowSeeder.Seed();
-//            var cbo = new InterestPointBusinessObject();
+namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
+{
+    [TestClass]
+    public class InterestPointTests
+    {
+        [TestMethod]
+        public void TestCreateInterestPoint()
+        {
+            BoraNowSeeder.Seed();
+            var ipbo = new InterestPointBusinessObject();
+            var cbo = new CompanyBusinessObject();
 
-//            var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true);
+            var company = new Company("kfc", "you", "9111222", "11111");
+            cbo.Create(company);
 
-//            var resCreate = cbo.Create(interestPoint);
-//            var resGet = cbo.Read(interestPoint.Id);
+            var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
 
-//            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
-//        }
+            var resCreate = ipbo.Create(interestPoint);
+            var resGet = ipbo.Read(interestPoint.Id);
 
-//        [TestMethod]
-//        public void TestCreateInterestPointAsync()
-//        {
-//            BoraNowSeeder.Seed();
-//            var cbo = new InterestPointBusinessObject();
+            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
+        }
 
-//            var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true);
+        [TestMethod]
+        public void TestCreateInterestPointAsync()
+        {
+            BoraNowSeeder.Seed();
+            var ipbo = new InterestPointBusinessObject();
+            var cbo = new CompanyBusinessObject();
 
-//            var resCreate = cbo.CreateAsync(interestPoint).Result;
-//            var resGet = cbo.ReadAsync(interestPoint.Id).Result;
+            var company = new Company("kfc", "you", "9111222", "11111");
+            cbo.Create(company);
 
-//            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
-//        }
+            var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
 
-//        [TestMethod]
-//        public void TestListInterestPoint()
-//        {
-//            BoraNowSeeder.Seed();
-//            var bo = new InterestPointBusinessObject();
-//            var resList = bo.List();
+            var resCreate = ipbo.CreateAsync(interestPoint).Result;
+            var resGet = ipbo.ReadAsync(interestPoint.Id).Result;
 
-//            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
-//        }
+            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
+        }
 
-//        [TestMethod]
-//        public void TestListInterestPointAsync()
-//        {
-//            BoraNowSeeder.Seed();
-//            var bo = new InterestPointBusinessObject();
-//            var resList = bo.ListAsync().Result;
+        [TestMethod]
+        public void TestListInterestPoint()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new InterestPointBusinessObject();
+            var resList = bo.List();
 
-//            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
-//        }
+            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+        }
 
-//        [TestMethod]
-//        public void TestUpdateInterestPoint()
-//        {
-//            BoraNowSeeder.Seed();
+        [TestMethod]
+        public void TestListInterestPointAsync()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new InterestPointBusinessObject();
+            var resList = bo.ListAsync().Result;
 
-//            var ipbo = new InterestPointBusinessObject();
-//            var resList = ipbo.List();
-//            var item = resList.Result.FirstOrDefault();
+            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+        }
 
-//            var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true);
+        [TestMethod]
+        public void TestUpdateInterestPoint()
+        {
+            BoraNowSeeder.Seed();
 
-//            ipbo.Create(interestPoint);
+            var ipbo = new InterestPointBusinessObject();
+            var resList = ipbo.List();
+            var item = resList.Result.FirstOrDefault();
 
-//            item.Name = interestPoint.Name;
-//            item.Address = interestPoint.Address;
-//            item.ClosingDays = interestPoint.ClosingDays;
-//            item.ClosingHours = interestPoint.ClosingHours;
-//            item.Description = interestPoint.Description;
-//            item.OpeningHours = interestPoint.OpeningHours;
-//            item.PhotoPath = interestPoint.PhotoPath;
-//            item.CovidSafe = interestPoint.CovidSafe;
-//            item.Status = interestPoint.Status;
+            var cbo = new CompanyBusinessObject();
 
-//            var resUpdate = ipbo.Update(item);
-//            resList = ipbo.List();
+            var company = new Company("kfc", "you", "9111222", "11111");
+            cbo.Create(company);
 
-//            Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Name == interestPoint.Name
-//                && resList.Result.First().Address == interestPoint.Address
-//                && resList.Result.First().ClosingHours == interestPoint.ClosingHours
-//                && resList.Result.First().Description == interestPoint.Description
-//                && resList.Result.First().ClosingDays == interestPoint.ClosingDays
-//                && resList.Result.First().OpeningHours == interestPoint.OpeningHours
-//                && resList.Result.First().PhotoPath == interestPoint.PhotoPath
-//                && resList.Result.First().CovidSafe == interestPoint.CovidSafe
-//                && resList.Result.First().Status == interestPoint.Status);
-//        }
+            var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
 
-//        [TestMethod]
-//        public void TestUpdateInterestPointAsync()
-//        {
-//            BoraNowSeeder.Seed();
+            item.Name = interestPoint.Name;
+            item.Address = interestPoint.Address;
+            item.ClosingDays = interestPoint.ClosingDays;
+            item.ClosingHours = interestPoint.ClosingHours;
+            item.Description = interestPoint.Description;
+            item.OpeningHours = interestPoint.OpeningHours;
+            item.PhotoPath = interestPoint.PhotoPath;
+            item.CovidSafe = interestPoint.CovidSafe;
+            item.Status = interestPoint.Status;
+            item.CompanyId = interestPoint.CompanyId;
 
-//            var ipbo = new InterestPointBusinessObject();
-//            var resList = ipbo.List();
-//            var item = resList.Result.FirstOrDefault();
+            var resUpdate = ipbo.Update(item);
+            resList = ipbo.List();
 
-//            var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true);
+            Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Name == interestPoint.Name
+                && resList.Result.First().Address == interestPoint.Address
+                && resList.Result.First().ClosingHours == interestPoint.ClosingHours
+                && resList.Result.First().Description == interestPoint.Description
+                && resList.Result.First().ClosingDays == interestPoint.ClosingDays
+                && resList.Result.First().OpeningHours == interestPoint.OpeningHours
+                && resList.Result.First().PhotoPath == interestPoint.PhotoPath
+                && resList.Result.First().CovidSafe == interestPoint.CovidSafe
+                && resList.Result.First().Status == interestPoint.Status
+                && resList.Result.First().CompanyId == interestPoint.CompanyId);
+        }
 
-//            ipbo.Create(interestPoint);
+        [TestMethod]
+        public void TestUpdateInterestPointAsync()
+        {
+            BoraNowSeeder.Seed();
 
-//            item.Name = interestPoint.Name;
-//            item.Address = interestPoint.Address;
-//            item.ClosingDays = interestPoint.ClosingDays;
-//            item.ClosingHours = interestPoint.ClosingHours;
-//            item.Description = interestPoint.Description;
-//            item.OpeningHours = interestPoint.OpeningHours;
-//            item.PhotoPath = interestPoint.PhotoPath;
-//            item.CovidSafe = interestPoint.CovidSafe;
-//            item.Status = interestPoint.Status;
+            var ipbo = new InterestPointBusinessObject();
+            var resList = ipbo.List();
+            var item = resList.Result.FirstOrDefault();
 
-//            var resUpdate = ipbo.UpdateAsync(item).Result;
-//            resList = ipbo.ListAsync().Result;
+            var cbo = new CompanyBusinessObject();
 
-//            Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Name == interestPoint.Name
-//                && resList.Result.First().Address == interestPoint.Address
-//                && resList.Result.First().ClosingHours == interestPoint.ClosingHours
-//                && resList.Result.First().Description == interestPoint.Description
-//                && resList.Result.First().ClosingDays == interestPoint.ClosingDays
-//                && resList.Result.First().OpeningHours == interestPoint.OpeningHours
-//                && resList.Result.First().PhotoPath == interestPoint.PhotoPath
-//                && resList.Result.First().CovidSafe == interestPoint.CovidSafe
-//                && resList.Result.First().Status == interestPoint.Status);
-//        }
+            var company = new Company("kfc", "you", "9111222", "11111");
+            cbo.Create(company);
 
-//        [TestMethod]
-//        public void TestDeleteInterestPoint()
-//        {
-//            BoraNowSeeder.Seed();
-//            var bo = new InterestPointBusinessObject();
-//            var resList = bo.List();
-//            var resDelete = bo.Delete(resList.Result.First().Id);
-//            resList = bo.List();
+            var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
 
-//            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
-//        }
+            item.Name = interestPoint.Name;
+            item.Address = interestPoint.Address;
+            item.ClosingDays = interestPoint.ClosingDays;
+            item.ClosingHours = interestPoint.ClosingHours;
+            item.Description = interestPoint.Description;
+            item.OpeningHours = interestPoint.OpeningHours;
+            item.PhotoPath = interestPoint.PhotoPath;
+            item.CovidSafe = interestPoint.CovidSafe;
+            item.Status = interestPoint.Status;
+            item.CompanyId = interestPoint.CompanyId;
 
-//        [TestMethod]
-//        public void TestDeleteInterestPointAsync()
-//        {
-//            BoraNowSeeder.Seed();
-//            var bo = new InterestPointBusinessObject();
-//            var resList = bo.List();
-//            var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
-//            resList = bo.ListAsync().Result;
+            var resUpdate = ipbo.UpdateAsync(item).Result;
+            resList = ipbo.ListAsync().Result;
 
-//            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
-//        }
+            Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Name == interestPoint.Name
+                && resList.Result.First().Address == interestPoint.Address
+                && resList.Result.First().ClosingHours == interestPoint.ClosingHours
+                && resList.Result.First().Description == interestPoint.Description
+                && resList.Result.First().ClosingDays == interestPoint.ClosingDays
+                && resList.Result.First().OpeningHours == interestPoint.OpeningHours
+                && resList.Result.First().PhotoPath == interestPoint.PhotoPath
+                && resList.Result.First().CovidSafe == interestPoint.CovidSafe
+                && resList.Result.First().Status == interestPoint.Status
+                && resList.Result.First().CompanyId == interestPoint.CompanyId);
+        }
 
-//    }
-//}
+        [TestMethod]
+        public void TestDeleteInterestPoint()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new InterestPointBusinessObject();
+            var resList = bo.List();
+            var resDelete = bo.Delete(resList.Result.First().Id);
+            resList = bo.List();
+
+            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
+        }
+
+        [TestMethod]
+        public void TestDeleteInterestPointAsync()
+        {
+            BoraNowSeeder.Seed();
+            var bo = new InterestPointBusinessObject();
+            var resList = bo.List();
+            var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
+            resList = bo.ListAsync().Result;
+
+            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.First().IsDeleted);
+        }
+
+    }
+}
