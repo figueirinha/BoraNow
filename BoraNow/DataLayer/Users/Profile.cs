@@ -1,8 +1,8 @@
 ﻿using Recodme.RD.BoraNow.DataLayer.Base;
+using Recodme.RD.BoraNow.DataLayer.Feedbacks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Recodme.RD.BoraNow.DataLayer.Users
 {
@@ -40,11 +40,9 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
         public Guid CountryId { get; set; }
         public virtual Country Country { get; set; }
 
-      
+        public virtual ICollection<Company> Companies { get; set; }
         public virtual ICollection<Visitor> Visitors { get; set; }
 
-        public virtual ICollection<Company> Companies { get; set; }
-       
 
         public Profile(string description, string photoPath, Guid countryId) : base()
         {

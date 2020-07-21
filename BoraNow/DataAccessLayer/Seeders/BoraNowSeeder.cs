@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Recodme.RD.BoraNow.DataAccessLayer.Context;
+﻿using Recodme.RD.BoraNow.DataAccessLayer.Context;
 using Recodme.RD.BoraNow.DataLayer.Feedbacks;
 using Recodme.RD.BoraNow.DataLayer.Meteo;
 using Recodme.RD.BoraNow.DataLayer.Newsletters;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using Recodme.RD.BoraNow.DataLayer.Users;
 using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
 {
@@ -32,14 +30,14 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
 
             var interestPoint = new InterestPoint("Abc", "very good food", "abc street", "C//uhuh", "3 am", "5 pm", "fridays", true, true, company.Id);
             var interestPointCategory = new InterestPointCategory(interestPoint.Id, category.Id);
-            var result = new Result("questionário nº 1", DateTime.Now, quiz.Id);
+            var result = new Result("questionário nº 1", DateTime.Now, quiz.Id, visitor.Id);
             var resultInterestPoint = new ResultInterestPoint(result.Id, interestPoint.Id);
 
             var newsletter = new Newsletter("AAA", "abc");
             var interestPointNewsletter = new InterestPointNewsletter(interestPoint.Id, newsletter.Id);
 
             var meteorology = new Meteorology(19, 27, 0, 1, 0, DateTime.Now.AddDays(1));
-            var feedback = new Feedback("very nice yes yes", 5, DateTime.Now.AddDays(-1), interestPoint.Id, visitor.Id);
+            var feedback = new Feedback("very nice yes yes", 5, DateTime.Now.AddDays(-1), interestPoint.Id,visitor.Id);
 
 
 
