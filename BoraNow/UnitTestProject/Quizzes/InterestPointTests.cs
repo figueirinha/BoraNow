@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
-using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
-using Recodme.RD.BoraNow.DataLayer.Quizzes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
+//using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
+//using Recodme.RD.BoraNow.DataLayer.Quizzes;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
 
-namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
-{
+//namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
+//{
 //    [TestClass]
 //    public class InterestPointTests
 //    {
@@ -159,4 +159,4 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
 //        }
 
 //    }
-}
+//}

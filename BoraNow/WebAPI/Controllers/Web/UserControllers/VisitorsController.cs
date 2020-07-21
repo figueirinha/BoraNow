@@ -44,7 +44,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name")] VisitorViewModel vm)
+        public async Task<IActionResult> Create([Bind("FirstName, LastName, BirthDate, Gender")] VisitorViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id, Name")] VisitorViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id, FirstName, LastName, BirthDate, Gender")] VisitorViewModel vm)
         {
             if (ModelState.IsValid)
             {

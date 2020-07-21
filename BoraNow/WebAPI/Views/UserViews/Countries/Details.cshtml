@@ -1,7 +1,20 @@
-﻿
-@{
-    ViewData["Title"] = "Details";
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
 
-<h1>Details</h1>
+@model CountryViewModel
 
+<h2>Country - Details</h2>
+
+<br />
+<div>
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Name)
+
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        
+
+    </dl>
+</div>
