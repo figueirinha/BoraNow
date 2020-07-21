@@ -62,26 +62,26 @@ namespace Recodme.RD.BoraNow.DataLayer.Feedbacks
         public Guid InterestPointId { get; set; }
         public virtual InterestPoint InterestPoint { get; set; }
 
-        [ForeignKey("Visitor")]
-        public Guid VisitorId { get; set; }
-        public virtual Visitor Visitor { get; set; }
+        [ForeignKey("Proflie")]
+        public Guid ProfileId { get; set; }
+        public virtual Profile Profile { get; set; }
    
-        public Feedback(string description, int stars, DateTime date, Guid interestPointId, Guid visitorId) : base()
+        public Feedback(string description, int stars, DateTime date, Guid interestPointId, Guid proflieId) : base()
         {
             _description = description;
             _stars = stars;
             _date = date;
             InterestPointId = interestPointId;
-            VisitorId = visitorId;
+            ProfileId = proflieId;
         }
 
-        public Feedback(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string description, int stars, DateTime date, Guid interestPointId, Guid visitorId) : base(id, createAt, updateAt, isDeleted)
+        public Feedback(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string description, int stars, DateTime date, Guid interestPointId, Guid proflieId) : base(id, createAt, updateAt, isDeleted)
         {
             _description = description;
             _stars = stars;
             _date = date;
             InterestPointId = interestPointId;
-            VisitorId = visitorId;
+            ProfileId = proflieId;
         }
     }
 }
