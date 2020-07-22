@@ -22,8 +22,16 @@
                         <a asp-action="Details" asp-route-id="@resultInterestPoint.Id">Details</a>
                         <a asp-action="Delete" asp-route-id="@resultInterestPoint.Id">Delete</a>
                     </td>
-                    <td>@Html.DisplayFor(x => resultInterestPoint.ResultId)</td>
-                    <td>@Html.DisplayFor(x => resultInterestPoint.InterestPointId)</td>
+                    @{ 
+                        var result = (ViewBag.Results as List<ResultViewModel>).FirstOrDefault(x => x.Id == resultInterestPoint.ResultId);
+                        var ip = (ViewBag.InterestPoints as List<InterestPointViewModel>).FirstOrDefault(x => x.Id == resultInterestPoint.InterestPointId);
+                    }
+                    <td>
+                        <a asp-controller="Results" asp-action="Details" asp-route-id="@result.Id">@result.Title</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Results" asp-action="Details" asp-route-id="@ip.Id">@ip.Name</a>
+                    </td>
                 </tr>
             }
         </tbody>

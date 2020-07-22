@@ -1,5 +1,41 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
+
+@model IEnumerable<QuizAnswerViewModel> 
+
+<h2>QuizAswers</h2>
+
+<p>
+    <a asp-action="Create">Create</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Html.DisplayNameFor(model => model.Answer)</th>
+                <th>@Html.DisplayNameFor(model => model.QuizQuestionId)</th>
+                
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quizAnswer in Model)
+            {
+            <tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@quizAnswer.Id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@quizAnswer.Id">Details</a>
+                    <a asp-action="Delete" asp-route-id="@quizAnswer.Id">Delete</a>
+                </td>
+                  
+               
+                <td>@Html.DisplayFor(x => quizAnswer.Answer)</td>
+                <td>@Html.DisplayFor(x => quizAnswer.QuizQuestionId)</td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
