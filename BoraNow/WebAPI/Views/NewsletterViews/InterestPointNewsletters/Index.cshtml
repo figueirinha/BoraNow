@@ -1,0 +1,59 @@
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters;
+@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
+
+@model IEnumerable<InterestPointNewsletterViewModel>
+
+<h2>Interest Points Newsletters</h2>
+
+<p>
+    <a asp-action="Create">Create</a>
+</p>
+
+<div class="table-responsive">
+    <table id="listTable" class="table">
+        <thead>
+            <tr>
+                <th class="no-sort w-1"></th>
+                <th class="w-1">@Html.DisplayNameFor(model => model.InterestPointId)</th>
+                <th class="w-1">@Html.DisplayNameFor(model => model.NewsLetterId)</th>    
+                <th class="no-sort"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var interestPoint in Model)
+            {
+                <tr>
+                    <td class="w-1">
+                        <a asp-action="Details" asp-route-id="@interestPoint.Id">Details</a>
+                        <a asp-action="Delete" asp-route-id="@interestPoint.Id">Delete</a>
+                    </td>        
+                    @{ 
+                        var ip = (ViewBag.InterestPoints as List<InterestPointViewModel>).FirstOrDefault(x => x.Id == interestPoint.InterestPointId);
+                        var news = (ViewBag.Newsletters as List<NewsletterViewModel>).FirstOrDefault(x => x.Id == interestPoint.NewsLetterId);
+                    }
+                    <td class="w-1">
+                        <a asp-controller="InterestPoints" asp-action="Details" asp-route-id="@ip.Id">@ip.Name</a>
+                    </td>
+                    <td class="w-1">
+                        <a asp-controller="Newsletters" asp-action="Details" asp-route-id="@news.Id">@news.Title</a>
+                    </td>    
+                    <td></td>
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<script>
+     $(document).ready(function () {
+        $('#listTable').DataTable({
+            "order": [],
+            "columnDefs": [{
+                "targets": 'no-sort',
+                "orderable": false,
+            }]
+        });
+    });
+</script>

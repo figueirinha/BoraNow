@@ -1,0 +1,31 @@
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
+
+@model ResultInterestPointViewModel
+
+@{ViewBag.Title = "Create";}
+
+
+<h2>ResultInterestPoint - New</h2>
+<br />
+<div class="row">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+        <div class="form-group">
+            <label asp-for="InterestPointId" class="control-label"></label>
+            <select asp-for="InterestPointId" class="form-control" asp-items="@ViewBag.InrerestPoints"></select>
+            <span asp-validation-for="InterestPointId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ResultId" class="control-label"></label>
+            <select asp-for="ResultId" class="form-control" asp-items="@ViewBag.Results"></select>
+            <span asp-validation-for="ResultId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

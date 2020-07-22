@@ -64,12 +64,12 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             var cListOperation = await _cbo.ListAsync();
             if (!cListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
             var cList = new List<CompanyViewModel>();
-            foreach (var ip in cListOperation.Result)
+            foreach (var c in cListOperation.Result)
             {
-                if (!ip.IsDeleted)
+                if (!c.IsDeleted)
                 {
-                    var ipvm = CompanyViewModel.Parse(ip);
-                    cList.Add(ipvm);
+                    var cvm = CompanyViewModel.Parse(c);
+                    cList.Add(cvm);
                 }
                 ViewBag.Companies = cList.Select(ip => new SelectListItem() { Text = ip.Name, Value = ip.Id.ToString() });
             }

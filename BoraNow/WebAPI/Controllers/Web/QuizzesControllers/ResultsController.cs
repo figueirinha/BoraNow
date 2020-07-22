@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
-using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
 using WebAPI.Models;
@@ -47,12 +46,12 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                     quizList.Add(QuizViewModel.Parse(item));
                 }
             }
-            var visitorList = new List<QuizViewModel>();
-            foreach (var item in quizListOperation.Result)
+            var visitorList = new List<VisitorViewModel>();
+            foreach (var item in visitorListOperation.Result)
             {
                 if (!item.IsDeleted)
                 {
-                    visitorList.Add(QuizViewModel.Parse(item));
+                    visitorList.Add(VisitorViewModel.Parse(item));
                 }
             }
 

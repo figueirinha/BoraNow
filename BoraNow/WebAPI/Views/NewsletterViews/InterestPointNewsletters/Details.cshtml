@@ -1,0 +1,22 @@
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters;
+
+@model InterestPointNewsletterViewModel
+
+<h2>Interest Point Newsletters - Details</h2>
+<br />
+<div>
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.InterestPointId)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.InterestPointId)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.NewsLetterId)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.NewsLetterId)
+        </dd>   
+    </dl>
+</div>
