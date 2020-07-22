@@ -9,6 +9,7 @@ using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
 using Recodme.RD.BoraNow.DataLayer.Newsletters;
 using Recodme.RD.BoraNow.DataLayer.Quizzes;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
@@ -20,18 +21,48 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
     {
         private readonly InterestPointNewsletterBusinessObject _bo = new InterestPointNewsletterBusinessObject();
         private readonly NewsletterBusinessObject _nbo = new NewsletterBusinessObject();
-        private readonly CompanyBusinessObject _cbo = new CompanyBusinessObject();
+        //private readonly CompanyBusinessObject _cbo = new CompanyBusinessObject();
         private readonly InterestPointBusinessObject _ipbo = new InterestPointBusinessObject();
 
+        private string GetDeleteRef()
+        {
+            return this.ControllerContext.RouteData.Values["controller"] + "/" + nameof(Delete);
+        }
 
+        private List<BreadCrumbs> GetCrumbs()
+        {
+            return new List<BreadCrumbs>()
+                { new BreadCrumbs(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
+                  new BreadCrumbs(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
+                  new BreadCrumbs(){Icon = "fa-hat-chef", Action="Index", Controller="Courses", Text = "Courses"}
+                };
+        }
+
+        private IActionResult RecordNotFound()
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Information, "The record was not found");
+            return RedirectToAction(nameof(Index));
+        }
+
+        private IActionResult OperationErrorBackToIndex(Exception exception)
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, exception);
+            return RedirectToAction(nameof(Index));
+        }
+
+        private IActionResult OperationSuccess(string message)
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Success, message);
+            return RedirectToAction(nameof(Index));
+        }
         public async Task<IActionResult> Index()
         {
             var listOperation = await _bo.ListAsync();
             if (!listOperation.Success) return View("Error", new ErrorViewModel() { RequestId = listOperation.Exception.Message });
             var nListOperation = await _nbo.ListAsync();
             if (!nListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = nListOperation.Exception.Message });
-            var cListOperation = await _cbo.ListAsync();
-            if (!cListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = cListOperation.Exception.Message });
+            //var cListOperation = await _cbo.ListAsync();
+            //if (!cListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = cListOperation.Exception.Message });
             var ipListOperation = await _ipbo.ListAsync();
             if (!ipListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = ipListOperation.Exception.Message });
 
@@ -53,14 +84,14 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
                 }
             }
 
-            var cList = new List<CompanyViewModel>();
-            foreach (var item in cListOperation.Result)
-            {
-                if (!item.IsDeleted)
-                {
-                    cList.Add(CompanyViewModel.Parse(item));
-                }
-            }
+            //var cList = new List<CompanyViewModel>();
+            //foreach (var item in cListOperation.Result)
+            //{
+            //    if (!item.IsDeleted)
+            //    {
+            //        cList.Add(CompanyViewModel.Parse(item));
+            //    }
+            //}
 
             var ipList = new List<InterestPointViewModel>();
             foreach (var item in ipListOperation.Result)
@@ -72,7 +103,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
             }
 
             ViewBag.Newsletters = nList;
-            ViewBag.Companies = cList;
+            //ViewBag.Companies = cList;
             ViewBag.InterestPoints = ipList;
             return View(list);
         }
@@ -102,18 +133,18 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
                 ViewBag.Newsletters = nList.Select(ip => new SelectListItem() { Text = ip.Title, Value = ip.Id.ToString() });
             }
 
-            var cListOperation = await _cbo.ListAsync();
-            if (!cListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
-            var cList = new List<CompanyViewModel>();
-            foreach (var c in cListOperation.Result)
-            {
-                if (!c.IsDeleted)
-                {
-                    var cvm = CompanyViewModel.Parse(c);
-                    cList.Add(cvm);
-                }
-                ViewBag.Companies = cList.Select(ip => new SelectListItem() { Text = ip.Name, Value = ip.Id.ToString() });
-            }
+            //var cListOperation = await _cbo.ListAsync();
+            //if (!cListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
+            //var cList = new List<CompanyViewModel>();
+            //foreach (var c in cListOperation.Result)
+            //{
+            //    if (!c.IsDeleted)
+            //    {
+            //        var cvm = CompanyViewModel.Parse(c);
+            //        cList.Add(cvm);
+            //    }
+            //    ViewBag.Companies = cList.Select(ip => new SelectListItem() { Text = ip.Name, Value = ip.Id.ToString() });
+            //}
 
             var ipListOperation = await _ipbo.ListAsync();
             if (!ipListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
