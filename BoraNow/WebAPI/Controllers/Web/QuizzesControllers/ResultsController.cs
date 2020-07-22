@@ -126,32 +126,32 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             }
             return View(vm);
         }
-        //public async Task<IActionResult> Edit(Guid? id)
-        //{
-        //    if (id == null) return NotFound();
-        //    var getOperation = await _bo.ReadAsync((Guid)id);
-        //    if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
-        //    if (getOperation.Result == null) return NotFound();
-        //    var vm = ResultViewModel.Parse(getOperation.Result);
-        //    return View(vm);
-        //}
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Edit(Guid id, [Bind("Id, Name, QuizId")] ResultViewModel vm)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var getOperation = await _bo.ReadAsync((Guid)id);
-        //            if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
-        //            if (getOperation.Result == null) return NotFound();
-        //            var result = getOperation.Result;
-        //            result.Name = vm.Name;
-        //            result.QuizId = vm.QuizId;
-        //            var updateOperation = await _bo.UpdateAsync(result);
-        //            if (!updateOperation.Success) return View("Error", new ErrorViewModel() { RequestId = updateOperation.Exception.Message });
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
+        public async Task<IActionResult> Edit(Guid? id)
+        {
+            if (id == null) return NotFound();
+            var getOperation = await _rbo.ReadAsync((Guid)id);
+            if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
+            if (getOperation.Result == null) return NotFound();
+            var vm = ResultViewModel.Parse(getOperation.Result);
+            return View(vm);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id, Title, Result")] ResultViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var getOperation = await _rbo.ReadAsync((Guid)id);
+                if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
+                if (getOperation.Result == null) return NotFound();
+                var result = getOperation.Result;
+                result.Title = vm.Title;
+                result.Date = vm.Date;
+                var updateOperation = await _rbo.UpdateAsync(result);
+                if (!updateOperation.Success) return View("Error", new ErrorViewModel() { RequestId = updateOperation.Exception.Message });
+            }
+            return RedirectToAction(nameof(Index));
+        }
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null) return NotFound();
