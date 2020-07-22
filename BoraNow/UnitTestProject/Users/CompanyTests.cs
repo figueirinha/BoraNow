@@ -2,10 +2,7 @@
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
 using Recodme.RD.BoraNow.DataAccessLayer.Seeders;
 using Recodme.RD.BoraNow.DataLayer.Users;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Recodme.RD.BoraNow.UnitTestProject.Users
 {
