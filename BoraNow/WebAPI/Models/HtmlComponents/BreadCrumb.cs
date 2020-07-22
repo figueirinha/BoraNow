@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents
 {
-    public class BreadCrumbs
+    public class BreadCrumb
     {
         public string Text { get; set; }
         public string Controller { get; set; }
