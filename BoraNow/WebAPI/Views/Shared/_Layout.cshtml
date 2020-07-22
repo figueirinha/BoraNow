@@ -44,9 +44,9 @@
         {
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent">
-                    @foreach (var crumb in ViewData["BreadCrumbs"] as List<BreadCrumbs>)
+                    @foreach (var crumb in ViewData["BreadCrumbs"] as List<BreadCrumb>)
                     {
-                        if ((ViewData["BreadCrumbs"] as List<BreadCrumbs>).Last() == crumb)
+                        if ((ViewData["BreadCrumbs"] as List<BreadCrumb>).Last() == crumb)
                         {
                             <li class=" breadcrumb-item active" style="bottom:0" aria-current="page">
                                 <i class="fas @crumb.Icon"></i>

@@ -6,19 +6,19 @@
     <a asp-action="Create">Create</a>
 </p>
 <div class="table-responsive">
-    <table class="table">
+    <table id="listTable" class="table">
         <thead>
             <tr>
-                <th></th>
-                <th>@Html.DisplayNameFor(model => model.ResultId)</th>
-                <th>@Html.DisplayNameFor(model => model.InterestPointId)</th>
+                <th class="no-sort w-1"></th>
+                <th class="w-1">@Html.DisplayNameFor(model => model.ResultId)</th>
+                <th class="w-1">@Html.DisplayNameFor(model => model.InterestPointId)</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var resultInterestPoint in Model)
             {
                 <tr>
-                    <td>
+                    <td class="w-1">
                         <a asp-action="Details" asp-route-id="@resultInterestPoint.Id">Details</a>
                         <a asp-action="Delete" asp-route-id="@resultInterestPoint.Id">Delete</a>
                     </td>
@@ -26,11 +26,11 @@
                         var result = (ViewBag.Results as List<ResultViewModel>).FirstOrDefault(x => x.Id == resultInterestPoint.ResultId);
                         var ip = (ViewBag.InterestPoints as List<InterestPointViewModel>).FirstOrDefault(x => x.Id == resultInterestPoint.InterestPointId);
                     }
-                    <td>
+                    <td class="w-1">
                         <a asp-controller="Results" asp-action="Details" asp-route-id="@result.Id">@result.Title</a>
                     </td>
-                    <td>
-                        <a asp-controller="Results" asp-action="Details" asp-route-id="@ip.Id">@ip.Name</a>
+                    <td class="w-1">
+                        <a asp-controller="InterestPoints" asp-action="Details" asp-route-id="@ip.Id">@ip.Name</a>
                     </td>
                 </tr>
             }
