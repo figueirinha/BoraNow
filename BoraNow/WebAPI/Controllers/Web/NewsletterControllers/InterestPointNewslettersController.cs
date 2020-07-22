@@ -13,6 +13,7 @@ using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
 using WebAPI.Models;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.NewsletterControllers
@@ -29,12 +30,12 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
             return this.ControllerContext.RouteData.Values["controller"] + "/" + nameof(Delete);
         }
 
-        private List<BreadCrumbs> GetCrumbs()
+        private List<BreadCrumb> GetCrumb()
         {
-            return new List<BreadCrumbs>()
-                { new BreadCrumbs(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
-                  new BreadCrumbs(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
-                  new BreadCrumbs(){Icon = "fa-hat-chef", Action="Index", Controller="Courses", Text = "Courses"}
+            return new List<BreadCrumb>()
+                { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
+                  new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
+                  new BreadCrumb(){Icon = "fa-hat-chef", Action="Index", Controller="Courses", Text = "Courses"}
                 };
         }
 
