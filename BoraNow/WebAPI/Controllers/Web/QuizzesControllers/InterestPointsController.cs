@@ -14,6 +14,7 @@ using WebAPI.Models;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesControllers
 {
+    [Route("[controller]")]
     public class InterestPointsController : Controller
     {
         private readonly InterestPointBusinessObject _bo = new InterestPointBusinessObject();
@@ -51,6 +52,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var listOperation = await _bo.ListAsync();
@@ -83,6 +85,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return View(list);
         }
 
+        [HttpGet("{id}")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null) return RecordNotFound();
@@ -99,6 +102,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return View(vm);
         }
 
+        [HttpGet("new")]
         public async Task<IActionResult> Create()
         {
             var cListOperation = await _cbo.ListAsync();
@@ -116,7 +120,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("new")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name, Description, Address, PhotoPath, OpeningHours, " +
             "ClosingHours, ClosingDays, CovidSafe, Status, CompanyId")] InterestPointViewModel vm)
@@ -126,11 +130,12 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 var InterestPoint = vm.ToInterestPoint();
                 var createOperation = await _bo.CreateAsync(InterestPoint);
                 if (!createOperation.Success) return OperationErrorBackToIndex(createOperation.Exception);
-                return RedirectToAction(nameof(Index));
+                return OperationSuccess("The record was successfuly created");
             }
             return View(vm);
         }
 
+        [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null) return RecordNotFound();
@@ -141,7 +146,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return View(vm);
         }
 
-        [HttpPost]
+        [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id, Name, Description, Address, PhotoPath, OpeningHours, " +
             "ClosingHours, ClosingDays, CovidSafe, Status")] InterestPointViewModel vm)
@@ -163,16 +168,18 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 result.Status = vm.Status;
                 var updateOperation = await _bo.UpdateAsync(result);
                 if (!updateOperation.Success) return OperationErrorBackToIndex(updateOperation.Exception);
+                else return OperationSuccess("The record was successfuly updated");
             }
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet("Delete/{id}")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null) return RecordNotFound();
             var deleteOperation = await _bo.DeleteAsync((Guid)id);
             if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
-            return RedirectToAction(nameof(Index));
+            return OperationSuccess("The record was successfuly deleted");
         }
     }
 }

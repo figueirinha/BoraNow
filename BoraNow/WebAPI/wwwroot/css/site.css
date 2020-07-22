@@ -124,4 +124,6 @@ i {
     background-color:#a9cca5;
 }
 
-
+.card .card-body {
+    justify-content: center;
+}

@@ -18,6 +18,7 @@ using WebAPI.Models;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.NewsletterControllers
 {
+    [Route("[controller]")]
     public class InterestPointNewslettersController : Controller
     {
         private readonly InterestPointNewsletterBusinessObject _bo = new InterestPointNewsletterBusinessObject();
