@@ -3,49 +3,70 @@
 @model IEnumerable<InterestPointViewModel>
 
 <h2>Interest Points</h2>
-
-<p>
-    <a asp-action="Create">Create</a>
+<br />
+<p class="float-left mt-2 mb-0">
+    <a asp-controller="InterestPoints" asp-action="Create" class="text-white btn btn-success"><i class="fas fa-plus mr-1"></i>Create</a>
 </p>
+<br />
+<br />
+<br />
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="listTable" class="table">
+                <thead>
+                    <tr>
+                        <th class="no-sort w-1"></th>
+                        <th class="w-1">@Html.DisplayNameFor(model => model.Name)</th>
+                        <th class="w-1">@Html.DisplayNameFor(model => model.Description)</th>
+                        <th class="w-1">@Html.DisplayNameFor(model => model.Address)</th>
+                        <th class="w-1">@Html.DisplayNameFor(model => model.PhotoPath)</th>
+                        <th class="w-1">@Html.DisplayNameFor(model => model.OpeningHours)</th>
+                        <th class="w-1">@Html.DisplayNameFor(model => model.ClosingHours)</th>
+                        <th class="w-1">@Html.DisplayNameFor(model => model.ClosingDays)</th>
+                        <th class="w-1">@Html.DisplayNameFor(model => model.CovidSafe)</th>
+                        <th class="w-1">@Html.DisplayNameFor(model => model.Status)</th>
+                        <th class="no-sort"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var interestPoint in Model)
+                    {
+                    <tr>
+                        <td class="w-1">
+                            <a  asp-action="Edit" asp-route-id="@interestPoint.Id"><i class="fas fa-edit mr-2"></i></a>
+                            <a  asp-action="Details" asp-route-id="@interestPoint.Id"><i class="fas fa-search mr-2"></i></a>
+                            <a  asp-action="Delete" asp-route-id="@interestPoint.Id"><i class="link-delete fas fa-trash"></i></a>
+                        </td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.Name)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.Description)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.Address)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.PhotoPath)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.OpeningHours)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.ClosingHours)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.ClosingDays)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.CovidSafe)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.Status)</td>
+                        <td></td>
+                    </tr>
+                    }
+                </tbody>
 
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>@Html.DisplayNameFor(model => model.Name)</th>
-                <th>@Html.DisplayNameFor(model => model.Description)</th>
-                <th>@Html.DisplayNameFor(model => model.Address)</th>
-                <th>@Html.DisplayNameFor(model => model.PhotoPath)</th>
-                <th>@Html.DisplayNameFor(model => model.OpeningHours)</th>
-                <th>@Html.DisplayNameFor(model => model.ClosingHours)</th>
-                <th>@Html.DisplayNameFor(model => model.ClosingDays)</th>
-                <th>@Html.DisplayNameFor(model => model.CovidSafe)</th>
-                <th>@Html.DisplayNameFor(model => model.Status)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var interestPoint in Model)
-            {
-            <tr>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@interestPoint.Id">Edit</a>
-                    <a asp-action="Details" asp-route-id="@interestPoint.Id">Details</a>
-                    <a asp-action="Delete" asp-route-id="@interestPoint.Id">Delete</a>
-                </td>
-                <td>@Html.DisplayFor(x => interestPoint.Name)</td>
-                <td>@Html.DisplayFor(x => interestPoint.Description)</td>
-                <td>@Html.DisplayFor(x => interestPoint.Address)</td>
-                <td>@Html.DisplayFor(x => interestPoint.PhotoPath)</td>
-                <td>@Html.DisplayFor(x => interestPoint.OpeningHours)</td>
-                <td>@Html.DisplayFor(x => interestPoint.ClosingHours)</td>
-                <td>@Html.DisplayFor(x => interestPoint.ClosingDays)</td>
-                <td>@Html.DisplayFor(x => interestPoint.CovidSafe)</td>
-                <td>@Html.DisplayFor(x => interestPoint.Status)</td>
-            </tr>
-            }
-        </tbody>
+            </table>
+            <br />
+        </div>
 
-    </table>
+    </div>
 
 </div>
+<script>
+    $(document).ready(function () {
+        $('#listTable').DataTable({
+            "order": [],
+            "columnDefs": [{
+                "targets": 'no-sort',
+                "orderable": false,
+            }]
+        });
+    });
+</script>
