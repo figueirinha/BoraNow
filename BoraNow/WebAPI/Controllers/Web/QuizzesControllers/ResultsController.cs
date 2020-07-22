@@ -66,23 +66,9 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             var getOperation = await _rbo.ReadAsync((Guid)id);
             if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
             if (getOperation.Result == null) return NotFound();
-
-            if (id == null) return NotFound();
-            var getQuizOperation = await _qbo.ReadAsync((Guid)id);
-            if (!getQuizOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getQuizOperation.Exception.Message });
-            if (getQuizOperation.Result == null) return NotFound();
-
-            if (id == null) return NotFound();
-            var getVisitorOperation = await _vbo.ReadAsync((Guid)id);
-            if (!getVisitorOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getVisitorOperation.Exception.Message });
-            if (getVisitorOperation.Result == null) return NotFound();
-
             var vm = ResultViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Result";
-            ViewData["Quiz"] = QuizViewModel.Parse(getQuizOperation.Result);
-            ViewData["Visitor"] = ResultViewModel.Parse(getOperation.Result);
-
             return View(vm);
+
         }
         public async Task<IActionResult> Create()
         {
