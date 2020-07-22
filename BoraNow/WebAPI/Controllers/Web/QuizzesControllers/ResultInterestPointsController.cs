@@ -55,7 +55,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
            
             ViewBag.InterestPoints = interestPointList;
             ViewBag.Results = resultList;
-            return View(resultList);
+            return View(resultInterestPointList);
         }
         public async Task<IActionResult> Details(Guid? id)
         {
@@ -81,6 +81,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 }
                 ViewBag.InterestPoints = interestPointList.Select(interestPoint => new SelectListItem() { Text = interestPoint.Name, Value = interestPoint.Id.ToString() });
             }
+
             var resultListOperation = await _rbo.ListAsync();
             if (!resultListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
             var resultList = new List<ResultViewModel>();
@@ -91,7 +92,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                     var resultVm = ResultViewModel.Parse(result);
                     resultList.Add(resultVm);
                 }
-                ViewBag.Visitors = resultList.Select(result => new SelectListItem() { Text = result.Title, Value = result.Id.ToString() });
+                ViewBag.Results = resultList.Select(result => new SelectListItem() { Text = result.Title, Value = result.Id.ToString() });
             }
 
             return View();
