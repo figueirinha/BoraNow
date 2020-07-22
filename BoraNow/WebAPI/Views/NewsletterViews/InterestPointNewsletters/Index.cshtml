@@ -5,8 +5,8 @@
 
 <h2>Interest Points Newsletters</h2>
 
-<p>
-    <a asp-action="Create">Create</a>
+<p class="float-right mt-2 mb-0">
+    <a asp-controller="InterestPointNewsletters" asp-action="Create" class="text-white btn btn-success"><i class="fas fa-plus mr-1"></i>Create</a>
 </p>
 
 <div class="table-responsive">
@@ -31,10 +31,10 @@
                         var ip = (ViewBag.InterestPoints as List<InterestPointViewModel>).FirstOrDefault(x => x.Id == interestPoint.InterestPointId);
                         var news = (ViewBag.Newsletters as List<NewsletterViewModel>).FirstOrDefault(x => x.Id == interestPoint.NewsLetterId);
                     }
-                    <td class="w-1">
+                    <td >
                         <a asp-controller="InterestPoints" asp-action="Details" asp-route-id="@ip.Id">@ip.Name</a>
                     </td>
-                    <td class="w-1">
+                    <td >
                         <a asp-controller="Newsletters" asp-action="Details" asp-route-id="@news.Id">@news.Title</a>
                     </td>    
                     <td></td>
