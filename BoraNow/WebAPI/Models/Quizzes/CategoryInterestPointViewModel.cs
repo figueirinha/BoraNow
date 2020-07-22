@@ -21,5 +21,10 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
                 Name = categoryInterestPoint.Name             
             };
         }
+        public bool CompareToModel(CategoryInterestPoint categoryInterestPoint)
+        {
+            return Name == categoryInterestPoint.Name;
+        }
+
     }
 }

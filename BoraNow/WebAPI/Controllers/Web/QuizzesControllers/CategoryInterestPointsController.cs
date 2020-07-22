@@ -26,7 +26,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return new List<BreadCrumb>()
                 { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
                   new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
-                  new BreadCrumb(){Icon = "fa-hat-chef", Action="Index", Controller="Courses", Text = "Courses"}
+                  new BreadCrumb(){Icon = "fas fa-search", Action="Index", Controller="Courses", Text = "Courses"}
                 };
         }
 
@@ -105,11 +105,11 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 var CategoryInterestPoint = vm.ToCategoryInterestPoint();
                 var createOperation = await _bo.CreateAsync(CategoryInterestPoint);
                 if (!createOperation.Success) return View("Error", new ErrorViewModel() { RequestId = createOperation.Exception.Message });
-                return RedirectToAction(nameof(Index));
+                else return OperationSuccess("The record was successfuly created");
             }
             return View(vm);
         }
-
+        [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null) return NotFound();
@@ -117,10 +117,14 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
             if (getOperation.Result == null) return NotFound();
             var vm = CategoryInterestPointViewModel.Parse(getOperation.Result);
+            ViewData["Title"] = "Edit CategoryInterestpoint";
+            var crumbs = GetCrumbs();
+            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "CategoryInterestPoint", Icon = "fa-edit", Text = "Edit" });
+            ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
 
-        [HttpPost]
+        [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id, Name")] CategoryInterestPointViewModel vm)
         {
@@ -130,19 +134,28 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
                 if (getOperation.Result == null) return NotFound();
                 var result = getOperation.Result;
-                result.Name = vm.Name;
-                var updateOperation = await _bo.UpdateAsync(result);
-                if (!updateOperation.Success) return View("Error", new ErrorViewModel() { RequestId = updateOperation.Exception.Message });
-            }
+                if (!vm.CompareToModel(result))
+                {
+                    result.Name = vm.Name;
+                    var updateOperation = await _bo.UpdateAsync(result);
+                    if (!updateOperation.Success)
+                    {
+                        TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, updateOperation.Exception);
+                        return View(vm);
+                    }
+                    else return OperationSuccess("The record was successfuly updated");
+                }   
+            } 
             return RedirectToAction(nameof(Index));
+            
         }
-
+        [HttpGet("Delete/{id}")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null) return NotFound();
             var deleteOperation = await _bo.DeleteAsync((Guid)id);
-            if (!deleteOperation.Success) return View("Error", new ErrorViewModel() { RequestId = deleteOperation.Exception.Message });
-            return RedirectToAction(nameof(Index));
+            if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
+            else return OperationSuccess("The record was successfuly deleted");
         }
     }
 }
