@@ -30,7 +30,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
             return this.ControllerContext.RouteData.Values["controller"] + "/" + nameof(Delete);
         }
 
-        private List<BreadCrumb> GetCrumbs()
+        private List<BreadCrumb> GetCrumb()
         {
             return new List<BreadCrumb>()
                 { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
@@ -56,17 +56,16 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
             TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Success, message);
             return RedirectToAction(nameof(Index));
         }
-
         public async Task<IActionResult> Index()
         {
             var listOperation = await _bo.ListAsync();
-            if (!listOperation.Success) return OperationErrorBackToIndex(listOperation.Exception);
+            if (!listOperation.Success) return View("Error", new ErrorViewModel() { RequestId = listOperation.Exception.Message });
             var nListOperation = await _nbo.ListAsync();
-            if (!nListOperation.Success) return OperationErrorBackToIndex(nListOperation.Exception);
+            if (!nListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = nListOperation.Exception.Message });
             //var cListOperation = await _cbo.ListAsync();
             //if (!cListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = cListOperation.Exception.Message });
             var ipListOperation = await _ipbo.ListAsync();
-            if (!ipListOperation.Success) return OperationErrorBackToIndex(ipListOperation.Exception);
+            if (!ipListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = ipListOperation.Exception.Message });
 
             var list = new List<InterestPointNewsletterViewModel>();
             foreach (var item in listOperation.Result)
@@ -104,9 +103,6 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
                 }
             }
 
-            ViewData["Title"] = "InterestPointNewsletters";
-            ViewData["BreadCrumbs"] = GetCrumbs();
-            ViewData["DeleteHref"] = GetDeleteRef();
             ViewBag.Newsletters = nList;
             //ViewBag.Companies = cList;
             ViewBag.InterestPoints = ipList;
@@ -117,22 +113,16 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
         {
             if (id == null) return NotFound();
             var getOperation = await _bo.ReadAsync((Guid)id);
-            if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
-            if (getOperation.Result == null) return RecordNotFound();
+            if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
+            if (getOperation.Result == null) return NotFound();
             var vm = InterestPointNewsletterViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "InterestPointNewsletter";
-
-            var crumbs = GetCrumbs();
-            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "InterestPointNewsletters", Icon = "fa-search", Text = "Detail" });
-
-            ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
 
         public async Task<IActionResult> Create()
         {
             var nListOperation = await _nbo.ListAsync();
-            if (!nListOperation.Success) return OperationErrorBackToIndex(nListOperation.Exception);
+            if (!nListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
             var nList = new List<NewsletterViewModel>();
             foreach (var n in nListOperation.Result)
             {
@@ -158,7 +148,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
             //}
 
             var ipListOperation = await _ipbo.ListAsync();
-            if (!ipListOperation.Success) return OperationErrorBackToIndex(ipListOperation.Exception);
+            if (!ipListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
             var ipList = new List<InterestPointViewModel>();
             foreach (var ip in ipListOperation.Result)
             {
@@ -187,48 +177,39 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
             return View(vm);
         }
 
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null) return RecordNotFound();
-            var getOperation = await _bo.ReadAsync((Guid)id);
-            if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
-            if (getOperation.Result == null) return RecordNotFound();
-            var vm = InterestPointNewsletterViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Edit InterestPointNewsletter";
-            var crumbs = GetCrumbs();
-            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "InterestPointNewsletters", Icon = "fa-edit", Text = "Edit" });
-            ViewData["BreadCrumbs"] = crumbs;
-            return View(vm);
-        }
+        //public async Task<IActionResult> Edit(Guid? id)
+        //{
+        //    if (id == null) return NotFound();
+        //    var getOperation = await _bo.ReadAsync((Guid)id);
+        //    if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
+        //    if (getOperation.Result == null) return NotFound();
+        //    var vm = InterestPointNewsletterViewModel.Parse(getOperation.Result);
+        //    return View(vm);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id, InterestPointId, NewsLetterId")] InterestPointNewsletterViewModel vm)
-        {
-            if (ModelState.IsValid)
-            {
-                var getOperation = await _bo.ReadAsync((Guid)id);
-                if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
-                if (getOperation.Result == null) return RecordNotFound();
-                var result = getOperation.Result;
-                result.InterestPointId = vm.InterestPointId;
-                result.NewsLetterId = vm.NewsLetterId;
-                var updateOperation = await _bo.UpdateAsync(result);
-                if (!updateOperation.Success)
-                {
-                    TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, updateOperation.Exception);
-                    return View(vm);
-                }
-                else return OperationSuccess("The record was successfuly updated");
-            }
-            return RedirectToAction(nameof(Index));
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(Guid id, [Bind("Id, InterestPointId, NewsLetterId")] InterestPointNewsletterViewModel vm)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var getOperation = await _bo.ReadAsync((Guid)id);
+        //        if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
+        //        if (getOperation.Result == null) return NotFound();
+        //        var result = getOperation.Result;
+        //        result.InterestPointId = vm.InterestPointId;
+        //        result.NewsLetterId = vm.NewsLetterId;        
+        //        var updateOperation = await _bo.UpdateAsync(result);
+        //        if (!updateOperation.Success) return View("Error", new ErrorViewModel() { RequestId = updateOperation.Exception.Message });
+        //    }
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null) return RecordNotFound();
+            if (id == null) return NotFound();
             var deleteOperation = await _bo.DeleteAsync((Guid)id);
-            if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
+            if (!deleteOperation.Success) return View("Error", new ErrorViewModel() { RequestId = deleteOperation.Exception.Message });
             return RedirectToAction(nameof(Index));
         }
     }
