@@ -6,25 +6,31 @@
     ViewBag.Title = "Create";
 }
 
-<p>
-    <a asp-action="Create"><i class="fas fa-plus">Create</i></a>
-</p>
+
 
 <h2>Interest Point Newsletters - New</h2>
 <br />
 <div class="row">
-    <form asp-action="Create">
+    <form asp-action="Create" >
         <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
 
         <div class="form-group">
             <label asp-for="InterestPointId" class="control-label"></label>
-            <select asp-for="InterestPointId" class="form-control" asp-items="@ViewBag.InterestPoints"></select>
+            <div>
+                <select asp-for="InterestPointId" class="form-control fk-select" asp-items="@ViewBag.InterestPoints">
+                    <option></option>
+                </select>
+            </div>           
             <span asp-validation-for="InterestPointId" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="NewsLetterId" class="control-label"></label>
-            <select asp-for="NewsLetterId" class="form-control" asp-items="@ViewBag.Newsletters"></select>
+            <div>
+                <select asp-for="NewsLetterId" class="form-control fk-select" asp-items="@ViewBag.Newsletters">
+                    <option></option>
+                </select>
+            </div>           
             <span asp-validation-for="NewsLetterId" class="text-danger"></span>
         </div>
 
@@ -34,6 +40,14 @@
     </form>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $('.fk-select').select2({
+            placeholder: "Select a value",
+            allowClear: true
+        });
+    });
+</script>
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
