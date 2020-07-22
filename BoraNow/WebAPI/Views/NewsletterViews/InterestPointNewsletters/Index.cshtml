@@ -1,0 +1,37 @@
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters;
+
+@model IEnumerable<InterestPointNewsletterViewModel>
+
+<h2>Interest Points Newsletters</h2>
+
+<p>
+    <a asp-action="Create">Create</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Html.DisplayNameFor(model => model.InterestPointId)</th>
+                <th>@Html.DisplayNameFor(model => model.NewsLetterId)</th>          
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var interestPoint in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@interestPoint.Id">Details</a>
+                        <a asp-action="Delete" asp-route-id="@interestPoint.Id">Delete</a>
+                    </td>                  
+                    <td>@Html.DisplayFor(x => interestPoint.InterestPointId)</td>
+                    <td>@Html.DisplayFor(x => interestPoint.NewsLetterId)</td>             
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
+

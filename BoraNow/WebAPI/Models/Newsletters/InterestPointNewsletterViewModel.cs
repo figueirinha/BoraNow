@@ -1,4 +1,5 @@
 ﻿using Recodme.RD.BoraNow.DataLayer.Newsletters;
+using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
 
 
@@ -9,6 +10,10 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters
         public Guid Id { get; set; }
         public Guid InterestPointId { get; set;  }
         public Guid NewsLetterId { get; set; }
+
+
+        //public Newsletter Newsletter { get; set; }
+        //public InterestPoint InterestPoint { get; set; }
 
         public InterestPointNewsletter ToInterestPointNewsletter()
         {
