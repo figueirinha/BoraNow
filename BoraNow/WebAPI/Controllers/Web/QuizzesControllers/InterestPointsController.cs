@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
 using WebAPI.Models;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesControllers
@@ -17,12 +19,44 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
         private readonly InterestPointBusinessObject _bo = new InterestPointBusinessObject();
         private readonly CompanyBusinessObject _cbo = new CompanyBusinessObject();
 
+        private string GetDeleteRef()
+        {
+            return this.ControllerContext.RouteData.Values["controller"] + "/" + nameof(Delete);
+        }
+
+        private List<BreadCrumb> GetCrumbs()
+        {
+            return new List<BreadCrumb>()
+                { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
+                  new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
+                  new BreadCrumb(){Icon = "fas fa-map-pin", Action="Index", Controller="InterestPoints", Text = "Interest Points"}
+                };
+        }
+
+        private IActionResult RecordNotFound()
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Information, "The record was not found");
+            return RedirectToAction(nameof(Index));
+        }
+
+        private IActionResult OperationErrorBackToIndex(Exception exception)
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, exception);
+            return RedirectToAction(nameof(Index));
+        }
+
+        private IActionResult OperationSuccess(string message)
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Success, message);
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Index()
         {
             var listOperation = await _bo.ListAsync();
-            if (!listOperation.Success) return View("Error", new ErrorViewModel() { RequestId = listOperation.Exception.Message });
+            if (!listOperation.Success) return OperationErrorBackToIndex(listOperation.Exception);
             var cListOperation = await _cbo.ListAsync();
-            if (!cListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = cListOperation.Exception.Message });
+            if (!cListOperation.Success) return OperationErrorBackToIndex(cListOperation.Exception);
 
             var list = new List<InterestPointViewModel>();
             foreach (var item in listOperation.Result)
@@ -42,27 +76,33 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 }
             }
 
-            //ViewData["Title"] = "Companies";
-            //ViewData["BreadCrumbs"] = new List<string>() { "Home", "Companies" };
-            //ViewData["Companies"] = cList;
+            ViewData["Title"] = "InterestPoints";
+            ViewData["BreadCrumbs"] = GetCrumbs();
+            ViewData["DeleteHref"] = GetDeleteRef();
             ViewBag.Companies = cList;
             return View(list);
         }
 
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return RecordNotFound();
             var getOperation = await _bo.ReadAsync((Guid)id);
-            if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
-            if (getOperation.Result == null) return NotFound();
+            if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
+            if (getOperation.Result == null) return RecordNotFound();
             var vm = InterestPointViewModel.Parse(getOperation.Result);
+            ViewData["Title"] = "InterestPoint";
+
+            var crumbs = GetCrumbs();
+            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "InterestPoints", Icon = "fa-search", Text = "Detail" });
+
+            ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
 
         public async Task<IActionResult> Create()
         {
             var cListOperation = await _cbo.ListAsync();
-            if (!cListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
+            if (!cListOperation.Success) return OperationErrorBackToIndex(cListOperation.Exception);
             var cList = new List<CompanyViewModel>();
             foreach (var c in cListOperation.Result)
             {
@@ -85,7 +125,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             {
                 var InterestPoint = vm.ToInterestPoint();
                 var createOperation = await _bo.CreateAsync(InterestPoint);
-                if (!createOperation.Success) return View("Error", new ErrorViewModel() { RequestId = createOperation.Exception.Message });
+                if (!createOperation.Success) return OperationErrorBackToIndex(createOperation.Exception);
                 return RedirectToAction(nameof(Index));
             }
             return View(vm);
@@ -93,10 +133,10 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
 
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return RecordNotFound();
             var getOperation = await _bo.ReadAsync((Guid)id);
-            if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
-            if (getOperation.Result == null) return NotFound();
+            if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
+            if (getOperation.Result == null) return RecordNotFound();
             var vm = InterestPointViewModel.Parse(getOperation.Result);
             return View(vm);
         }
@@ -109,8 +149,8 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (ModelState.IsValid)
             {
                 var getOperation = await _bo.ReadAsync((Guid)id);
-                if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
-                if (getOperation.Result == null) return NotFound();
+                if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
+                if (getOperation.Result == null) return RecordNotFound();
                 var result = getOperation.Result;
                 result.Name = vm.Name;
                 result.Description = vm.Description;
@@ -122,16 +162,16 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 result.CovidSafe = vm.CovidSafe;
                 result.Status = vm.Status;
                 var updateOperation = await _bo.UpdateAsync(result);
-                if (!updateOperation.Success) return View("Error", new ErrorViewModel() { RequestId = updateOperation.Exception.Message });
+                if (!updateOperation.Success) return OperationErrorBackToIndex(updateOperation.Exception);
             }
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return RecordNotFound();
             var deleteOperation = await _bo.DeleteAsync((Guid)id);
-            if (!deleteOperation.Success) return View("Error", new ErrorViewModel() { RequestId = deleteOperation.Exception.Message });
+            if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
             return RedirectToAction(nameof(Index));
         }
     }
