@@ -86,7 +86,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 }
             }
 
-            ViewData["Title"] = "Results";
+            ViewData["Title"] = "Results Quiz";
             ViewData["Breadcrumbs"] = GetCrumbs();
             ViewData["DeleteHref"] = GetDeleteRef();
             ViewData["Quizzes"] = quizlst;
@@ -104,7 +104,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
 
 
             var vm = ResultViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Result Quiz";
+            ViewData["Title"] = "Result Quiz -  Details";
 
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Create", Controller = "Results", Icon = "fa-search", Text = "Detail" });
@@ -140,7 +140,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 ViewBag.Visitors = visitorList.Select(r => new SelectListItem() { Text = r.FirstName, Value = r.Id.ToString() });
             }
 
-            ViewData["Title"] = "Create";
+            ViewData["Title"] = "New Results";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Create", Controller = "Results", Icon = "fa-plus", Text = "New" });
             ViewData["BreadCrumbs"] = crumbs;
@@ -160,6 +160,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             }
             return View(vm);
         }
+
         [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(Guid? id)
         {
@@ -167,17 +168,43 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             var getOperation = await _bo.ReadAsync((Guid)id);
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
+
             var vm = ResultViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Edit Resutl";
+            var listQOperation = await _qbo.ListAsync();
+            if (!listQOperation.Success) return OperationErrorBackToIndex(listQOperation.Exception);
+            var qList = new List<SelectListItem>();
+            foreach (var item in listQOperation.Result)
+            {
+                if (!item.IsDeleted)
+                {
+                    var listItem = new SelectListItem() { Value = item.Id.ToString(), Text = item.Title };
+                    if (item.Id == vm.QuizId) listItem.Selected = true;
+                    qList.Add(listItem);
+                }
+            }
+            var listVOperation = await _vbo.ListAsync();
+            if (!listVOperation.Success) return OperationErrorBackToIndex(listQOperation.Exception);
+            var vList = new List<SelectListItem>();
+            foreach (var item in listVOperation.Result)
+            {
+                if (!item.IsDeleted)
+                {
+                    var listItem = new SelectListItem() { Value = item.Id.ToString(), Text = item.FirstName };
+                    if (item.Id == vm.VisitorId) listItem.Selected = true;
+                    vList.Add(listItem);
+                }
+            }
+            ViewBag.Quizzes = qList;
+            ViewBag.Visitors = vList;
+            ViewData["Title"] = "Edit Result";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "Results", Icon = "fa-edit", Text = "Edit" });
             ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
-
         [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id, Title, Date")] ResultViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Title, Date")] ResultViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -188,7 +215,11 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 result.Title = vm.Title;
                 result.Date = vm.Date;
                 var updateOperation = await _bo.UpdateAsync(result);
-                if (!updateOperation.Success) return OperationErrorBackToIndex(updateOperation.Exception);
+                if (!updateOperation.Success)
+                {
+                    TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, updateOperation.Exception);
+                    return View(vm);
+                }
                 else return OperationSuccess("The record was successfuly updated");
             }
             return RedirectToAction(nameof(Index));
@@ -201,6 +232,5 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
             else return OperationSuccess("The record was successfuly deleted");
         }
-
     }
 }

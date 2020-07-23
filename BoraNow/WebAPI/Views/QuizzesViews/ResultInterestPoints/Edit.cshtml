@@ -1,20 +1,48 @@
 ﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
 @model ResultInterestPointViewModel
-@{
-    ViewBag.Title = "Update";
-}
 
-<h2>ResultInterestPoint - @Model.Id</h2>
-<br />
-<div class="row">
-
-    @Html.Hidden("Id", Model.Id)
-    <div class="form-group">
-        <input type="submit" value="Update" class="btn btn-primary" />
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body">
+        <div class="ml-5 mr-5">
+            <form asp-action="Edit" class="pl-4">
+                <h3>
+                    Update the Result Data
+                </h3>
+                <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+             
+                <div class="form-group">
+                    <label asp-for="InterestPointId" class="control-label"></label>
+                    <select asp-for="InterestPointId" class="form-control" asp-items="@ViewBag.InterestPoints"></select>
+                    <span asp-validation-for="InterestPointId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ResultId" class="control-label"></label>
+                    <select asp-for="ResultId" class="form-control" asp-items="@ViewBag.Results"></select>
+                    <span asp-validation-for="ResultId" class="text-danger"></span>
+                </div>
+                @Html.Hidden("Id", Model.Id)
+                <br />
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-3">
+                        <input type="button" value="Cancel" onclick="location.href='@Url.Action("Index","ResultInterestPoints")';" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="form-group col-md-3">
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts{
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
