@@ -6,70 +6,92 @@
     ViewBag.Title = "Create";
 }
 
-<p>
-    <a asp-action="Create"><i class="fas fa-plus">Create</i></a>
-</p>
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            @ViewData["Title"] - Create
+        </h2>
+    </div>
+    <div class="card-body table-responsive">
+        <div class="row">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    @{
+                        List<SelectListItem> listItems = new List<SelectListItem>();
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Portugal",
+                            Value = "Portugal",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Angola",
+                            Value = "Angola",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Spain",
+                            Value = "Spain",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "France",
+                            Value = "France",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Italy",
+                            Value = "Italy",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Brasil",
+                            Value = "Brasil",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Iceland",
+                            Value = "Iceland",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Kiribati",
+                            Value = "Kiribati",
+                        });
+                    }
 
-<h2>Country - New</h2>
-<br />
-<div class="row">
-    <form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
-        <div class="form-group">
-            <label asp-for="Name" class="control-label"></label>
-            @{
-                List<SelectListItem> listItems = new List<SelectListItem>();
-                listItems.Add(new SelectListItem
-                {
-                    Text = "Portugal",
-                    Value = "Portugal",
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "Angola",
-                    Value = "Angola",
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "Spain",
-                    Value = "Spain",
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "France",
-                    Value = "France",
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "Italy",
-                    Value = "Italy",
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "Brasil",
-                    Value = "Brasil",
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "Iceland",
-                    Value = "Iceland",
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "Kiribati",
-                    Value = "Kiribati",
-                });
-            }
+                    @Html.DropDownListFor(model => model.Name, listItems, "-- Select Country --")
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <input type="button" value="Cancel" onclick="location.href='@Url.Action("Index","Countries")';" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="form-group col-md-3">
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    </div>
+                </div>
 
-            @Html.DropDownListFor(model => model.Name, listItems, "-- Select Country --")
-            <span asp-validation-for="Name" class="text-danger"></span>         
+            </form>
         </div>
-
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
-    </form>
+    </div>
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#listTable').DataTable({
+            "order": [],
+            "columnDefs": [{
+                "targets": 'no-sort',
+                "orderable": false,
+            }]
+        });
+    });
+</script>
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
