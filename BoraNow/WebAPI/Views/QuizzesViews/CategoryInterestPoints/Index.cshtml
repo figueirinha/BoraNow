@@ -1,16 +1,15 @@
 ﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
 @model IEnumerable<CategoryInterestPointViewModel>
-<h2>CategoryInterestPoint</h2>
 
 <div class="card">
-    <div class="card-header bg-greenish-green">
+    <div class="card-header">
         <h2 class="float-left">
             @ViewData["Title"]
         </h2>
         <p class="float-right mt-2 mb-0">
 
-            <a asp-controller="CategoryInterestPoints" asp-action="Create" class="text-white btn btn-success"><i class="fas fa-plus mr-1"></i>Create</a>
+            <a asp-controller="CategoryInterestPoints" asp-action="Create" class="btn btn-outline-light"><i class="fas fa-plus mr-1"></i>New</a>
         </p>
     </div>
     <div class="card-body table-responsive">

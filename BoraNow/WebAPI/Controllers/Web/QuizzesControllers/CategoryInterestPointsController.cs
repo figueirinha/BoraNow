@@ -26,10 +26,9 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return new List<BreadCrumb>()
                 { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
                   new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
-                  new BreadCrumb(){Icon = "fas fa-search", Action="Index", Controller="Courses", Text = "Courses"}
+                  new BreadCrumb(){Icon = "fas fa-search", Action="Index", Controller="CategoryInterestPoints", Text = "Category InterestPoint"}
                 };
         }
-
         private IActionResult RecordNotFound()
         {
             TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Information, "The record was not found");
@@ -51,7 +50,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
         public async Task<IActionResult> Index()
         {
             var listOperation = await _bo.ListAsync();
-            if (!listOperation.Success) return View("Error", new ErrorViewModel() { RequestId = listOperation.Exception.Message });
+            if (!listOperation.Success) return OperationErrorBackToIndex(listOperation.Exception);
             var lst = new List<CategoryInterestPointViewModel>();
             foreach (var item in listOperation.Result)
             {
@@ -60,7 +59,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                     lst.Add(CategoryInterestPointViewModel.Parse(item));
                 }
             }
-            ViewData["Title"] = "CategoryInterestPoints";
+            ViewData["Title"] = "Category Interest Points";
             ViewData["BreadCrumbs"] = GetCrumbs();
             ViewData["DeleteHref"] = GetDeleteRef();
 
@@ -76,7 +75,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
 
 
             var vm = CategoryInterestPointViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "CategoryInterests";
+            ViewData["Title"] = "Category Interest Point";
 
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "CategoryInterestPoints", Icon = "fa-search", Text = "Detail" });
@@ -102,9 +101,9 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
         {
             if (ModelState.IsValid)
             {
-                var CategoryInterestPoint = vm.ToCategoryInterestPoint();
-                var createOperation = await _bo.CreateAsync(CategoryInterestPoint);
-                if (!createOperation.Success) return View("Error", new ErrorViewModel() { RequestId = createOperation.Exception.Message });
+                var categoryInterestPoint = vm.ToCategoryInterestPoint();
+                var createOperation = await _bo.CreateAsync(categoryInterestPoint);
+                if (!createOperation.Success) return OperationErrorBackToIndex(createOperation.Exception);
                 else return OperationSuccess("The record was successfuly created");
             }
             return View(vm);
@@ -114,10 +113,10 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
         {
             if (id == null) return NotFound();
             var getOperation = await _bo.ReadAsync((Guid)id);
-            if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
+            if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return NotFound();
             var vm = CategoryInterestPointViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Edit CategoryInterestpoint";
+            ViewData["Title"] = "Edit";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "CategoryInterestPoint", Icon = "fa-edit", Text = "Edit" });
             ViewData["BreadCrumbs"] = crumbs;
@@ -131,7 +130,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (ModelState.IsValid)
             {
                 var getOperation = await _bo.ReadAsync((Guid)id);
-                if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
+                if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
                 if (getOperation.Result == null) return NotFound();
                 var result = getOperation.Result;
                 if (!vm.CompareToModel(result))
@@ -152,7 +151,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
         [HttpGet("Delete/{id}")]
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return RecordNotFound();
             var deleteOperation = await _bo.DeleteAsync((Guid)id);
             if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
             else return OperationSuccess("The record was successfuly deleted");
