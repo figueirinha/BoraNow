@@ -2,7 +2,7 @@
 
 @model IEnumerable<InterestPointViewModel>
 
-<div class="card">
+<div class="card"  style="width: 86rem;">
     <div class="card-header bg-greenish-green">
         <h2 class="float-left">
             @ViewData["Title"]
@@ -31,23 +31,40 @@
             <tbody>
                 @foreach (var interestPoint in Model)
                 {
-                    <tr>
-                        <td class="w-1">
-                            <a class="link-edit" asp-action="Edit" asp-route-id="@interestPoint.Id"><i class="fas fa-edit mr-2"></i></a>
-                            <a class="link-details" asp-action="Details" asp-route-id="@interestPoint.Id"><i class="fas fa-search mr-2"></i></a>
-                            <a id="deleteItem" asp-action="Delete" asp-route-id="@interestPoint.Id"><i class="link-delete fas fa-trash"></i></a>
-                        </td>
-                        <td class="w-1">@Html.DisplayFor(x => interestPoint.Name)</td>
-                        <td class="w-1">@Html.DisplayFor(x => interestPoint.Description)</td>
-                        <td class="w-1">@Html.DisplayFor(x => interestPoint.Address)</td>
-                        <td class="w-1">@Html.DisplayFor(x => interestPoint.PhotoPath)</td>
-                        <td class="w-1">@Html.DisplayFor(x => interestPoint.OpeningHours)</td>
-                        <td class="w-1">@Html.DisplayFor(x => interestPoint.ClosingHours)</td>
-                        <td class="w-1">@Html.DisplayFor(x => interestPoint.ClosingDays)</td>
-                        <td class="w-1">@Html.DisplayFor(x => interestPoint.CovidSafe)</td>
-                        <td class="w-1">@Html.DisplayFor(x => interestPoint.Status)</td>
-                        <td></td>
-                    </tr>
+                <tr>
+                    <td class="w-1">
+                        <a class="link-edit" asp-action="Edit" asp-route-id="@interestPoint.Id"><i class="fas fa-edit mr-2"></i></a>
+                        <a class="link-details" asp-action="Details" asp-route-id="@interestPoint.Id"><i class="fas fa-search mr-2"></i></a>
+                        <a id="deleteBtn" asp-action="Delete" asp-route-id="@interestPoint.Id"><i class="link-delete fas fa-trash"></i></a>
+                    </td>
+                    <td class="w-1">@Html.DisplayFor(x => interestPoint.Name)</td>
+                    <td class="w-1">@Html.DisplayFor(x => interestPoint.Description)</td>
+                    <td class="w-1">@Html.DisplayFor(x => interestPoint.Address)</td>
+                    <td class="w-1">@Html.DisplayFor(x => interestPoint.PhotoPath)</td>
+                    <td class="w-1">@Html.DisplayFor(x => interestPoint.OpeningHours)</td>
+                    <td class="w-1">@Html.DisplayFor(x => interestPoint.ClosingHours)</td>
+                    <td class="w-1">@Html.DisplayFor(x => interestPoint.ClosingDays)</td>
+                    @*<td class="w-1">@Html.DisplayFor(x => interestPoint.CovidSafe)</td>*@
+                    <td class="w-1">
+                        @if (interestPoint.CovidSafe)
+                        {
+                            <i class="far fa-check-circle" color="green"></i> }
+                        else
+                        {
+                            <i class="far fa-times-circle" color="red"></i>
+                        }
+                        @*<td class="w-1">@Html.DisplayFor(x => interestPoint.Status)</td>*@
+                    <td class="w-1">
+                        @if (interestPoint.Status)
+                        {
+                            <i class="far fa-check-circle" color="green"></i> }
+                        else
+                        {
+                            <i class="far fa-times-circle" color="red"></i>
+                        }
+                    </td>
+                    <td></td>
+                </tr>
                 }
             </tbody>
         </table>

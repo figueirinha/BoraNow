@@ -1,11 +1,14 @@
 ﻿using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
 {
     public class CategoryInterestPointViewModel
     {
         public Guid Id { get; set; }
+        [Required(ErrorMessage = "Input a category name")]
+        [Display(Name = "Category name")]
         public string Name { get; set; }
 
         public CategoryInterestPoint ToCategoryInterestPoint()

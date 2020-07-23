@@ -11,36 +11,34 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
     {
         public Guid Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Insert a name")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Insert a description")]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Insert an address")]
         public string Address { get; set; }
 
         [Display(Name = "Introduce a picture")]
-        [Required]
         public string PhotoPath { get; set; }
 
         [Display(Name = "Opening Hours")]
-        [Required]
+        [Required(ErrorMessage = "Insert the opening hours")]
         public string OpeningHours { get; set; }
 
         [Display(Name = "Closing Hours")]
-        [Required]
+        [Required(ErrorMessage = "Insert the cloing hours")]
         public string ClosingHours { get; set; }
 
         [Display(Name = "Closing Days")]
         public string ClosingDays { get; set; }
 
         [Display(Name = "Covid-19 Safe")]
-        [Required]
         public bool CovidSafe { get; set; }
-
-        [Required]
         public bool Status { get; set; }
+
+        [Required(ErrorMessage = "What's the company company")]
         public Guid CompanyId { get; set; }
 
         public InterestPoint ToInterestPoint()
