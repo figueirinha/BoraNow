@@ -1,22 +1,36 @@
 ﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters;
+@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
 @model InterestPointNewsletterViewModel
 
-<h2>Interest Point Newsletters - Details</h2>
-<br />
-<div>
-    <dl class="row">
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.InterestPointId)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.InterestPointId)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.NewsLetterId)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.NewsLetterId)
-        </dd>   
-    </dl>
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body table-responsive">
+        <h2>Interest Point Newsletters details</h2>
+        <div>        
+            <dl class="row">
+
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.NewsLetterId)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.NewsLetterId)
+                </dd>
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.InterestPointId)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.InterestPointId)
+                </dd>
+            </dl>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="button" value="Go Back" onclick="location.href='@Url.Action("Index","InterestPointNewsletters")';" />
+        </div>
+    </div>
 </div>
+

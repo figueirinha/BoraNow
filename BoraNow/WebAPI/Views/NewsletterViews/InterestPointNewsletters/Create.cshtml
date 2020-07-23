@@ -2,42 +2,43 @@
 
 @model InterestPointNewsletterViewModel
 
-@{
-    ViewBag.Title = "Create";
-}
+<div class="card">
+    <div class="card-header bg-greenish-green">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body">
+        <h2>Insert the Interest Point data</h2>
+        <div class="row">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
 
+                <div class="form-group">
+                    <label asp-for="NewsLetterId" class="control-label"></label>
+                    <select asp-for="NewsLetterId" class="form-control" asp-items="@ViewBag.Newsletters"></select>
+                    <span asp-validation-for="NewsLetterId" class="text-danger"></span>
+                </div>
 
-
-<h2>Interest Point Newsletters - New</h2>
-<br />
-<div class="row">
-    <form asp-action="Create" >
-        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
-
-        <div class="form-group">
-            <label asp-for="InterestPointId" class="control-label"></label>
-            <div>
-                <select asp-for="InterestPointId" class="form-control fk-select" asp-items="@ViewBag.InterestPoints">
-                    <option></option>
-                </select>
-            </div>           
-            <span asp-validation-for="InterestPointId" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="InterestPointId" class="control-label"></label>
+                    <select asp-for="InterestPointId" class="form-control" asp-items="@ViewBag.InterestPoints"></select>
+                    <span asp-validation-for="InterestPointId" class="text-danger"></span>
+                </div>            
+                <br />
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-3">
+                        <input type="button" value="Cancel" onclick="location.href='@Url.Action("Index","InterestPointNewsletters")';" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="form-group col-md-3">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label asp-for="NewsLetterId" class="control-label"></label>
-            <div>
-                <select asp-for="NewsLetterId" class="form-control fk-select" asp-items="@ViewBag.Newsletters">
-                    <option></option>
-                </select>
-            </div>           
-            <span asp-validation-for="NewsLetterId" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
-    </form>
+    </div>
 </div>
 
 <script>
