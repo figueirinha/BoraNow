@@ -78,7 +78,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 }
             }
 
-            ViewData["Title"] = "InterestPoints";
+            ViewData["Title"] = "Interest Points";
             ViewData["BreadCrumbs"] = GetCrumbs();
             ViewData["DeleteHref"] = GetDeleteRef();
             ViewBag.Companies = cList;
@@ -93,7 +93,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
             var vm = InterestPointViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "InterestPoint";
+            ViewData["Title"] = "Interest Point Details";
 
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "InterestPoints", Icon = "fa-search", Text = "Detail" });

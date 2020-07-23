@@ -73,7 +73,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return NotFound();
             var vm = VisitorViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Visitors";
+            ViewData["Title"] = "Visitor Details";
 
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "Visitors", Icon = "fa-search", Text = "Detail" });
@@ -85,7 +85,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
         [HttpGet("new")]
         public IActionResult Create()
         {
-            ViewData["Title"] = "Visitors";
+            ViewData["Title"] = "Create Visitor";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "Visitors", Icon = "fa-plus", Text = "New" });
             ViewData["BreadCrumbs"] = crumbs;
@@ -114,7 +114,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
             var vm = VisitorViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Visitors";
+            ViewData["Title"] = "Edit Visitor";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "Visitors", Icon = "fa-edit", Text = "Edit" });
             ViewData["BreadCrumbs"] = crumbs;

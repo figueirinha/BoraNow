@@ -9,16 +9,15 @@
             @ViewData["Title"]
         </h2>
         <p class="float-right mt-2 mb-0">
-            <a asp-action="Create" class="´btn btn-outline-light"><i class="fas fa-plus mr-1"></i>Create</a>
+            <a asp-action="Create" class="btn btn-outline-light"><i class="fas fa-plus mr-1"></i>Create</a>
         </p>
     </div>
     <div class="card-body table-responsive">
         <table class="table table-hover" id="listTable">
             <thead>
                 <tr>
-                    <th></th>
-                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
-                    <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                    <th class="no-sort"></th>
+                    <th>@Html.DisplayNameFor(model => model.FullName)</th>          
                     <th>@Html.DisplayNameFor(model => model.BirthDate)</th>
                     <th>@Html.DisplayNameFor(model => model.Gender)</th>
                 </tr>
@@ -28,13 +27,12 @@
                 {
                     <tr>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@visitor.Id">Edit</a>
-                            <a asp-action="Details" asp-route-id="@visitor.Id">Details</a>
-                            <a asp-action="Delete" asp-route-id="@visitor.Id">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@visitor.Id"><i class="fas fa-edit mr-2"></i></a>
+                            <a asp-action="Details" asp-route-id="@visitor.Id"><i class="fas fa-search mr-2"></i></a>
+                            <a asp-action="Delete" asp-route-id="@visitor.Id"><i class="link-delete fas fa-trash"></i></a>
                         </td>
-                        <td>@Html.DisplayFor(x => visitor.FirstName)</td>
-                        <td>@Html.DisplayFor(x => visitor.LastName)</td>
-                        <td>@Html.DisplayFor(x => visitor.BirthDate)</td>
+                        <td>@Html.DisplayFor(x => visitor.FullName)</td>           
+                        <td>@Html.DisplayFor(x => visitor.BirthDateToString)</td>
                         <td>@Html.DisplayFor(x => visitor.Gender)</td>
                     </tr>
                 }
