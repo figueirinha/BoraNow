@@ -20,6 +20,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
         [Required]
         public string Address { get; set; }
 
+        [Display(Name = "Introduce a picture")]
         [Required]
         public string PhotoPath { get; set; }
 

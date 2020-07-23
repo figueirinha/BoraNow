@@ -11,7 +11,7 @@ using WebAPI.Models;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesControllers
 {
-    [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("[controller]")]
     public class CategoryInterestPointsController : Controller
     {
         private readonly CategoryInterestPointBusinessObject _bo = new CategoryInterestPointBusinessObject();
