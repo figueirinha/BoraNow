@@ -9,7 +9,7 @@
         </h2>
     </div>
     <div class="card-body">
-        <h2>Insert the Interest Point data</h2>      
+        <h2>Insert the Interest Point data</h2>
         <div class="row">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
@@ -84,6 +84,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.fk-select').select2({
+            placeholder: "Select a value",
+            allowClear: true
+        });
+    });
+</script>
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
