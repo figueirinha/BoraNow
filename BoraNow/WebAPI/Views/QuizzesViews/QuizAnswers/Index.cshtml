@@ -6,7 +6,7 @@
 <br />
 <p class="float-left mt-2 mb-0">
 
-    <a asp-controller="QuizAnswer" asp-action="Create" class="text-white btn btn-success"><i class="fas fa-plus mr-1"></i>Create</a>
+    <a asp-controller="QuizAnswers" asp-action="Create" class="text-white btn btn-success"><i class="fas fa-plus mr-1"></i>Create</a>
 </p>
 <br />
 <br />
@@ -20,32 +20,32 @@
                     <tr>
                         <th class="no-sort w-1"></th>
                         <th class="w-1">@Html.DisplayNameFor(model => model.Answer)</th>
-                        <th class="w-1">@Html.DisplayNameFor(model => model.Answer)</th>
+                        <th class="w-1">@Html.DisplayNameFor(model => model.QuizQuestionId)</th>
                         <th class="no-sort"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var quizAnswer in Model)
                     {
-                        <tr>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@quizAnswer.Id">Edit</a>
-                                <a asp-action="Details" asp-route-id="@quizAnswer.Id">Details</a>
-                                <a asp-action="Delete" asp-route-id="@quizAnswer.Id">Delete</a>
-                            </td>
-                            @{
-                                var answer = (ViewBag.QuizAnswer as List<QuizAnswerViewModel>).FirstOrDefault(x => x.Id == quizAnswer.QuizQuestionId);
-                                var ip = (ViewBag.QuizQuestion as List<QuizQuestionViewModel>).FirstOrDefault(x => x.Id == quizAnswer.QuizQuestionId);
-                            }
+                    <tr>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@quizAnswer.Id">Edit</a>
+                            <a asp-action="Details" asp-route-id="@quizAnswer.Id">Details</a>
+                            <a asp-action="Delete" asp-route-id="@quizAnswer.Id">Delete</a>
+                        </td>
+                        @{
 
-                            <td>
-                                <a asp-controller="QuizAnswer" asp-action="Details" asp-route-id="@answer.Id">@answer.Answer</a>
-                            </td>
-                            <td>
-                                <a asp-controller="QuizAnswer" asp-action="Details" asp-route-id="@ip.Id">@ip.Question</a>
-                            </td>
+                            var answer = (ViewBag.QuizQuestions as List<QuizQuestionViewModel>).FirstOrDefault(x => x.Id == quizAnswer.QuizQuestionId);
+                        }
 
-                        </tr>
+                        <td>
+                            @Html.DisplayFor(x => quizAnswer.Answer) 
+                        </td>
+                        <td>
+                            <a asp-controller="QuizAnswers" asp-action="Details" asp-route-id="@answer.Id">@answer.Question</a>
+                        </td>
+
+                    </tr>
                     }
                 </tbody>
             </table>
