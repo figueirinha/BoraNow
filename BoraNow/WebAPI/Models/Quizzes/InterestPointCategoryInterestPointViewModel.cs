@@ -13,7 +13,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
         public Guid CategoryId { get; set; }
 
 
-        public InterestPointCategoryInterestPoint ToInterestPointCategory()
+        public InterestPointCategoryInterestPoint ToInterestPointCategoryInteresPoint()
         {
             return new InterestPointCategoryInterestPoint(InterestPointId, CategoryId);
         }

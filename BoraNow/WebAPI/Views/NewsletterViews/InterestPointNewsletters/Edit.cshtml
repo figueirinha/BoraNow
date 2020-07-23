@@ -1,31 +1,43 @@
 ﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters;
 
 @model InterestPointNewsletterViewModel
-@{
-    ViewBag.Title = "Update";
-}
 
-<h2>Interest Point Newsletter</h2>
-<br />
-<div class="row">
-    <form asp-action="Edit" class="pl-4">
-        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
-        <div class="form-group">
-            <label asp-for="InterestPointId" class="control-label"></label>
-            <input asp-for="InterestPointId" class="form-control" />
-            <span asp-validation-for="InterestPointId" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="NewsLetterId" class="control-label"></label>
-            <input asp-for="NewsLetterId" class="form-control" />
-            <span asp-validation-for="NewsLetterId" class="text-danger"></span>
-        </div>
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body">
+        <h2>Edit Interest Point Newsletter</h2>
+        <div class="row">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+                <div class="form-group">
+                    <label asp-for="InterestPointId" class="control-label"></label>
+                    <select asp-for="InterestPointId" class="form-control" asp-items="@ViewBag.InterestPoints"></select>
+                    <span asp-validation-for="InterestPointId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewsLetterId" class="control-label"></label>
+                    <select asp-for="NewsLetterId" class="form-control" asp-items="@ViewBag.Newsletters"></select>
+                    <span asp-validation-for="NewsLetterId" class="text-danger"></span>
+                </div>
 
-        @Html.Hidden("Id", Model.Id)
-        <div class="form-group">
-            <input type="submit" value="Update" class="btn btn-primary" />
+                @Html.Hidden("Id", Model.Id)
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-3">
+                        <input type="button" value="Cancel" onclick="location.href='@Url.Action("Index","InterestPointNewsletters")';" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="form-group col-md-3">
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 @section Scripts{

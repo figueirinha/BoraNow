@@ -5,143 +5,240 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
 using WebAPI.Models;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesControllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("[controller]")]
     public class ResultInterestPointsController : Controller
     {
-        private readonly ResultInterestPointBusinessObject _ripbo = new ResultInterestPointBusinessObject();
+        private readonly ResultInterestPointBusinessObject _bo = new ResultInterestPointBusinessObject();
         private readonly InterestPointBusinessObject _ipbo = new InterestPointBusinessObject();
         private readonly ResultBusinessObject _rbo = new ResultBusinessObject();
+
+        private string GetDeleteRef()
+        {
+            return this.ControllerContext.RouteData.Values["controller"] + "/" + nameof(Delete);
+        }
+
+        private List<BreadCrumb> GetCrumbs()
+        {
+            return new List<BreadCrumb>()
+                { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
+                  new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
+                  new BreadCrumb(){Icon = "fas fa-map-pin", Action="Index", Controller="ResultInterestPoints", Text = "ResultInterest Points"}
+                };
+        }
+
+        private IActionResult RecordNotFound()
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Information, "The record was not found");
+            return RedirectToAction(nameof(Index));
+        }
+
+        private IActionResult OperationErrorBackToIndex(Exception exception)
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, exception);
+            return RedirectToAction(nameof(Index));
+        }
+
+        private IActionResult OperationSuccess(string message)
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Success, message);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var listOperation = await _ripbo.ListAsync();
-            if (!listOperation.Success) return View("Error", new ErrorViewModel() { RequestId = listOperation.Exception.Message });
-
-            var interestPointListOperation = await _ipbo.ListAsync();
-            if (!interestPointListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = interestPointListOperation.Exception.Message });
-
-            var resultListOperation = await _rbo.ListAsync();
-            if (!resultListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = resultListOperation.Exception.Message });
+            var listOperation = await _bo.ListAsync();
+            if (!listOperation.Success) return OperationErrorBackToIndex(listOperation.Exception);
+            var ipListOperation = await _ipbo.ListAsync();
+            if (!ipListOperation.Success) return OperationErrorBackToIndex(ipListOperation.Exception);
+            var rListOperation = await _rbo.ListAsync();
+            if (!rListOperation.Success) return OperationErrorBackToIndex(rListOperation.Exception);
 
 
-            var resultInterestPointList = new List<ResultInterestPointViewModel>();
+            var list = new List<ResultInterestPointViewModel>();
             foreach (var item in listOperation.Result)
             {
                 if (!item.IsDeleted)
                 {
-                    resultInterestPointList.Add(ResultInterestPointViewModel.Parse(item));
+                    list.Add(ResultInterestPointViewModel.Parse(item));
                 }
             }
-            var interestPointList = new List<InterestPointViewModel>();
-            foreach (var item in interestPointListOperation.Result)
+
+            var ipList = new List<InterestPointViewModel>();
+            foreach (var item in ipListOperation.Result)
             {
                 if (!item.IsDeleted)
                 {
-                    interestPointList.Add(InterestPointViewModel.Parse(item));
+                    ipList.Add(InterestPointViewModel.Parse(item));
                 }
             }
-            var resultList = new List<ResultViewModel>();
-            foreach (var item in resultListOperation.Result)
+            var rList = new List<ResultViewModel>();
+            foreach (var item in rListOperation.Result)
             {
                 if (!item.IsDeleted)
                 {
-                    resultList.Add(ResultViewModel.Parse(item));
+                    rList.Add(ResultViewModel.Parse(item));
                 }
             }
-           
-            ViewBag.InterestPoints = interestPointList;
-            ViewBag.Results = resultList;
-            return View(resultInterestPointList);
+
+            ViewData["Title"] = "Interest Point Result ";
+            ViewData["BreadCrumbs"] = GetCrumbs();
+            ViewData["DeleteHref"] = GetDeleteRef();
+            ViewBag.InterestPoints = ipList;
+            ViewBag.Results = rList;
+            return View(list);
         }
+
+        [HttpGet("{id}")]
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null) return NotFound();
-            var getOperation = await _ripbo.ReadAsync((Guid)id);
-            if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
-            if (getOperation.Result == null) return NotFound();
+            if (id == null) return RecordNotFound();
+            var getOperation = await _bo.ReadAsync((Guid)id);
+            if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
+            if (getOperation.Result == null) return RecordNotFound();
             var vm = ResultInterestPointViewModel.Parse(getOperation.Result);
-            return View(vm);
+            ViewData["Title"] = "Interest Point Result";
 
+            var crumbs = GetCrumbs();
+            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "ResultInterestPoints", Icon = "fa-search", Text = "Detail" });
+
+            ViewData["BreadCrumbs"] = crumbs;
+            return View(vm);
         }
+
+        [HttpGet("new")]
         public async Task<IActionResult> Create()
         {
-            var interestPointListOperation = await _ipbo.ListAsync();
-            if (!interestPointListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
-            var interestPointList = new List<InterestPointViewModel>();
-            foreach (var interestPoint in interestPointListOperation.Result)
+            var ipListOperation = await _ipbo.ListAsync();
+            if (!ipListOperation.Success) return OperationErrorBackToIndex(ipListOperation.Exception);
+            var ipList = new List<InterestPointViewModel>();
+            foreach (var ip in ipListOperation.Result)
             {
-                if (!interestPoint.IsDeleted)
+                if (!ip.IsDeleted)
                 {
-                    var interestpointVm = InterestPointViewModel.Parse(interestPoint);
-                    interestPointList.Add(interestpointVm);
+                    var ipvm = InterestPointViewModel.Parse(ip);
+                    ipList.Add(ipvm);
                 }
-                ViewBag.InterestPoints = interestPointList.Select(interestPoint => new SelectListItem() { Text = interestPoint.Name, Value = interestPoint.Id.ToString() });
+                ViewBag.InterestPoints = ipList.Select(icip => new SelectListItem() { Text = icip.Name, Value = icip.Id.ToString() });
             }
-
-            var resultListOperation = await _rbo.ListAsync();
-            if (!resultListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
-            var resultList = new List<ResultViewModel>();
-            foreach (var result in resultListOperation.Result)
+            var rListOperation = await _rbo.ListAsync();
+            if (!rListOperation.Success) return OperationErrorBackToIndex(rListOperation.Exception);
+            var rList = new List<ResultViewModel>();
+            foreach (var result in rListOperation.Result)
             {
                 if (!result.IsDeleted)
                 {
-                    var resultVm = ResultViewModel.Parse(result);
-                    resultList.Add(resultVm);
+                    var rvm = ResultViewModel.Parse(result);
+                    rList.Add(rvm);
                 }
-                ViewBag.Results = resultList.Select(result => new SelectListItem() { Text = result.Title, Value = result.Id.ToString() });
+                ViewBag.Results = rList.Select(rip => new SelectListItem() { Text = rip.Title, Value = rip.Id.ToString() });
             }
 
+            ViewData["Title"] = "New Interest Point Result";
+            var crumbs = GetCrumbs();
+            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "ResultInterestPoints", Icon = "fa-plus", Text = "New" });
+            ViewData["BreadCrumbs"] = crumbs;
             return View();
         }
-        [HttpPost]
+
+        [HttpPost("new")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InterestPointId", "ResultId")] ResultInterestPointViewModel vm)
+        public async Task<IActionResult> Create([Bind("InterestPointId, ResultId")] ResultInterestPointViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                var resultInterestPoint = vm.ToResultInterestPoint();
-                var createOperation = await _ripbo.CreateAsync(resultInterestPoint);
-                if (!createOperation.Success) return View("Error", new ErrorViewModel() { RequestId = createOperation.Exception.Message });
-                return RedirectToAction(nameof(Index));
+                var rip = vm.ToResultInterestPoint();
+                var createOperation = await _bo.CreateAsync(rip);
+                if (!createOperation.Success) return OperationErrorBackToIndex(createOperation.Exception);
+                return OperationSuccess("The record was successfuly created");
             }
             return View(vm);
         }
-        //public async Task<IActionResult> Edit(Guid? id)
-        //{
-        //    if (id == null) return NotFound();
-        //    var getOperation = await _ripbo.ReadAsync((Guid)id);
-        //    if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
-        //    if (getOperation.Result == null) return NotFound();
-        //    var vm = ResultInterestPointViewModel.Parse(getOperation.Result);
-        //    return View(vm);
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(Guid id, [Bind("Id")] ResultInterestPointViewModel vm)
-        //{
-            //if (ModelState.IsValid)
-            //{
-            //    var getOperation = await _ripbo.ReadAsync((Guid)id);
-            //    if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
-            //    if (getOperation.Result == null) return NotFound();
-            //    var result = getOperation.Result;
-            //    result.Title = vm.Title;
-            //    result.Date = vm.Date;
-            //    var updateOperation = await _rbo.UpdateAsync(result);
-            //    if (!updateOperation.Success) return View("Error", new ErrorViewModel() { RequestId = updateOperation.Exception.Message });
-            //}
-        //    return RedirectToAction(nameof(Index));
-        //}
+
+        [HttpGet("edit/{id}")]
+        public async Task<IActionResult> Edit(Guid? id)
+        {
+            if (id == null) return RecordNotFound();
+            var getOperation = await _bo.ReadAsync((Guid)id);
+            if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
+            if (getOperation.Result == null) return RecordNotFound();
+
+            var vm = ResultInterestPointViewModel.Parse(getOperation.Result);
+
+            var listIpOperation = await _ipbo.ListAsync();
+            if (!listIpOperation.Success) return OperationErrorBackToIndex(listIpOperation.Exception);
+            var ipList = new List<SelectListItem>();
+            foreach (var item in listIpOperation.Result)
+            {
+                if (!item.IsDeleted)
+                {
+                    var listItem = new SelectListItem() { Value = item.Id.ToString(), Text = item.Name };
+                    if (item.Id == vm.InterestPointId) listItem.Selected = true;
+                    ipList.Add(listItem);
+                }
+            }
+            var listROperation = await _rbo.ListAsync();
+            if (!listROperation.Success) return OperationErrorBackToIndex(listROperation.Exception);
+            var rList = new List<SelectListItem>();
+            foreach (var item in listROperation.Result)
+            {
+                if (!item.IsDeleted)
+                {
+                    var listItem = new SelectListItem() { Value = item.Id.ToString(), Text = item.Title };
+                    if (item.Id == vm.InterestPointId) listItem.Selected = true;
+                    rList.Add(listItem);
+                }
+            }
+
+            ViewBag.InterestPoints = ipList;
+            ViewBag.Results = rList;
+
+            ViewData["Title"] = "Edit Interest Point Result";
+
+            var crumbs = GetCrumbs();
+            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "ResultInterestPoints", Icon = "fa-edit", Text = "Edit" });
+            ViewData["BreadCrumbs"] = crumbs;
+            return View(vm);
+        }
+        [HttpPost("edit/{id}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id, InterestPointId, ResultId")] ResultInterestPointViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var getOperation = await _bo.ReadAsync((Guid)id);
+                if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
+                if (getOperation.Result == null) return RecordNotFound();
+                var result = getOperation.Result;
+                result.InterestPointId = vm.InterestPointId;
+                result.ResultId = vm.ResultId;
+
+                var updateOperation = await _bo.UpdateAsync(result);
+                if (!updateOperation.Success)
+                {
+                    TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, updateOperation.Exception);
+                    return View(vm);
+                }
+                else return OperationSuccess("The record was successfuly updated");
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet("Delete/{id}")]
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null) return NotFound();
-            var deleteOperation = await _ripbo.DeleteAsync((Guid)id);
-            if (!deleteOperation.Success) return View("Error", new ErrorViewModel() { RequestId = deleteOperation.Exception.Message });
-            return RedirectToAction(nameof(Index));
+            if (id == null) return RecordNotFound();
+            var deleteOperation = await _bo.DeleteAsync((Guid)id);
+            if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
+            return OperationSuccess("The record was successfuly deleted");
         }
     }
 }
