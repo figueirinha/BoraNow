@@ -1,14 +1,15 @@
 ﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
+@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
 
 @model IEnumerable<InterestPointViewModel>
 
-<div class="card"  style="width: 86rem;">
+<div class="card">
     <div class="card-header">
         <h2 class="float-left">
             @ViewData["Title"]
         </h2>
         <p class="float-right mt-2 mb-0">
-            <a asp-action="Create" class="text-white btn btn-success"><i class="fas fa-plus mr-1"></i>Create</a>
+            <a asp-action="Create" class="btn btn-outline-light"><i class="fas fa-plus mr-1"></i>Create</a>
         </p>
     </div>
     <div class="card-body table-responsive">
@@ -17,54 +18,53 @@
                 <tr>
                     <th class="no-sort w-1"></th>
                     <th class="w-1">@Html.DisplayNameFor(model => model.Name)</th>
-                    <th class="w-1">@Html.DisplayNameFor(model => model.Description)</th>
                     <th class="w-1">@Html.DisplayNameFor(model => model.Address)</th>
-                    <th class="w-1">@Html.DisplayNameFor(model => model.PhotoPath)</th>
-                    <th class="w-1">@Html.DisplayNameFor(model => model.OpeningHours)</th>
-                    <th class="w-1">@Html.DisplayNameFor(model => model.ClosingHours)</th>
+                    <th class="w-1">@Html.DisplayNameFor(model => model.WorkingHours)</th>
                     <th class="w-1">@Html.DisplayNameFor(model => model.ClosingDays)</th>
                     <th class="w-1">@Html.DisplayNameFor(model => model.CovidSafe)</th>
                     <th class="w-1">@Html.DisplayNameFor(model => model.Status)</th>
+                    <th class="w-1">@Html.DisplayNameFor(model => model.CompanyId)</th>
                     <th class="no-sort"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var interestPoint in Model)
                 {
-                <tr>
-                    <td class="w-1">
-                        <a class="link-edit" asp-action="Edit" asp-route-id="@interestPoint.Id"><i class="fas fa-edit mr-2"></i></a>
-                        <a class="link-details" asp-action="Details" asp-route-id="@interestPoint.Id"><i class="fas fa-search mr-2"></i></a>
-                        <a id="deleteBtn" asp-action="Delete" asp-route-id="@interestPoint.Id"><i class="link-delete fas fa-trash"></i></a>
-                    </td>
-                    <td class="w-1">@Html.DisplayFor(x => interestPoint.Name)</td>
-                    <td class="w-1">@Html.DisplayFor(x => interestPoint.Description)</td>
-                    <td class="w-1">@Html.DisplayFor(x => interestPoint.Address)</td>
-                    <td class="w-1">@Html.DisplayFor(x => interestPoint.PhotoPath)</td>
-                    <td class="w-1">@Html.DisplayFor(x => interestPoint.OpeningHours)</td>
-                    <td class="w-1">@Html.DisplayFor(x => interestPoint.ClosingHours)</td>
-                    <td class="w-1">@Html.DisplayFor(x => interestPoint.ClosingDays)</td>
-                    @*<td class="w-1">@Html.DisplayFor(x => interestPoint.CovidSafe)</td>*@
-                    <td class="w-1">
-                        @if (interestPoint.CovidSafe)
-                        {
-                            <i class="far fa-check-circle" color="green"></i> }
-                        else
-                        {
-                            <i class="far fa-times-circle" color="red"></i>
+                    <tr>
+                        <td class="w-1">
+                            <a class="link-edit" asp-action="Edit" asp-route-id="@interestPoint.Id"><i class="fas fa-edit mr-2"></i></a>
+                            <a class="link-details" asp-action="Details" asp-route-id="@interestPoint.Id"><i class="fas fa-search mr-2"></i></a>
+                            <a id="deleteItem" asp-action="Delete" asp-route-id="@interestPoint.Id"><i class="link-delete fas fa-trash"></i></a>
+                        </td>
+                        @{
+                            var company = (ViewBag.Companies as List<CompanyViewModel>).FirstOrDefault(x => x.Id == interestPoint.CompanyId);
                         }
-                        @*<td class="w-1">@Html.DisplayFor(x => interestPoint.Status)</td>*@
-                    <td class="w-1">
-                        @if (interestPoint.Status)
-                        {
-                            <i class="far fa-check-circle" color="green"></i> }
-                        else
-                        {
-                            <i class="far fa-times-circle" color="red"></i>
-                        }
-                    </td>
-                    <td></td>
-                </tr>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.Name)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.Address)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.WorkingHours)</td>
+                        <td class="w-1">@Html.DisplayFor(x => interestPoint.ClosingDays)</td>
+                        <td class="w-1">
+                            @if (interestPoint.CovidSafe)
+                            {
+                                <i class="far fa-check-circle" color="green"></i> }
+                            else
+                            {
+                                <i class="far fa-times-circle" color="red"></i>
+                            }
+                        <td class="w-1">
+                            @if (interestPoint.Status)
+                            {
+                                <i class="far fa-check-circle" color="green"></i> }
+                            else
+                            {
+                                <i class="far fa-times-circle" color="red"></i>
+                            }
+                        </td>
+                        <td class="w-1">
+                            <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id">@company.Name</a>
+                        </td>
+                        <td></td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -89,10 +89,12 @@
 </div>
 <input type="hidden" id="idToDelete" />
 <script>
+
     var ConfirmDelete = function (id) {
         $("#deleteBtn").attr("href", "@ViewData["DeleteHref"]" + "/" + id);
         $("#modal").modal('show');
     }
+
     $(document).ready(function () {
         $('#listTable').DataTable({
             "order": [],

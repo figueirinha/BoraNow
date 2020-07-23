@@ -39,7 +39,17 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
         public bool Status { get; set; }
 
         [Required(ErrorMessage = "What's the company company")]
+        [Display(Name="Company")]
         public Guid CompanyId { get; set; }
+
+        [Display(Name="Working Hours")]
+        public string WorkingHours
+        {
+            get
+            {
+                return $"from {OpeningHours} to {ClosingHours}";
+            }
+        }
 
         public InterestPoint ToInterestPoint()
         {

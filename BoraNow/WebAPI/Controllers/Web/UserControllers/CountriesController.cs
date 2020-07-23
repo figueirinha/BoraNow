@@ -74,7 +74,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return NotFound();
             var vm = CountryViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Countries";
+            ViewData["Title"] = "Country";
 
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "Countries", Icon = "fa-search", Text = "Detail" });
@@ -86,7 +86,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
         [HttpGet("new")]
         public IActionResult Create()
         {
-            ViewData["Title"] = "Countries";
+            ViewData["Title"] = "Create Country";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "Countries", Icon = "fa-plus", Text = "New" });
             ViewData["BreadCrumbs"] = crumbs;
@@ -115,7 +115,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
             var vm = CountryViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Countries";
+            ViewData["Title"] = "Edit Country";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "Countries", Icon = "fa-edit", Text = "Edit" });
             ViewData["BreadCrumbs"] = crumbs;

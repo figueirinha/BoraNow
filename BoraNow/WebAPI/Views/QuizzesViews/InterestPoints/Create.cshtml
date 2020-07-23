@@ -1,106 +1,90 @@
 ﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
-
 @model InterestPointViewModel
-
 @{
     ViewBag.Title = "Create";
 }
-
-    <div class="card">
-        <div class="card-header bg-greenish-green">
-            <h2 class="float-left">
-                @ViewData["Title"]
-            </h2>
-        </div>
-        <div class="card-body">
-            <h2>New Interest Point</h2>
-            <div class="row mt-5 w-100">
-                <form asp-action="Create">
-                    <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label asp-for="Name" class="control-label"></label>
-                            <input asp-for="Name" class="form-control" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-7 offset-1">
-                        <div class="form-group  ">
-                            <label asp-for="Address" class="control-label"></label>
-                            <input asp-for="Address" class="form-control" />
-                            <span asp-validation-for="Address" class="text-danger"></span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group col-12">
-                        <label asp-for="Description">Description</label>
-                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+<div class="card">
+    <div class="card-header bg-greenish-green">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body">
+        <h2>New Interest Point</h2>      
+        <div class="row">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+                <div class="row">
+                    <div class="col-6">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="col-6">
-                        <div class="form-group">
-                            <label asp-for="OpeningHours" class="control-label"></label>
-                            <input asp-for="OpeningHours" class="form-control" />
-                            <span asp-validation-for="OpeningHours" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="ClosingHours" class="control-label"></label>
-                            <input asp-for="ClosingHours" class="form-control" />
-                            <span asp-validation-for="ClosingHours" class="text-danger"></span>
-                        </div>
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label asp-for="OpeningHours" class="control-label"></label>
+                        <input asp-for="OpeningHours" class="form-control" />
+                        <span asp-validation-for="OpeningHours" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="ClosingHours" class="control-label"></label>
+                        <input asp-for="ClosingHours" class="form-control" />
+                        <span asp-validation-for="ClosingHours" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="form-group col-6">
                         <label asp-for="ClosingDays" class="control-label"></label>
                         <input asp-for="ClosingDays" class="form-control" />
                         <span asp-validation-for="ClosingDays" class="text-danger"></span>
                     </div>
-                    <div class="form-group col-8">
+                    <div class="form-group col-6">
                         <label asp-for="PhotoPath" class="control-label"></label>
                         <input asp-for="PhotoPath" type="file" class="form-control-file" />
                         <span asp-validation-for="PhotoPath" class="text-danger"></span>
                     </div>
-                </form>
-
-            </div>
-
-        @*<div class="form-group">
-            <label asp-for="CompanyId" class="control-label"></label>
-            <select asp-for="CompanyId" class="form-control" asp-items="@ViewBag.Companies"></select>
-            <span asp-validation-for="CompanyId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CompanyId" class="control-label"></label>
+                    <select asp-for="CompanyId" class="form-control" asp-items="@ViewBag.Companies"></select>
+                    <span asp-validation-for="CompanyId" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="form-check col-4">
+                        <input asp-for="CovidSafe" type="checkbox" class="form-check-input">
+                        <label asp-for="CovidSafe" class="form-check-label">Covid-19 safety</label>
+                    </div>
+                    <div class="form-check col-6">
+                        <input asp-for="Status" type="checkbox" class="form-check-input">
+                        <label asp-for="Status" class="form-check-label">The establishment is working</label>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-3">
+                        <input type="button" value="Cancel" onclick="location.href='@Url.Action("Index","InterestPoints")';" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="form-group col-md-3">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
-            <div class="form-check col-md-4">
-                <input asp-for="CovidSafe" type="checkbox" class="form-check-input">
-                <label asp-for="CovidSafe" class="form-check-label">Covid-19 safety</label>
-            </div>
-
-            <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
-            <div class="form-check col-md-6">
-                <input asp-for="Status" type="checkbox" class="form-check-input">
-                <label asp-for="Status" class="form-check-label">The establishment is working</label>
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="form-group col-md-3">
-                <input type="button" value="Cancel" onclick="location.href='@Url.Action("Index","InterestPoints")';" />
-            </div>
-            <div class="col-md-2"></div>
-            <div class="form-group col-md-3">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </div>*@
-
-
-    </div>
-            
     </div>
 </div>
-
-
-
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

@@ -9,7 +9,7 @@
             @ViewData["Title"]
         </h2>
         <p class="float-right mt-2 mb-0">
-            <a asp-action="Create" class="´btn btn-outline-light"><i class="fas fa-plus mr-1"></i>Create</a>
+            <a asp-action="Create" class="btn btn-outline-light"><i class="fas fa-plus mr-1"></i>Create</a>
         </p>
     </div>
     <div class="card-body table-responsive">
@@ -27,7 +27,7 @@
                         <td>
                             <a class="link-edit" asp-action="Edit" asp-route-id="@country.Id"><i class="fas fa-edit mr-2"></i></a>
                             <a class="link-details" asp-action="Details" asp-route-id="@country.Id"><i class="fas fa-search mr-2"></i></a>
-                            <a id="deleteBtn" asp-action="Delete" asp-route-id="@country.Id"><i class="link-delete fas fa-trash"></i></a>
+                            <a id="deleteItem" asp-action="Delete" asp-route-id="@country.Id"><i class="link-delete fas fa-trash"></i></a>
                         </td>
                         <td>@Html.DisplayFor(x => country.Name)</td>
                     </tr>
@@ -55,10 +55,12 @@
 </div>
 <input type="hidden" id="idToDelete" />
 <script>
+
     var ConfirmDelete = function (id) {
         $("#deleteBtn").attr("href", "@ViewData["DeleteHref"]" + "/" + id);
         $("#modal").modal('show');
     }
+
     $(document).ready(function () {
         $('#listTable').DataTable({
             "order": [],

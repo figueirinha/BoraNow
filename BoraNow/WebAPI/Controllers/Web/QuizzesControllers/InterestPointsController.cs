@@ -145,8 +145,23 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (id == null) return RecordNotFound();
             var getOperation = await _bo.ReadAsync((Guid)id);
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
-            if (getOperation.Result == null) return RecordNotFound();
+            if (getOperation.Result == null) return RecordNotFound();            
+
             var vm = InterestPointViewModel.Parse(getOperation.Result);
+            var listCOperation = await _cbo.ListAsync();
+            if (!listCOperation.Success) return OperationErrorBackToIndex(listCOperation.Exception);
+
+            var cList = new List<SelectListItem>();
+            foreach (var item in listCOperation.Result)
+            {
+                if (!item.IsDeleted)
+                {
+                    var listItem = new SelectListItem() { Value = item.Id.ToString(), Text = item.Name };
+                    if (item.Id == vm.CompanyId) listItem.Selected = true;
+                    cList.Add(listItem);
+                }              
+            }
+            ViewBag.Companies = cList;
             ViewData["Title"] = "Edit Interest Point";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "InterestPoints", Icon = "fa-edit", Text = "Edit" });
@@ -157,7 +172,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
         [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id, Name, Description, Address, PhotoPath, OpeningHours, " +
-            "ClosingHours, ClosingDays, CovidSafe, Status")] InterestPointViewModel vm)
+            "ClosingHours, ClosingDays, CovidSafe, Status, CompanyId")] InterestPointViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -174,8 +189,13 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 result.ClosingDays = vm.ClosingDays;
                 result.CovidSafe = vm.CovidSafe;
                 result.Status = vm.Status;
+                result.CompanyId = vm.CompanyId;
                 var updateOperation = await _bo.UpdateAsync(result);
-                if (!updateOperation.Success) return OperationErrorBackToIndex(updateOperation.Exception);
+                if (!updateOperation.Success)
+                {
+                    TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, updateOperation.Exception);
+                    return View(vm);
+                }
                 else return OperationSuccess("The record was successfuly updated");
             }
             return RedirectToAction(nameof(Index));
