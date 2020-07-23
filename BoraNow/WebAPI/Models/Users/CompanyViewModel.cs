@@ -29,5 +29,9 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
                 //ProfileId = company.ProfileId
             };
         }
+        public bool CompareToModel(Company model)
+        {
+            return Name == model.Name && Representative == model.Representative && PhoneNumber == model.PhoneNumber && VatNumber == model.VatNumber;
+        }
     }
 }

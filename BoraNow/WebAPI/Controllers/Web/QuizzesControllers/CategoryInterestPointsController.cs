@@ -70,7 +70,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
         {
             if (id == null) return NotFound();
             var getOperation = await _bo.ReadAsync((Guid)id);
-            if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
+            if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception); ;
             if (getOperation.Result == null) return NotFound();
 
 

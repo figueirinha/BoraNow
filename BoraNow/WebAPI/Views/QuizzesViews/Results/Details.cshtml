@@ -2,21 +2,30 @@
 
 @model ResultViewModel
 
-<h2>Result - Details</h2>
-<br />
-<div>
-    <dl class="row">
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-    </dl>
+<h2>Details</h2>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body">
+        <div class="ml-5 mr-5">
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.Date)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.Date)
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>

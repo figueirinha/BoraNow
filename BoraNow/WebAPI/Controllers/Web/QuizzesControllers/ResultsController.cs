@@ -6,143 +6,201 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
-using WebAPI.Models;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
+
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesControllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("[controller]")]
     public class ResultsController : Controller
     {
-        private readonly ResultBusinessObject _rbo = new ResultBusinessObject();
+        private readonly ResultBusinessObject _bo = new ResultBusinessObject();
         private readonly QuizBusinessObject _qbo = new QuizBusinessObject();
         private readonly VisitorBusinessObject _vbo = new VisitorBusinessObject();
+
+        private string GetDeleteRef()
+        {
+            return this.ControllerContext.RouteData.Values["controller"] + "/" + nameof(Delete);
+        }
+
+        private List<BreadCrumb> GetCrumbs()
+        {
+            return new List<BreadCrumb>()
+                { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
+                  new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
+                  new BreadCrumb(){Icon = "fas fa-poll", Action="Index", Controller="Resuts", Text = "Result"}
+                };
+        }
+        private IActionResult RecordNotFound()
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Information, "The record was not found");
+            return RedirectToAction(nameof(Index));
+        }
+
+        private IActionResult OperationErrorBackToIndex(Exception exception)
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, exception);
+            return RedirectToAction(nameof(Index));
+        }
+
+        private IActionResult OperationSuccess(string message)
+        {
+            TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Success, message);
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var listOperation = await _rbo.ListAsync();
-            if (!listOperation.Success) return View("Error", new ErrorViewModel() { RequestId = listOperation.Exception.Message });
-
-            var quizListOperation = await _qbo.ListAsync();
-            if (!quizListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = quizListOperation.Exception.Message });
-
-            var visitorListOperation = await _vbo.ListAsync();
-            if (!visitorListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = visitorListOperation.Exception.Message });
-
-
-            var resultList = new List<ResultViewModel>();
+            var listOperation = await _bo.ListAsync();
+            if (!listOperation.Success) return OperationErrorBackToIndex(listOperation.Exception);
+            var lst = new List<ResultViewModel>();
             foreach (var item in listOperation.Result)
             {
                 if (!item.IsDeleted)
                 {
-                    resultList.Add(ResultViewModel.Parse(item));
+                    lst.Add(ResultViewModel.Parse(item));
                 }
             }
-            var quizList = new List<QuizViewModel>();
-            foreach (var item in quizListOperation.Result)
+            var qlistOperation = await _qbo.ListAsync();
+            if (!qlistOperation.Success) return OperationErrorBackToIndex(qlistOperation.Exception);
+            var quizlst = new List<QuizViewModel>();
+            foreach (var item in qlistOperation.Result)
             {
                 if (!item.IsDeleted)
                 {
-                    quizList.Add(QuizViewModel.Parse(item));
+                    quizlst.Add(QuizViewModel.Parse(item));
                 }
             }
-            var visitorList = new List<VisitorViewModel>();
-            foreach (var item in visitorListOperation.Result)
+            var vlistOperation = await _vbo.ListAsync();
+            if (!vlistOperation.Success) return OperationErrorBackToIndex(vlistOperation.Exception);
+            var visitorlst = new List<VisitorViewModel>();
+            foreach (var item in vlistOperation.Result)
             {
                 if (!item.IsDeleted)
                 {
-                    visitorList.Add(VisitorViewModel.Parse(item));
+                    visitorlst.Add(VisitorViewModel.Parse(item));
                 }
             }
 
-            ViewBag.Quizzes = quizList;
-            ViewBag.Visitors = visitorList;
-            return View(resultList);
+            ViewData["Title"] = "Results";
+            ViewData["Breadcrumbs"] = GetCrumbs();
+            ViewData["DeleteHref"] = GetDeleteRef();
+            ViewData["Quizzes"] = quizlst;
+            ViewData["Visitors"] = visitorlst;
+            return View(lst);
+            
         }
+        [HttpGet("{id}")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null) return NotFound();
-            var getOperation = await _rbo.ReadAsync((Guid)id);
-            if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
+            var getOperation = await _bo.ReadAsync((Guid)id);
+            if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return NotFound();
-            var vm = ResultViewModel.Parse(getOperation.Result);
-            return View(vm);
 
+
+            var vm = ResultViewModel.Parse(getOperation.Result);
+            ViewData["Title"] = "Result Quiz";
+
+            var crumbs = GetCrumbs();
+            crumbs.Add(new BreadCrumb() { Action = "Create", Controller = "Results", Icon = "fa-search", Text = "Detail" });
+
+            ViewData["BreadCrumbs"] = crumbs;
+            return View(vm);
         }
+        [HttpGet("Create")]
         public async Task<IActionResult> Create()
         {
-            var quizListOperation = await _qbo.ListAsync();
-            if (!quizListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
+            var qListOperation = await _qbo.ListAsync();
+            if (!qListOperation.Success) return OperationErrorBackToIndex(qListOperation.Exception);
             var quizList = new List<QuizViewModel>();
-            foreach (var quiz in quizListOperation.Result)
+            foreach (var item in qListOperation.Result)
             {
-                if (!quiz.IsDeleted)
+                if (!item.IsDeleted)
                 {
-                    var quizVm = QuizViewModel.Parse(quiz);
-                    quizList.Add(quizVm);
+                    var qvm = QuizViewModel.Parse(item);
+                    quizList.Add(qvm);
                 }
-                ViewBag.Quizzes = quizList.Select(dr => new SelectListItem() { Text = quiz.Title, Value = quiz.Id.ToString() });
+                ViewBag.Quizzes = quizList.Select(r => new SelectListItem() { Text = r.Title, Value = r.Id.ToString() });
             }
-            var visitorListOperation = await _vbo.ListAsync();
-            if (!visitorListOperation.Success) return View("Error", new ErrorViewModel() { RequestId = "Error" });
+            var vListOperation = await _vbo.ListAsync();
+            if (!vListOperation.Success) return OperationErrorBackToIndex(vListOperation.Exception);
             var visitorList = new List<VisitorViewModel>();
-            foreach (var visitor in visitorListOperation.Result)
+            foreach (var item in vListOperation.Result)
             {
-                if (!visitor.IsDeleted)
+                if (!item.IsDeleted)
                 {
-                    var visitorVm = VisitorViewModel.Parse(visitor);
-                    visitorList.Add(visitorVm);
+                    var vvm = VisitorViewModel.Parse(item);
+                    visitorList.Add(vvm);
                 }
-                ViewBag.Visitors = visitorList.Select(visitor => new SelectListItem() { Text = visitor.FirstName, Value = visitor.Id.ToString() });
+                ViewBag.Visitors = visitorList.Select(r => new SelectListItem() { Text = r.FirstName, Value = r.Id.ToString() });
             }
 
+            ViewData["Title"] = "Create";
+            var crumbs = GetCrumbs();
+            crumbs.Add(new BreadCrumb() { Action = "Create", Controller = "Results", Icon = "fa-plus", Text = "New" });
+            ViewData["BreadCrumbs"] = crumbs;
             return View();
         }
-        [HttpPost]
+
+        [HttpPost("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title", "Date", "QuizId", "VisitorId")] ResultViewModel vm)
+        public async Task<IActionResult> Create([Bind("Title, Date, QuizId, VisitorId")] ResultViewModel vm)
         {
             if (ModelState.IsValid)
             {
                 var result = vm.ToResult();
-                var createOperation = await _rbo.CreateAsync(result);
-                if (!createOperation.Success) return View("Error", new ErrorViewModel() { RequestId = createOperation.Exception.Message });
-                return RedirectToAction(nameof(Index));
+                var createOperation = await _bo.CreateAsync(result);
+                if (!createOperation.Success) return OperationErrorBackToIndex(createOperation.Exception);
+                return OperationSuccess("The record was successfuly created");
             }
             return View(vm);
         }
+        [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null) return NotFound();
-            var getOperation = await _rbo.ReadAsync((Guid)id);
-            if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
-            if (getOperation.Result == null) return NotFound();
+            if (id == null) return RecordNotFound();
+            var getOperation = await _bo.ReadAsync((Guid)id);
+            if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
+            if (getOperation.Result == null) return RecordNotFound();
             var vm = ResultViewModel.Parse(getOperation.Result);
+            ViewData["Title"] = "Edit Resutl";
+            var crumbs = GetCrumbs();
+            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "Results", Icon = "fa-edit", Text = "Edit" });
+            ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
-        [HttpPost]
+
+        [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id, Title, Result")] ResultViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id, Title, Date")] ResultViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                var getOperation = await _rbo.ReadAsync((Guid)id);
-                if (!getOperation.Success) return View("Error", new ErrorViewModel() { RequestId = getOperation.Exception.Message });
-                if (getOperation.Result == null) return NotFound();
+                var getOperation = await _bo.ReadAsync((Guid)id);
+                if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
+                if (getOperation.Result == null) return RecordNotFound();
                 var result = getOperation.Result;
                 result.Title = vm.Title;
                 result.Date = vm.Date;
-                var updateOperation = await _rbo.UpdateAsync(result);
-                if (!updateOperation.Success) return View("Error", new ErrorViewModel() { RequestId = updateOperation.Exception.Message });
+                var updateOperation = await _bo.UpdateAsync(result);
+                if (!updateOperation.Success) return OperationErrorBackToIndex(updateOperation.Exception);
+                else return OperationSuccess("The record was successfuly updated");
             }
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet("Delete/{id}")]
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null) return NotFound();
-            var deleteOperation = await _rbo.DeleteAsync((Guid)id);
-            if (!deleteOperation.Success) return View("Error", new ErrorViewModel() { RequestId = deleteOperation.Exception.Message });
-            return RedirectToAction(nameof(Index));
+            if (id == null) return RecordNotFound();
+            var deleteOperation = await _bo.DeleteAsync((Guid)id);
+            if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
+            else return OperationSuccess("The record was successfuly deleted");
         }
+
     }
 }

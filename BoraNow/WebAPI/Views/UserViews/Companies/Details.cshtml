@@ -2,32 +2,41 @@
 
 @model CompanyViewModel
 <h2>Company - Details</h2>
-<br />
-<div>
-    <dl class="row">
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Representative)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Representative)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.VatNumber)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.VatNumber)
-        </dd>
-    </dl>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body">
+        <div class="ml-5 mr-5">
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.Representative)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.Representative)
+                </dd>
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </dd>
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.VatNumber)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.VatNumber)
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
