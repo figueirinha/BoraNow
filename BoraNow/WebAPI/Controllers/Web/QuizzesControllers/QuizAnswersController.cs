@@ -66,7 +66,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             var list = new List<QuizAnswerViewModel>();
             foreach (var item in listOperation.Result)
             {
-                if (!item.IsDeleted)
+                if (!item.IsDeleted )
                 {
                     list.Add(QuizAnswerViewModel.Parse(item));
                 }
@@ -116,7 +116,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return View(vm);
         }
 
-        [HttpGet("Create")]
+        [HttpGet("New")]
         public async Task<IActionResult> Create()
         {
             var qqListOperation = await _qqbo.ListAsync();
@@ -145,9 +145,14 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 }
                 ViewBag.Quizzes = qList.Select(q => new SelectListItem() { Text = q.Title, Value = q.Id.ToString() });
             }
+            ViewData["Title"] = "New Answer";
+            var crumbs = GetCrumbs();
+            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "QuizAnswers", Icon = "fa-plus", Text = "New" });
+            ViewData["BreadCrumbs"] = crumbs;
             return View();
+            
         }
-        [HttpPost]
+        [HttpPost("New")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Answer","QuizQuestionId", "QuizId")] QuizAnswerViewModel vm)
         {
@@ -169,6 +174,10 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
             var vm = QuizAnswerViewModel.Parse(getOperation.Result);
+            ViewData["Title"] = "Edit Answer";
+            var crumbs = GetCrumbs();
+            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "QuizAnswers", Icon = "fa-edit", Text = "Edit" });
+            ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
         [HttpPost("edit/{id}")]

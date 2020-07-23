@@ -14,6 +14,9 @@ namespace Recodme.RD.Lennyouse.PresentationLayer.WebAPI.Controllers.LenyouseCont
     {
         private readonly QuizQuestionBusinessObject _bo = new QuizQuestionBusinessObject();
         private readonly QuizBusinessObject _qbo = new QuizBusinessObject();
+
+
+
         public async Task<IActionResult> Index()
         {
             var listOperation = await _bo.ListAsync();

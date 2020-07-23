@@ -1,16 +1,25 @@
-﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
 @model QuizQuestionViewModel
+<h2>Details</h2>
 
-    <h2>QuizQuestion - Details</h2>
-<br />
-<div>
-    <dl class="row">
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Question)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Question)
-        </dd>
-    </dl>
+<div class="card">
+    <div class="card-header bg-greenish-green">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body">
+        <div class="ml-5 mr-5">
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.Question)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.Question)
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
+
