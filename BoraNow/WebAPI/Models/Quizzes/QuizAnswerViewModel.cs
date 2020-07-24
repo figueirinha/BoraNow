@@ -8,8 +8,10 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
     public class QuizAnswerViewModel
     {
         public Guid Id { get; set; }
+        [Required(ErrorMessage = "Please insert an Answer")]
         public string Answer { get; set; }
 
+        [Required(ErrorMessage = "Please insert a Question")]
         [Display(Name = "Question")]
         public Guid QuizQuestionId { get; set; }
 

@@ -11,7 +11,9 @@ using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesControllers
 {
-    [ApiExplorerSettings(IgnoreApi = true)]  //?????????????????
+    [ApiExplorerSettings(IgnoreApi = true)]  
+
+    [Route("[controller]")]
     public class QuizQuestionsController : Controller
     {
         private readonly QuizQuestionBusinessObject _bo = new QuizQuestionBusinessObject();
@@ -90,17 +92,23 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             var getOperation = await _bo.ReadAsync((Guid)id);
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
+
+            var getQOperation = await _qbo.ReadAsync(getOperation.Result.QuizId);
+            if (!getQOperation.Success) return OperationErrorBackToIndex(getQOperation.Exception);
+            if (getQOperation.Result == null) return RecordNotFound();
+
             var vm = QuizQuestionViewModel.Parse(getOperation.Result);
             ViewData["Title"] = "Quiz Question";
 
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "QuizQuestions", Icon = "fa-search", Text = "Detail" });
+            ViewData["Quiz"] = QuizViewModel.Parse(getQOperation.Result);
 
             ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
 
-
+       
         [HttpGet("New")]
         public async Task<IActionResult> Create()
         {
@@ -117,6 +125,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 }
                 ViewBag.Quizzes = qList.Select(q => new SelectListItem() { Text = q.Title, Value = q.Id.ToString() });
             }
+
             ViewData["Title"] = "New Question";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "QuizQuestions", Icon = "fa-plus", Text = "New" });
@@ -146,12 +155,35 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             var getOperation = await _bo.ReadAsync((Guid)id);
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
+
             var vm = QuizQuestionViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Edit Question";
+            var listIpOperation = await _qbo.ListAsync();
+            if (!listIpOperation.Success) return OperationErrorBackToIndex(listIpOperation.Exception);
+            var qList = new List<SelectListItem>();
+            foreach (var item in listIpOperation.Result)
+            {
+                if (!item.IsDeleted)
+                {
+                    var listItem = new SelectListItem() { Value = item.Id.ToString(), Text = item.Title };
+                    if (item.Id == vm.QuizId) listItem.Selected = true;
+                    qList.Add(listItem);
+                }
+            }
+
+            ViewBag.Quizzes = qList;
+            ViewData["Title"] = "Edit Quiz Question";
             var crumbs = GetCrumbs();
-            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "QuizQuestions", Icon = "fa-edit", Text = "Edit" });
+            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "QuizQuestion", Icon = "fa-edit", Text = "Edit" });
             ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
+
+
+            //var vm = QuizQuestionViewModel.Parse(getOperation.Result);
+            //ViewData["Title"] = "Edit Question";
+            //var crumbs = GetCrumbs();
+            //crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "QuizQuestions", Icon = "fa-edit", Text = "Edit" });
+            //ViewData["BreadCrumbs"] = crumbs;
+            //return View(vm);
         }
 
 

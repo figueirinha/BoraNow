@@ -9,6 +9,9 @@ using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesControllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("[controller]")]
+    
     public class QuizzesController : Controller
     {
         private readonly QuizBusinessObject _bo = new QuizBusinessObject();
