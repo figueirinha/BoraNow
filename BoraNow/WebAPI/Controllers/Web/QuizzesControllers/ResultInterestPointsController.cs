@@ -102,14 +102,24 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
         {
             if (id == null) return RecordNotFound();
             var getOperation = await _bo.ReadAsync((Guid)id);
+
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
+
+            var getIpOperation = await _ipbo.ReadAsync(getOperation.Result.InterestPointId);
+            if (!getIpOperation.Success) return OperationErrorBackToIndex(getIpOperation.Exception);
+            if (getIpOperation.Result == null) return RecordNotFound();
+
+            var getROperation = await _rbo.ReadAsync(getOperation.Result.ResultId);
+            if (!getROperation.Success) return OperationErrorBackToIndex(getROperation.Exception);
+            if (getROperation.Result == null) return RecordNotFound();
+
             var vm = ResultInterestPointViewModel.Parse(getOperation.Result);
             ViewData["Title"] = "Interest Point Result";
-
             var crumbs = GetCrumbs();
-            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "ResultInterestPoints", Icon = "fa-search", Text = "Detail" });
-
+            crumbs.Add(new BreadCrumb() { Action = "Details", Controller = "ResultInterestPoints", Icon = "fa-search", Text = "Detail" });
+            ViewData["InterestPoints"] = InterestPointViewModel.Parse(getIpOperation.Result);
+            ViewData["Results"] = ResultViewModel.Parse(getROperation.Result);
             ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }

@@ -42,10 +42,10 @@
                             var visitor = (ViewBag.Visitors as List<VisitorViewModel>).FirstOrDefault(x => x.Id == item.VisitorId);
                         }
 
-                        <td class="w-1">
+                        <td class="w-4">
                             <a asp-controller="Quizzes" asp-action="Details" asp-route-id="@quiz.Id">@quiz.Title</a>
                         </td>
-                        <td class="w-1">
+                        <td class="w-4">
                             <a asp-controller="Visitors" asp-action="Details" asp-route-id="@visitor.Id">@visitor.FirstName</a>
                         </td>
                         <td></td>

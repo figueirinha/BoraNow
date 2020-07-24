@@ -1,6 +1,10 @@
 ﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
 @model InterestPointCategoryInterestPointViewModel
+@{
+    ViewBag.Title = "Update";
+}
+
 <div class="card">
     <div class="card-header">
         <h2 class="float-left">
@@ -11,10 +15,9 @@
         <div class="ml-5 mr-5">
             <form asp-action="Edit" class="pl-4">
                 <h3>
-                    Update the InterestPoint Category - InterestPoint Data
+                    Update the options data
                 </h3>
                 <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
-
                 <div class="form-group">
                     <label asp-for="InterestPointId" class="control-label"></label>
                     <select asp-for="InterestPointId" class="form-control" asp-items="@ViewBag.InterestPoints"></select>
@@ -28,13 +31,11 @@
                 @Html.Hidden("Id", Model.Id)
                 <br />
                 <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="form-group col-md-3">
-                        <input type="button" value="Cancel" onclick="location.href='@Url.Action("Index","InterestPointsCategoryInterestPoints")';" />
-                    </div>
-                    <div class="col-md-2"></div>
                     <div class="form-group col-md-3">
                         <input type="submit" value="Update" class="btn btn-primary" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index","InterestPointCategoryInterestPoints")';" />
                     </div>
                 </div>
             </form>

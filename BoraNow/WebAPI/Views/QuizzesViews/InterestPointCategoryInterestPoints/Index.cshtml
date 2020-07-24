@@ -1,6 +1,5 @@
 ﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
-
 @model IEnumerable<InterestPointCategoryInterestPointViewModel>
 
 <div class="card">
@@ -10,7 +9,7 @@
         </h2>
         <p class="float-right mt-2 mb-0">
 
-            <a asp-controller="InterestPointsCategoryInterestPoints" asp-action="Create" class="btn btn-outline-light"><i class="fas fa-plus mr-1"></i>New</a>
+            <a asp-controller="InterestPointCategoryInterestPoints" asp-action="Create" class="btn btn-outline-light"><i class="fas fa-plus mr-1"></i>New</a>
         </p>
     </div>
     <div class="card-body table-responsive">
@@ -38,10 +37,10 @@
                             var cip = (ViewBag.CategoryInterestPoints as List<CategoryInterestPointViewModel>).FirstOrDefault(x => x.Id == item.CategoryId);
                         }
 
-                        <td class="w-1">
+                        <td class="w-4">
                             <a asp-controller="InterestPoints" asp-action="Details" asp-route-id="@ip.Id">@ip.Name</a>
                         </td>
-                        <td class="w-1">
+                        <td class="w-4">
                             <a asp-controller="CategoryInterestPoints" asp-action="Details" asp-route-id="@cip.Id">@cip.Name</a>
                         </td>
                         <td></td>
