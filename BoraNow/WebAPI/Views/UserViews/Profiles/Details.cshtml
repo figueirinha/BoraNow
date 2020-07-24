@@ -1,5 +1,45 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
+
+@model ProfileViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body">
+        <div class="ml-5 mr-5">
+            <dl class="row">
+                <dt class="col-3">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-9">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt class="col-3">
+                    @Html.DisplayNameFor(model => model.PhotoPath)
+                </dt>
+                <dd class="col-9">
+                    @Html.DisplayFor(model => model.PhotoPath)
+                </dd>
+            </dl>
+            @{
+                var countries = ViewData["Countries"] as CountryViewModel;
+            }
+            <dl class="row">
+                <dt class="col-3">
+                    @Html.DisplayNameFor(model => model.CountryId)
+                </dt>
+                <dd class="col-9">
+
+                    <a asp-controller="Countries" asp-action="Details" asp-route-id="@countries.Id">@countries.Name</a>
+                </dd>
+            </dl>
+
+        </div>
+        <div class="form-group col-md-3">
+            <input type="button" value="Go Back" class="btn btn-secondary" onclick="location.href='@Url.Action("Index","Profiles")';" />
+        </div>
+    </div>
+</div>

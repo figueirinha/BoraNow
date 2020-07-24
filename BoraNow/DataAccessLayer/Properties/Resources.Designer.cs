@@ -61,7 +61,7 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server=RECODME-MARCOP;Database=BoraNow;Trusted_Connection=True;.
+        ///   Looks up a localized string similar to Server=JZY42Z2\SQLEXPRESS;Database=BoraNow;Trusted_Connection=True;.
         /// </summary>
         public static string ConnectionString {
             get {
