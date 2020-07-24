@@ -37,10 +37,10 @@
                             var r = (ViewBag.Results as List<ResultViewModel>).FirstOrDefault(x => x.Id == item.ResultId);
                         }
 
-                        <td class="w-1">
+                        <td class="w-4">
                             <a asp-controller="InterestPoints" asp-action="Details" asp-route-id="@ip.Id">@ip.Name</a>
                         </td>
-                        <td class="w-1">
+                        <td class="w-4">
                             <a asp-controller="Results" asp-action="Details" asp-route-id="@r.Id">@r.Title</a>
                         </td>
                         <td></td>

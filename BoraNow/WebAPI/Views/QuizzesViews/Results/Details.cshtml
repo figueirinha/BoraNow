@@ -1,4 +1,5 @@
 ﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
+@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
 
 @model ResultViewModel
 
@@ -11,19 +12,44 @@
     <div class="card-body">
         <div class="ml-5 mr-5">
             <dl class="row">
-                <dt class="col-2">
+                <dt class="col-3">
                     @Html.DisplayNameFor(model => model.Title)
                 </dt>
-                <dd class="col-10">
+                <dd class="col-9">
                     @Html.DisplayFor(model => model.Title)
                 </dd>
-                <dt class="col-2">
+                <dt class="col-3">
                     @Html.DisplayNameFor(model => model.Date)
                 </dt>
-                <dd class="col-10">
+                <dd class="col-9">
                     @Html.DisplayFor(model => model.Date)
                 </dd>
             </dl>
+            @{
+                var quiz = ViewData["Quizzes"] as QuizViewModel;
+                var visitor = ViewData["Visitors"] as VisitorViewModel;
+            }
+            <dl class="row">
+                <dt class="col-3">
+                    @Html.DisplayNameFor(model => model.QuizId)
+                </dt>
+                <dd class="col-9">
+
+                    <a asp-controller="Quizzes" asp-action="Details" asp-route-id="@quiz.Id">@quiz.Title</a>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-3">
+                    @Html.DisplayNameFor(model => model.VisitorId)
+                </dt>
+                <dd class="col-9">
+
+                    <a asp-controller="Visitors" asp-action="Details" asp-route-id="@visitor.Id">@visitor.FullName</a>
+                </dd>
+            </dl>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="button" value="Go Back" class="btn btn-secondary" onclick="location.href='@Url.Action("Index","Results")';" />
         </div>
     </div>
 </div>

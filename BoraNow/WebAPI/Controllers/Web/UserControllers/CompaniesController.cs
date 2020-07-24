@@ -9,6 +9,7 @@ using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserControllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("[controller]")]
     public class CompaniesController : Controller
     {
