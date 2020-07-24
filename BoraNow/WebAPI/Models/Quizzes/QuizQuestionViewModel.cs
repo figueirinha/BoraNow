@@ -1,6 +1,7 @@
 ﻿using Recodme.RD.BoraNow.DataLayer.Quizzes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +11,8 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
     {
         public Guid Id { get; set; }
         public string Question { get; set; }
+
+        [Display(Name = "Quiz")]
         public Guid QuizId { get; set; }
 
         public QuizQuestion ToQuizQuestion()
