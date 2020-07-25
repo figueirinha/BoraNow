@@ -20,6 +20,10 @@
     <Folder Include="Views\MeteoViews\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\img\a-belexa-de-lisboa-a.png" />
+  </ItemGroup>
+
 
 
 </Project>
