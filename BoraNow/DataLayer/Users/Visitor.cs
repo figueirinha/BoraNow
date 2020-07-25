@@ -75,22 +75,30 @@ namespace Recodme.RD.BoraNow.DataLayer.Users
         public Guid ProfileId { get; set; }
         public virtual Profile Profile { get; set; }
 
-        public Visitor(string firstName, string lastName, DateTime birthDate, string gender, Guid profileId) : base()
+
+        [ForeignKey("Country")]
+        public Guid CountryId { get; set; }
+        public virtual Country Country { get; set; }
+
+
+        public Visitor(string firstName, string lastName, DateTime birthDate, string gender, Guid profileId, Guid countryId) : base()
         {
             _firstName = firstName;
             _lastName = lastName;
             _birthDate = birthDate;
             _gender = gender;
             ProfileId = profileId;
+            CountryId = countryId;
         }
 
-        public Visitor(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string firstName, string lastName, DateTime birthDate, string gender, Guid profileId) : base(id, createAt, updateAt, isDeleted)
+        public Visitor(Guid id, DateTime createAt, DateTime updateAt, bool isDeleted, string firstName, string lastName, DateTime birthDate, string gender, Guid profileId, Guid countryId) : base(id, createAt, updateAt, isDeleted)
         {
             _firstName = firstName;
             _lastName = lastName;
             _birthDate = birthDate;
             _gender = gender;
             ProfileId = profileId;
+            CountryId = countryId;
         }
     }
 }

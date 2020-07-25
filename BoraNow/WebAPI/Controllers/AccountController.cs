@@ -73,7 +73,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers
         {
            
             var accountBo = new AccountBusinessController(UserManager, RoleManager);
-            var person = new Profile(vm.Description, vm.PhotoPath, vm.CountryId);
+            var person = new Profile(vm.Description, vm.PhotoPath);
             var registerOperation = await accountBo.Register(vm.UserName, vm.Email, vm.Password, person, vm.Role);
             if (registerOperation.Success)
                 return OperationSuccess("The account was successfuly registered!");

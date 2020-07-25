@@ -16,11 +16,10 @@
         <table class="table table-hover" id="listTable">
             <thead>
                 <tr>
-                    <th class="no-sort"></th>
-                    <th>@Html.DisplayNameFor(model => model.Description)</th>
-                    <th>@Html.DisplayNameFor(model => model.PhotoPath)</th>
-                    <th>@Html.DisplayNameFor(model => model.CountryId)</th>
-                    <th class="no-sort"></th>
+                    <th class="no-sort w-1"></th>
+                    <th class="w-1">@Html.DisplayNameFor(model => model.Description)</th>
+                    <th class="w-1">@Html.DisplayNameFor(model => model.PhotoPath)</th>
+                    <th class="no-sort w-1"></th>
                 </tr>
             </thead>
             <tbody>
@@ -33,16 +32,8 @@
                             <a id="deleteBtn" asp-action="Delete" asp-route-id="@item.Id"><i class="link-delete fas fa-trash"></i></a>
                         </td>
                         <td class="w-1">@Html.DisplayFor(x => item.Description)</td>
-                        <td class="w-1">@Html.DisplayFor(x => item.PhotoPath)</td>
-
-                        @{
-                            var country = (ViewBag.Countries as List<CountryViewModel>).FirstOrDefault(x => x.Id == item.CountryId);
-                        }
-
-                        <td class="w-1">
-                            <a asp-controller="Countries" asp-action="Details" asp-route-id="@country.Id">@country.Name</a>
-                        </td>
-                        <td></td>
+                        <td class="w-1">@Html.DisplayFor(x => item.PhotoPath)</td>    
+                        <td class="w-1"></td>
                     </tr>
                 }
             </tbody>

@@ -23,19 +23,7 @@
                 <dd class="col-9">
                     @Html.DisplayFor(model => model.PhotoPath)
                 </dd>
-            </dl>
-            @{
-                var countries = ViewData["Countries"] as CountryViewModel;
-            }
-            <dl class="row">
-                <dt class="col-3">
-                    @Html.DisplayNameFor(model => model.CountryId)
-                </dt>
-                <dd class="col-9">
-
-                    <a asp-controller="Countries" asp-action="Details" asp-route-id="@countries.Id">@countries.Name</a>
-                </dd>
-            </dl>
+            </dl> 
 
         </div>
         <div class="form-group col-md-3">

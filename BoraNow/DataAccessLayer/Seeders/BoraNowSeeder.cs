@@ -28,10 +28,10 @@ namespace Recodme.RD.BoraNow.DataAccessLayer.Seeders
 
             var countryOne = new Country("Angola");
             var countryTwo = new Country("Portugal");
-            var profileOne = new Profile("blogueira vegana que adora viajar e conhecer novos locais", "mefamousstar.jpg", countryOne.Id);
-            var profileTwo = new Profile("Business Man with a chain of restauarants across Lisbon", "merichstar.jpg", countryTwo.Id);
+            var profileOne = new Profile("blogueira vegana que adora viajar e conhecer novos locais", "mefamousstar.jpg");
+            var profileTwo = new Profile("Business Man with a chain of restauarants across Lisbon", "merichstar.jpg");
             var company = new Company("PearTree Company", "Marco Pereria", "919200000", "23453554", profileTwo.Id);
-            var visitor = new Visitor("Bruna", "Costa", DateTime.Now.AddYears(-24), "Female", profileOne.Id);
+            var visitor = new Visitor("Bruna", "Costa", DateTime.Now.AddYears(-24), "Female", profileOne.Id, countryOne.Id);
 
 
             var interestPoint = new InterestPoint("PearTree Abc", "very chill place that offers lots off tradicional food", "abc street", "uhuhuu.jpg", "3 am", "5 pm", "fridays", true, true, company.Id);

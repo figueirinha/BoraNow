@@ -98,7 +98,7 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users
             return new OperationResult<Profile>() { Success = false, Message = "The user is not a RestaurantUser" };
         }
 
-        public async Task<OperationResult<bool>> IsClient(Profile person)
+        public async Task<OperationResult<bool>> IsVisitor(Profile person)
         {
             var users = await UserManager.GetUsersInRoleAsync("Client");
             var user = users.FirstOrDefault(x => x.ProfileId == person.Id);
@@ -106,7 +106,7 @@ namespace Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users
             else return new OperationResult<bool>() { Success = true, Result = false, Message = "User is a client" };
         }
 
-        public async Task<OperationResult<bool>> IsStaff(Profile person)
+        public async Task<OperationResult<bool>> IsCompany(Profile person)
         {
             var users = await UserManager.GetUsersInRoleAsync("Staff");
             var user = users.FirstOrDefault(x => x.ProfileId == person.Id);
