@@ -2,41 +2,38 @@
 
 @model QuizAnswerViewModel
 
-@{ ViewBag.Title = "Create"; }
 
 <div class="card">
-    <div class="card-header bg-greenish-green">
+    <div class="card-header">
         <h2 class="float-left">
             @ViewData["Title"]
         </h2>
     </div>
     <div class="card-body">
-        <div class="ml-5 mr-5">
+        <div class = "row" >
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                <div class="form-group">
                     <label asp-for="Answer" class="control-label"></label>
-                    <input asp-for="Answer" class="form-control ml-2" />
+                    <input asp-for="Answer" class="form-control" />
                     <span asp-validation-for="Answer" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="QuizQuestionId" class="control-label"></label>
-                    <div>
-                        <select asp-for="QuizQuestionId" class="form-control fk-select" asp-items="@ViewBag.QuizQuestions">
-                            <option></option>
-                        </select>
-                    </div>
+                    <select asp-for="QuizQuestionId" class="form-control" asp-items="@ViewBag.QuizQuestions"></select>
                     <span asp-validation-for="QuizQuestionId" class="text-danger"></span>
                 </div>
 
-                @*<div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label asp-for="QuizQuestionId" class="control-label"></label>
-                    <input asp-for="QuizQuestionId" class="form-control ml-2" />
-                    <span asp-validation-for="QuizQuestionId" class="text-danger"></span>
-                </div>*@
-                <div class="form-group ml-4">
-                    <input type="submit" value="Submit" class="btn btn-outline-primary" />
+
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="form-group col-md-3">
+                        <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index","QuizAnswers")';" />
+                    </div>
                 </div>
             </form>
         </div>
@@ -46,60 +43,3 @@
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-
-
-
-
-
-
-@*<div class="card ml-5 mr-5">
-        <div class="card-header">
-            <div class="float-right">
-                <a asp-action="Index" asp-controller="Home"><i class="fas fa-home mr-2"></i></a>
-                /
-                <a asp-action="Index" asp-controller="QuizAnswer">
-                    <i class="fas fa-utensils mr-2"></i>QuizAnswers
-                </a>
-                /
-                <i class="fas fa-plus mr-2"></i>
-            </div>
-            <h4 class="m-0 p-0">New QuizAnswer</h4>
-        </div>
-    </div>
-
-    <h2>QuizAnswer - New</h2>
-    <br />
-    <div class="row">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
-            <div class="form-group">
-                <label asp-for="Answer" class="control-label"></label>
-                <input asp-for="Answer" class="form-control" />
-                <span asp-validation-for="Answer" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="QuizQuestionId" class="control-label"></label>
-                <select asp-for="QuizQuestionId" class="form-control" asp-items="@ViewBag.QuizQuestions"></select>
-                <span asp-validation-for="QuizQuestionId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="QuizQuestionId" class="control-label"></label>
-                <select asp-for="QuizQuestionId" class="form-control" asp-items="@ViewBag.Quizzes"></select>
-                <span asp-validation-for="QuizQuestionId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-
-
-
-
-    @section Scripts{
-        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    }*@

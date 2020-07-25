@@ -35,7 +35,7 @@
                             var quizzes = (ViewBag.Quizzes as List<QuizViewModel>).FirstOrDefault(x => x.Id == item.QuizId);
                         }
                         <td class="w-1">@Html.DisplayFor(x => item.Question)</td>
-                        <td class="w-1"><a asp-controller="Quizzes" asp-action="Details" asp-route-id="@quizzes.">@quizzes.Title</a></td>
+                        <td class="w-1"><a asp-controller="Quizzes" asp-action="Details" asp-route-id="@quizzes.Id">@quizzes.Title</a></td>
                         <td></td>
                     </tr>
                 }

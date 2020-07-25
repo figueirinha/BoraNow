@@ -1,6 +1,6 @@
-﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
 
-@model IEnumerable<ResultInterestPointViewModel>
+@model IEnumerable<ProfileViewModel>
 
 <div class="card">
     <div class="card-header">
@@ -9,7 +9,7 @@
         </h2>
         <p class="float-right mt-2 mb-0">
 
-            <a asp-controller="ResultInterestPoints" asp-action="Create" class="btn btn-outline-light"><i class="fas fa-plus mr-1"></i>New</a>
+            <a asp-controller="Profiles" asp-action="Create" class="btn btn-outline-light"><i class="fas fa-plus mr-1"></i>New</a>
         </p>
     </div>
     <div class="card-body table-responsive">
@@ -17,8 +17,9 @@
             <thead>
                 <tr>
                     <th class="no-sort"></th>
-                    <th>@Html.DisplayNameFor(model => model.InterestPointId)</th>
-                    <th>@Html.DisplayNameFor(model => model.ResultId)</th>
+                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <th>@Html.DisplayNameFor(model => model.PhotoPath)</th>
+                    <th>@Html.DisplayNameFor(model => model.CountryId)</th>
                     <th class="no-sort"></th>
                 </tr>
             </thead>
@@ -31,17 +32,15 @@
                             <a class="link-details" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-search mr-2"></i></a>
                             <a id="deleteBtn" asp-action="Delete" asp-route-id="@item.Id"><i class="link-delete fas fa-trash"></i></a>
                         </td>
+                        <td class="w-1">@Html.DisplayFor(x => item.Description)</td>
+                        <td class="w-1">@Html.DisplayFor(x => item.PhotoPath)</td>
 
                         @{
-                            var ip = (ViewBag.InterestPoints as List<InterestPointViewModel>).FirstOrDefault(x => x.Id == item.InterestPointId);
-                            var r = (ViewBag.Results as List<ResultViewModel>).FirstOrDefault(x => x.Id == item.ResultId);
+                            var country = (ViewBag.Countries as List<CountryViewModel>).FirstOrDefault(x => x.Id == item.CountryId);
                         }
 
                         <td class="w-4">
-                            <a asp-controller="InterestPoints" asp-action="Details" asp-route-id="@ip.Id">@ip.Name</a>
-                        </td>
-                        <td class="w-4">
-                            <a asp-controller="Results" asp-action="Details" asp-route-id="@r.Id">@r.Title</a>
+                            <a asp-controller="Countries" asp-action="Details" asp-route-id="@country.Id">@country.Name</a>
                         </td>
                         <td></td>
                     </tr>

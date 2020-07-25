@@ -4,7 +4,7 @@
 <h2>Details</h2>
 
 <div class="card">
-    <div class="card-header bg-greenish-green">
+    <div class="card-header">
         <h2 class="float-left">
             @ViewData["Title"]
         </h2>
@@ -18,8 +18,25 @@
                 <dd class="col-10">
                     @Html.DisplayFor(model => model.Question)
                 </dd>
-            </dl>
+
+                @{ var qz = ViewData["Quiz"] as QuizViewModel;
+                 }
+
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.QuizId)
+                </dt>
+                <dd class="col-10">
+
+                    <a asp-controller="Quizzes" asp-action="Details" asp-route-id="@qz.Id">@qz.Title</a>
+                </dd>
+
+            </dl>    
+
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <input type="button" value="Back" class="btn btn-secondary" onclick="location.href='@Url.Action("Index","QuizQuestions")';" />
+                </div>
+            </div>
         </div>
     </div>
 </div>
-

@@ -1,22 +1,36 @@
-﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters;
 
 @model NewsletterViewModel
+<h2>Details</h2>
 
-<h2>Newsletter - Details</h2>
-<br />
-<div>
-    <dl class="row">
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body">
+        <div class="ml-5 mr-5">
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <input type="button" value="Back" class="btn btn-secondary" onclick="location.href='@Url.Action("Index","Newsletters")';" />
+            </div>
+        </div>
+    </div>
 </div>
+

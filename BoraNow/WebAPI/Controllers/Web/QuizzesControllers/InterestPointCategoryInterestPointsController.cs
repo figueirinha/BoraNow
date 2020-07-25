@@ -29,7 +29,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return new List<BreadCrumb>()
                 { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
                   new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
-                  new BreadCrumb(){Icon = "fas fa-map-pin", Action="Index", Controller="InterestPointCategoryInterestPoints", Text = "Interest Points Category - Interest Point"}
+                  new BreadCrumb(){Icon = "fas fa-map-pin", Action="Index", Controller="InterestPointCategoryInterestPoints", Text = "Interest Points Categories"}
                 };
         }
 
@@ -88,7 +88,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 }
             }
 
-            ViewData["Title"] = "Interest Point Category - Interest Points";
+            ViewData["Title"] = "Interest Point Categories - Interest Points ";
             ViewData["BreadCrumbs"] = GetCrumbs();
             ViewData["DeleteHref"] = GetDeleteRef();
             ViewBag.InterestPoints = ipList;
@@ -101,14 +101,24 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
         {
             if (id == null) return RecordNotFound();
             var getOperation = await _bo.ReadAsync((Guid)id);
+
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
+
+            var getIpOperation = await _ipbo.ReadAsync(getOperation.Result.InterestPointId);
+            if (!getIpOperation.Success) return OperationErrorBackToIndex(getIpOperation.Exception);
+            if (getIpOperation.Result == null) return RecordNotFound();
+
+            var getCipOperation = await _cipbo.ReadAsync(getOperation.Result.CategoryId);
+            if (!getCipOperation.Success) return OperationErrorBackToIndex(getCipOperation.Exception);
+            if (getCipOperation.Result == null) return RecordNotFound();
+
             var vm = InterestPointCategoryInterestPointViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Interest Point Category - InterestPoint";
-
+            ViewData["Title"] = "Interest Point Categories";
             var crumbs = GetCrumbs();
-            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "InterestPointCategoryInterestPoints", Icon = "fa-search", Text = "Detail" });
-
+            crumbs.Add(new BreadCrumb() { Action = "Details", Controller = "InterestPointCategoryInterestPoints", Icon = "fa-search", Text = "Detail" });
+            ViewData["InterestPoints"] = InterestPointViewModel.Parse(getIpOperation.Result);
+            ViewData["CategoryInterestPoints"] = CategoryInterestPointViewModel.Parse(getCipOperation.Result);
             ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
@@ -138,12 +148,13 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                     var cipvm = CategoryInterestPointViewModel.Parse(cip);
                     cipList.Add(cipvm);
                 }
-                ViewBag.CategpryInterestPoints = cipList.Select(icip => new SelectListItem() { Text = icip.Name, Value = icip.Id.ToString() });
+                ViewBag.CategoryInterestPoints = cipList.Select(icip => new SelectListItem() { Text = icip.Name, Value = icip.Id.ToString() });
             }
 
-            ViewData["Title"] = "New Interest Point Category - Interest Point";
+
+            ViewData["Title"] = "New Interest Point Categories";
             var crumbs = GetCrumbs();
-            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "InterestPointCategoryInterestPoints", Icon = "fa-plus", Text = "New" });
+            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "InterestPointsCategoryInterestPoints", Icon = "fa-plus", Text = "New" });
             ViewData["BreadCrumbs"] = crumbs;
             return View();
         }
@@ -154,8 +165,8 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
         {
             if (ModelState.IsValid)
             {
-                var interestPointCategoryInterestPoint = vm.ToInterestPointCategoryInteresPoint();
-                var createOperation = await _bo.CreateAsync(interestPointCategoryInterestPoint);
+                var ipcip = vm.ToInterestPointCategoryInteresPoint();
+                var createOperation = await _bo.CreateAsync(ipcip);
                 if (!createOperation.Success) return OperationErrorBackToIndex(createOperation.Exception);
                 return OperationSuccess("The record was successfuly created");
             }
@@ -171,6 +182,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (getOperation.Result == null) return RecordNotFound();
 
             var vm = InterestPointCategoryInterestPointViewModel.Parse(getOperation.Result);
+
             var listIpOperation = await _ipbo.ListAsync();
             if (!listIpOperation.Success) return OperationErrorBackToIndex(listIpOperation.Exception);
             var ipList = new List<SelectListItem>();
@@ -191,18 +203,19 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 if (!item.IsDeleted)
                 {
                     var listItem = new SelectListItem() { Value = item.Id.ToString(), Text = item.Name };
-                    if (item.Id == vm.InterestPointId) listItem.Selected = true;
+                    if (item.Id == vm.CategoryId) listItem.Selected = true;
                     cipList.Add(listItem);
                 }
             }
 
+
             ViewBag.InterestPoints = ipList;
             ViewBag.CategoryInterestPoints = cipList;
 
-            ViewData["Title"] = "Edit Interest Point Category - Interest Points";
+            ViewData["Title"] = "Edit Interest Point Categories";
 
             var crumbs = GetCrumbs();
-            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "InterestPointsCategoryInterestPoints", Icon = "fa-edit", Text = "Edit" });
+            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "InterestPointCategoryInterestPoints", Icon = "fa-edit", Text = "Edit" });
             ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
@@ -218,7 +231,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 var result = getOperation.Result;
                 result.InterestPointId = vm.InterestPointId;
                 result.CategoryId = vm.CategoryId;
-              
+
                 var updateOperation = await _bo.UpdateAsync(result);
                 if (!updateOperation.Success)
                 {
@@ -238,5 +251,6 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
             return OperationSuccess("The record was successfuly deleted");
         }
+
     }
 }

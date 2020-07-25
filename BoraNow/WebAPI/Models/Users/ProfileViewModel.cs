@@ -1,38 +1,35 @@
-﻿//using Recodme.RD.BoraNow.DataLayer.Users;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
+﻿using Recodme.RD.BoraNow.DataLayer.Users;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-//namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
-//{
-//    public class ProfileViewModel
-//    {
-//        public Guid Id { get; set; }
-//        public string Description { get; set; }
-//        public string PhotoPath { get; set; }
-//        public Guid CountryId { get; set; }
-//        public Guid VisitorId { get; set; }
-//        public Guid CompanyId { get; set; }
-//        public Guid UserId { get; set; }
+namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
+{
+    public class ProfileViewModel
+    {
+        public Guid Id { get; set; }
+        [Required(ErrorMessage = "Input a description")]
+        public string Description { get; set; }
+        [Required(ErrorMessage = "Insert a photo")]
+        public string PhotoPath { get; set; }
+        public Guid CountryId { get; set; }
 
-//        public Profile ToProfile()
-//        {
-//            return new Profile(Description, PhotoPath, CountryId, VisitorId, CompanyId, UserId);
-//        }
+        public Profile ToProfile()
+        {
+            return new Profile(Description, PhotoPath, CountryId);
+        }
 
-//        public static ProfileViewModel Parse(Profile profile)
-//        {
-//            return new ProfileViewModel()
-//            {
-//                Id = profile.Id,
-//                Description = profile.Description,
-//                PhotoPath = profile.PhotoPath,
-//                CompanyId = profile.CompanyId,
-//                CountryId = profile.CountryId,
-//                VisitorId = profile.VisitorId,
-//                UserId = profile.UserId
-//            };
-//        }
-//    }
-//}
+        public static ProfileViewModel Parse(Profile profile)
+        {
+            return new ProfileViewModel()
+            {
+                Id = profile.Id,
+                Description = profile.Description,
+                PhotoPath = profile.PhotoPath,
+                CountryId = profile.CountryId
+            };
+        }
+    }
+}

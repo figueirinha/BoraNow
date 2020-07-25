@@ -4,20 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
+using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents;
-using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
 
-namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesControllers
+namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserControllers
 {
-    [ApiExplorerSettings(IgnoreApi = true)]  
-
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("[controller]")]
-    public class QuizQuestionsController : Controller
+    public class ProfilesController : Controller
     {
-        private readonly QuizQuestionBusinessObject _bo = new QuizQuestionBusinessObject();
-        private readonly QuizBusinessObject _qbo = new QuizBusinessObject();
+        private readonly ProfileBusinessObject _bo = new ProfileBusinessObject();
+        private readonly CountryBusinessObject _cbo = new CountryBusinessObject();
 
         private string GetDeleteRef()
         {
@@ -29,10 +28,9 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return new List<BreadCrumb>()
                 { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
                   new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
-                  new BreadCrumb(){Icon = "far fa-file-alt", Action="Index", Controller="QuizQuestions", Text = "Quiz Questions"}
+                  new BreadCrumb(){Icon = "fas fa-id-card", Action="Index", Controller="´Profiles", Text = "Profile"}
                 };
         }
-
         private IActionResult RecordNotFound()
         {
             TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Information, "The record was not found");
@@ -50,98 +48,91 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Success, message);
             return RedirectToAction(nameof(Index));
         }
-
-
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             var listOperation = await _bo.ListAsync();
             if (!listOperation.Success) return OperationErrorBackToIndex(listOperation.Exception);
-            var qListOperation = await _qbo.ListAsync();
-            if (!qListOperation.Success) return OperationErrorBackToIndex(qListOperation.Exception);
-
-            var list = new List<QuizQuestionViewModel>();
+            var lst = new List<ProfileViewModel>();
             foreach (var item in listOperation.Result)
             {
                 if (!item.IsDeleted)
                 {
-                    list.Add(QuizQuestionViewModel.Parse(item));
+                    lst.Add(ProfileViewModel.Parse(item));
                 }
             }
-
-            var qList = new List<QuizViewModel>();
-            foreach (var item in qListOperation.Result)
+            var clistOperation = await _cbo.ListAsync();
+            if (!clistOperation.Success) return OperationErrorBackToIndex(clistOperation.Exception);
+            var clst = new List<CountryViewModel>();
+            foreach (var item in clistOperation.Result)
             {
                 if (!item.IsDeleted)
                 {
-                    qList.Add(QuizViewModel.Parse(item));
+                   clst.Add(CountryViewModel.Parse(item));
                 }
             }
 
-            ViewData["Title"] = "Quiz Question";
-            ViewData["BreadCrumbs"] = GetCrumbs();
+            ViewData["Title"] = "Profile";
+            ViewData["Breadcrumbs"] = GetCrumbs();
             ViewData["DeleteHref"] = GetDeleteRef();
-            ViewBag.Quizzes = qList;
-            return View(list);
-        }
+            ViewData["Countries"] = clst;
+            return View(lst);
 
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null) return RecordNotFound();
             var getOperation = await _bo.ReadAsync((Guid)id);
+
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
 
-            var getQOperation = await _qbo.ReadAsync(getOperation.Result.QuizId);
-            if (!getQOperation.Success) return OperationErrorBackToIndex(getQOperation.Exception);
-            if (getQOperation.Result == null) return RecordNotFound();
+            var getCountryOperation = await _cbo.ReadAsync(getOperation.Result.CountryId);
+            if (!getCountryOperation.Success) return OperationErrorBackToIndex(getCountryOperation.Exception);
+            if (getCountryOperation.Result == null) return RecordNotFound();
+ 
 
-            var vm = QuizQuestionViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Quiz Question";
-
+            var vm = ProfileViewModel.Parse(getOperation.Result);
+            ViewData["Title"] = "Profile - Details";
             var crumbs = GetCrumbs();
-            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "QuizQuestions", Icon = "fa-search", Text = "Detail" });
-            ViewData["Quiz"] = QuizViewModel.Parse(getQOperation.Result);
-
+            crumbs.Add(new BreadCrumb() { Action = "Details", Controller = "Profiles", Icon = "fa-search", Text = "Detail" });
+            ViewData["Countries"] = CountryViewModel.Parse(getCountryOperation.Result);
             ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
-
-       
-        [HttpGet("New")]
+        [HttpGet("Create")]
         public async Task<IActionResult> Create()
         {
-            var qListOperation = await _qbo.ListAsync();
-
-            if (!qListOperation.Success) return OperationErrorBackToIndex(qListOperation.Exception);
-            var qList = new List<QuizViewModel>();
-            foreach (var q in qListOperation.Result)
+            var cListOperation = await _cbo.ListAsync();
+            if (!cListOperation.Success) return OperationErrorBackToIndex(cListOperation.Exception);
+            var cList = new List<CountryViewModel>();
+            foreach (var item in cListOperation.Result)
             {
-                if (!q.IsDeleted)
+                if (!item.IsDeleted)
                 {
-                    var qvm = QuizViewModel.Parse(q);
-                    qList.Add(qvm);
+                    var cvm = CountryViewModel.Parse(item);
+                    cList.Add(cvm);
                 }
-                ViewBag.Quizzes = qList.Select(q => new SelectListItem() { Text = q.Title, Value = q.Id.ToString() });
+                ViewBag.Countries = cList.Select(p => new SelectListItem() { Text = p.Name, Value = p.Id.ToString() });
             }
 
-            ViewData["Title"] = "New Question";
+
+            ViewData["Title"] = "New Profile";
             var crumbs = GetCrumbs();
-            crumbs.Add(new BreadCrumb() { Action = "New", Controller = "QuizQuestions", Icon = "fa-plus", Text = "New" });
+            crumbs.Add(new BreadCrumb() { Action = "Create", Controller = "Profiles", Icon = "fa-plus", Text = "New" });
             ViewData["BreadCrumbs"] = crumbs;
             return View();
         }
 
-
-        [HttpPost("New")]
+        [HttpPost("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Question", "QuizId")] QuizQuestionViewModel vm)
+        public async Task<IActionResult> Create([Bind("Description, PhotoPath, CountryId")] ProfileViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                var quizAnswer = vm.ToQuizQuestion();
-                var createOperation = await _bo.CreateAsync(quizAnswer);
+                var profile = vm.ToProfile();
+                var createOperation = await _bo.CreateAsync(profile);
                 if (!createOperation.Success) return OperationErrorBackToIndex(createOperation.Exception);
                 return OperationSuccess("The record was successfuly created");
             }
@@ -156,40 +147,31 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
 
-            var vm = QuizQuestionViewModel.Parse(getOperation.Result);
-            var listIpOperation = await _qbo.ListAsync();
-            if (!listIpOperation.Success) return OperationErrorBackToIndex(listIpOperation.Exception);
-            var qList = new List<SelectListItem>();
-            foreach (var item in listIpOperation.Result)
+            var vm = ProfileViewModel.Parse(getOperation.Result);
+            var listCountryOperation = await _cbo.ListAsync();
+            if (!listCountryOperation.Success) return OperationErrorBackToIndex(listCountryOperation.Exception);
+            var cList = new List<SelectListItem>();
+            foreach (var item in listCountryOperation.Result)
             {
                 if (!item.IsDeleted)
                 {
-                    var listItem = new SelectListItem() { Value = item.Id.ToString(), Text = item.Title };
-                    if (item.Id == vm.QuizId) listItem.Selected = true;
-                    qList.Add(listItem);
+                    var listItem = new SelectListItem() { Value = item.Id.ToString(), Text = item.Name };
+                    if (item.Id == vm.CountryId) listItem.Selected = true;
+                    cList.Add(listItem);
                 }
             }
+          
+            ViewBag.Countries = cList;
 
-            ViewBag.Quizzes = qList;
-            ViewData["Title"] = "Edit Quiz Question";
+            ViewData["Title"] = "Edit Profile";
             var crumbs = GetCrumbs();
-            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "QuizQuestion", Icon = "fa-edit", Text = "Edit" });
+            crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "Profiles", Icon = "fa-edit", Text = "Edit" });
             ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
-
-
-            //var vm = QuizQuestionViewModel.Parse(getOperation.Result);
-            //ViewData["Title"] = "Edit Question";
-            //var crumbs = GetCrumbs();
-            //crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "QuizQuestions", Icon = "fa-edit", Text = "Edit" });
-            //ViewData["BreadCrumbs"] = crumbs;
-            //return View(vm);
         }
-
-
         [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id, Question, QuizId")] QuizQuestionViewModel vm)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Description, PhotoPath,CountryId")] ProfileViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -197,22 +179,26 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
                 if (getOperation.Result == null) return RecordNotFound();
                 var result = getOperation.Result;
-                result.Question = vm.Question;
-                result.QuizId = vm.QuizId;
+                result.Description = vm.Description;
+                result.PhotoPath = vm.PhotoPath;
+                result.CountryId = vm.CountryId;
                 var updateOperation = await _bo.UpdateAsync(result);
-                if (!updateOperation.Success) return OperationErrorBackToIndex(updateOperation.Exception);
+                if (!updateOperation.Success)
+                {
+                    TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, updateOperation.Exception);
+                    return View(vm);
+                }
                 else return OperationSuccess("The record was successfuly updated");
             }
             return RedirectToAction(nameof(Index));
         }
-
         [HttpGet("Delete/{id}")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null) return RecordNotFound();
             var deleteOperation = await _bo.DeleteAsync((Guid)id);
             if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
-            return OperationSuccess("The record was successfuly deleted");
+            else return OperationSuccess("The record was successfuly deleted");
         }
     }
 }

@@ -4,7 +4,7 @@
 <h2>Details</h2>
 
 <div class="card">
-    <div class="card-header bg-greenish-green">
+    <div class="card-header">
         <h2 class="float-left">
             @ViewData["Title"]
         </h2>
@@ -19,6 +19,11 @@
                     @Html.DisplayFor(model => model.Title)
                 </dd>
             </dl>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <input type="button" value="Back" class="btn btn-secondary" onclick="location.href='@Url.Action("Index","Quizzes")';" />
+            </div>
         </div>
     </div>
 </div>
