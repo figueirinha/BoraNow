@@ -28,7 +28,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
             return new List<BreadCrumb>()
                 { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
                   new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
-                  new BreadCrumb(){Icon = "fas fa-building", Action="Index", Controller="Companies", Text = "Profile"}
+                  new BreadCrumb(){Icon = "fas fa-building", Action="Index", Controller="Companies", Text = "Companies"}
                 };
         }
         private IActionResult RecordNotFound()
@@ -76,7 +76,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
             }
 
             ViewBag.PRofile = pList;
-            ViewData["Title"] = "Profile";
+            ViewData["Title"] = "Companies";
             ViewData["BreadCrumbs"] = GetCrumbs();
             ViewData["DeleteHref"] = GetDeleteRef();
 
@@ -96,7 +96,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
             if (getPOperation.Result == null) return RecordNotFound();
 
             var vm = CompanyViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Profile";
+            ViewData["Title"] = "Company Details";
 
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "Companies", Icon = "fa-search", Text = "Detail" });
@@ -122,7 +122,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
                 }
                 ViewBag.Profiles = pList.Select(p => new SelectListItem() { Text = p.Description, Value = p.Id.ToString() });
             }
-            ViewData["Title"] = "New Profile ";
+            ViewData["Title"] = "New Company ";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "Companies", Icon = "fa-plus", Text = "New" });
             ViewData["BreadCrumbs"] = crumbs;
@@ -166,7 +166,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
                 }
             }
             ViewBag.Profiles = pList;
-            ViewData["Title"] = "Edit";
+            ViewData["Title"] = "Edit Company";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "Companies", Icon = "fa-edit", Text = "Edit" });
             ViewData["BreadCrumbs"] = crumbs;

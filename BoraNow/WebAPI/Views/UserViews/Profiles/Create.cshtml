@@ -10,38 +10,36 @@
     </div>
     <div class="card-body table-responsive">
         <br />
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <form asp-action="Create">
-                        <h3>
-                            Insert the Profile Data
-                        </h3>
+       
+        <div class="row">
+            <form asp-action="Create">
+                <h3>
+                    Insert the Profile Data
+                </h3>
                         
-                        <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
-                        <div class="form-group">
-                            <label asp-for="Description">Description</label>
-                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="PhotoPath" class="control-label"></label>
-                            <input asp-for="PhotoPath" type="file" class="form-control-file" />
-                            <span asp-validation-for="PhotoPath" class="text-danger"></span>
-                        </div>
-                                       
-                        <br />
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <input type="submit" value="Create" class="btn btn-primary" />
-                            </div>
-                            <div class="form-group col-md-3">
-                                <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index","Profiles")';" />
-                            </div>
-                        </div>
-                    </form>
+                <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+                <div class="form-group">
+                    <label asp-for="Description">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label asp-for="PhotoPath" class="control-label"></label>
+                    <input asp-for="PhotoPath" type="file" class="form-control-file" />
+                    <span asp-validation-for="PhotoPath" class="text-danger"></span>
+                </div>
+                                       
+                <br />
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index","Profiles")';" />
+                    </div>
+                </div>
+            </form>
         </div>
+       
     </div>
 </div>
 <script>

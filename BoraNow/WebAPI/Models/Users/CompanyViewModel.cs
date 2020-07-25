@@ -7,13 +7,19 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
     public class CompanyViewModel
     {
         public Guid Id { get; set; }
+
         [Required(ErrorMessage = "Input a company name")]
         public string Name { get; set; }
+
         [Required(ErrorMessage = "Input a presentative name")]
         public string Representative { get; set; }
+
         [Required(ErrorMessage = "Input a phone number")]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+
         [Required(ErrorMessage = "Input a VAT Number")]
+        [Display(Name = "VAT Number")]
         public string VatNumber { get; set; }
 
         [Display(Name="Profile")]
