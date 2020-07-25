@@ -25,9 +25,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Newsletters
             var nbo = new NewsletterBusinessObject();
             var cbo = new CompanyBusinessObject();
             var ipbo = new InterestPointBusinessObject();
+            var pbo = new ProfileBusinessObject();
+
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
 
             var news = new Newsletter("New in town, this doughnut place is nuts", "New in town");
-            var company = new Company("a", "b", "c", "123333");
+            var company = new Company("a", "b", "c", "123333", profile.Id);
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
             nbo.Create(news);
             cbo.Create(company);
@@ -50,9 +54,12 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Newsletters
             var nbo = new NewsletterBusinessObject();
             var cbo = new CompanyBusinessObject();
             var ipbo = new InterestPointBusinessObject();
+            var pbo = new ProfileBusinessObject();
 
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
             var news = new Newsletter("New in town, this doughnut place is nuts", "New in town");
-            var company = new Company("a", "b", "c", "123333");
+            var company = new Company("a", "b", "c", "123333", profile.Id);
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
             nbo.Create(news);
             cbo.Create(company);
@@ -97,9 +104,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Newsletters
             var nbo = new NewsletterBusinessObject();
             var cbo = new CompanyBusinessObject();
             var ipbo = new InterestPointBusinessObject();
+            var pbo = new ProfileBusinessObject();
+
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
 
             var news = new Newsletter("New in town, this doughnut place is nuts", "New in town");
-            var company = new Company("a", "b", "c", "123333");
+            var company = new Company("a", "b", "c", "123333", profile.Id);
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
             nbo.Create(news);
             cbo.Create(company);
@@ -128,9 +139,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Newsletters
             var nbo = new NewsletterBusinessObject();
             var cbo = new CompanyBusinessObject();
             var ipbo = new InterestPointBusinessObject();
+            var pbo = new ProfileBusinessObject();
+
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
 
             var news = new Newsletter("New in town, this doughnut place is nuts", "New in town");
-            var company = new Company("a", "b", "c", "123333");
+            var company = new Company("a", "b", "c", "123333", profile.Id);
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
             nbo.Create(news);
             cbo.Create(company);

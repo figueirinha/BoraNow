@@ -1,11 +1,12 @@
 ﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
+@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
 
 @model InterestPointViewModel
 
 <div class="card">
     <div class="card-header">
         <h2 class="float-left">
-            @ViewData["Title"] 
+            @ViewData["Title"]
         </h2>
     </div>
     <div class="card-body table-responsive">
@@ -78,6 +79,17 @@
                         <i class="far fa-times-circle" color="red"></i>
                     }
                 </dd>
+                @{
+                    var company = ViewData["Companies"] as CompanyViewModel;
+                }
+                <dd class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(model => model.CompanyId)
+
+                    </dt>
+                    <dd class="col-10">
+                        <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id">@company.Name</a>
+                    </dd>          
             </dl>
         </div>
         <div class="form-group col-md-3">

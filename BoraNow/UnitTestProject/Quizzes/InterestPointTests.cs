@@ -20,8 +20,12 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             BoraNowSeeder.Seed();
             var ipbo = new InterestPointBusinessObject();
             var cbo = new CompanyBusinessObject();
+            var pbo = new ProfileBusinessObject();
 
-            var company = new Company("kfc", "you", "9111222", "11111");
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
+
+            var company = new Company("kfc", "you", "9111222", "11111", profile.Id);
             cbo.Create(company);
 
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
@@ -38,8 +42,12 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             BoraNowSeeder.Seed();
             var ipbo = new InterestPointBusinessObject();
             var cbo = new CompanyBusinessObject();
+            var pbo = new ProfileBusinessObject();
 
-            var company = new Company("kfc", "you", "9111222", "11111");
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
+
+            var company = new Company("kfc", "you", "9111222", "11111", profile.Id);
             cbo.Create(company);
 
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
@@ -80,8 +88,12 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var item = resList.Result.FirstOrDefault();
 
             var cbo = new CompanyBusinessObject();
+            var pbo = new ProfileBusinessObject();
 
-            var company = new Company("kfc", "you", "9111222", "11111");
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
+
+            var company = new Company("kfc", "you", "9111222", "11111",profile.Id);
             cbo.Create(company);
 
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
@@ -122,8 +134,12 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var item = resList.Result.FirstOrDefault();
 
             var cbo = new CompanyBusinessObject();
+            var pbo = new ProfileBusinessObject();
 
-            var company = new Company("kfc", "you", "9111222", "11111");
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
+
+            var company = new Company("kfc", "you", "9111222", "11111", profile.Id);
             cbo.Create(company);
 
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);

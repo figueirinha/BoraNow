@@ -38,6 +38,32 @@
                 <dd class="col-10">
                     @Html.DisplayFor(model => model.Gender)
                 </dd>
+
+            </dl>
+            @{
+                var profiles = ViewData["Profiles"] as ProfileViewModel;
+            }
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.ProfileId)
+                </dt>
+                <dd class="col-10">
+
+                    <a asp-controller="Profiles" asp-action="Details" asp-route-id="@profiles.Id">@profiles.Description</a>
+                </dd>
+            </dl>
+            @{                                 
+                var countries = ViewData["Countries"] as CountryViewModel;
+            }
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.CountryId)
+
+                </dt>
+                <dd class="col-10">
+                    <a asp-controller="Countries" asp-action="Details" asp-route-id="@countries.Id">@countries.Name</a>
+
+                </dd>
             </dl>
         </div>
         <div class="form-group col-md-3">

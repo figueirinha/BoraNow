@@ -10,15 +10,17 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
     public class ProfileViewModel
     {
         public Guid Id { get; set; }
+
         [Required(ErrorMessage = "Input a description")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "Insert a photo")]
+
+        [Display(Name = "Picture")]
         public string PhotoPath { get; set; }
-        public Guid CountryId { get; set; }
+
 
         public Profile ToProfile()
         {
-            return new Profile(Description, PhotoPath, CountryId);
+            return new Profile(Description, PhotoPath);
         }
 
         public static ProfileViewModel Parse(Profile profile)
@@ -27,9 +29,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
             {
                 Id = profile.Id,
                 Description = profile.Description,
-                PhotoPath = profile.PhotoPath,
-                CountryId = profile.CountryId
-            };
+                PhotoPath = profile.PhotoPath            };
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return new List<BreadCrumb>()
                 { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
                   new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
-                  new BreadCrumb(){Icon = "fas fa-poll", Action="Index", Controller="Results", Text = "Result"}
+                  new BreadCrumb(){Icon = "fas fa-poll", Action="Index", Controller="Results", Text = "Results"}
                 };
         }
         private IActionResult RecordNotFound()
@@ -111,7 +111,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (getVisOperation.Result == null) return RecordNotFound();
 
             var vm = ResultViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Result";
+            ViewData["Title"] = "Result Details";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Details", Controller = "Results", Icon = "fa-search", Text = "Detail" });
             ViewData["Quizzes"] = QuizViewModel.Parse(getQuizOperation.Result);
@@ -147,7 +147,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 ViewBag.Visitors = visitorList.Select(v => new SelectListItem() { Text = v.FirstName, Value = v.Id.ToString() });
             }
 
-            ViewData["Title"] = "New Results";
+            ViewData["Title"] = "New Result";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Create", Controller = "Results", Icon = "fa-plus", Text = "New" });
             ViewData["BreadCrumbs"] = crumbs;

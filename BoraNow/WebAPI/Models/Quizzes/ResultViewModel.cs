@@ -19,6 +19,13 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes
         [Display(Name = "Visitor's name")]
         public Guid VisitorId { get; set; }
 
+        public string DateToString
+        {
+            get
+            {
+                return $"{Date.Day}-{Date.Month}-{Date.Year}";
+            }
+        }
         public Result ToResult()
         {
             return new Result(Title, Date, QuizId, VisitorId);

@@ -28,15 +28,15 @@
                 @foreach (var item in Model)
                 {
                 <tr>
-                    <td class="w-1">
+                    <td class="">
                         <a class="link-details" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-search mr-2"></i></a>
                         <a class="link-edit" asp-controller="Companies" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit mr-2"></i></a>
                         <a id="deleteItem" onclick="ConfirmDelete('@item.Id')"><i class="link-delete fas fa-trash"></i></a>
                     </td>
-                    <td class="w-1">@Html.DisplayFor(x => item.Name)</td>
-                    <td class="w-1">@Html.DisplayFor(x => item.Representative)</td>
-                    <td class="w-1">@Html.DisplayFor(x => item.PhoneNumber)</td>
-                    <td class="w-1">@Html.DisplayFor(x => item.VatNumber)</td>
+                    <td class="">@Html.DisplayFor(x => item.Name)</td>
+                    <td class="">@Html.DisplayFor(x => item.Representative)</td>
+                    <td class="">@Html.DisplayFor(x => item.PhoneNumber)</td>
+                    <td class="">@Html.DisplayFor(x => item.VatNumber)</td>
                     <td></td>
                 </tr>
                 }

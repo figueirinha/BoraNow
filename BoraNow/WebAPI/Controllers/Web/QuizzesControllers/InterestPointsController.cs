@@ -93,12 +93,18 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             var getOperation = await _bo.ReadAsync((Guid)id);
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
+
+            var getCOperation = await _cbo.ReadAsync(getOperation.Result.CompanyId);
+            if (!getCOperation.Success) return OperationErrorBackToIndex(getCOperation.Exception);
+            if (getCOperation.Result == null) return RecordNotFound();
+
             var vm = InterestPointViewModel.Parse(getOperation.Result);
             ViewData["Title"] = "Interest Point Details";
 
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "InterestPoints", Icon = "fa-search", Text = "Detail" });
 
+            ViewData["Companies"] = CompanyViewModel.Parse(getCOperation.Result);
             ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }

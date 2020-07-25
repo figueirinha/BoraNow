@@ -30,7 +30,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             return new List<BreadCrumb>()
                 { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
                   new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
-                  new BreadCrumb(){Icon = "fas fa-map-pin", Action="Index", Controller="ResultInterestPoints", Text = "ResultInterest Points"}
+                  new BreadCrumb(){Icon = "fas fa-map-pin", Action="Index", Controller="ResultInterestPoints", Text = "Result Interest Points"}
                 };
         }
 
@@ -89,7 +89,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 }
             }
 
-            ViewData["Title"] = "Interest Point Result ";
+            ViewData["Title"] = "Result Interest Point  ";
             ViewData["BreadCrumbs"] = GetCrumbs();
             ViewData["DeleteHref"] = GetDeleteRef();
             ViewBag.InterestPoints = ipList;
@@ -115,7 +115,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             if (getROperation.Result == null) return RecordNotFound();
 
             var vm = ResultInterestPointViewModel.Parse(getOperation.Result);
-            ViewData["Title"] = "Interest Point Result";
+            ViewData["Title"] = "Result Interest Point Details ";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Details", Controller = "ResultInterestPoints", Icon = "fa-search", Text = "Detail" });
             ViewData["InterestPoints"] = InterestPointViewModel.Parse(getIpOperation.Result);
@@ -152,7 +152,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
                 ViewBag.Results = rList.Select(rip => new SelectListItem() { Text = rip.Title, Value = rip.Id.ToString() });
             }
 
-            ViewData["Title"] = "New Interest Point Result";
+            ViewData["Title"] = "New Result Interest Point ";
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "ResultInterestPoints", Icon = "fa-plus", Text = "New" });
             ViewData["BreadCrumbs"] = crumbs;
@@ -211,7 +211,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesCon
             ViewBag.InterestPoints = ipList;
             ViewBag.Results = rList;
 
-            ViewData["Title"] = "Edit Interest Point Result";
+            ViewData["Title"] = "Edit Result Interest Point ";
 
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "Edit", Controller = "ResultInterestPoints", Icon = "fa-edit", Text = "Edit" });

@@ -17,12 +17,8 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
         {
             BoraNowSeeder.Seed();
             var pbo = new ProfileBusinessObject();
-            var countrybo = new CountryBusinessObject();
 
-            var country = new Country("Russia");
-            countrybo.Create(country);
-
-            var profile = new Profile("B", "C", country.Id);
+            var profile = new Profile("B", "C");
 
             var resCreate = pbo.Create(profile);
             var resGet = pbo.Read(profile.Id);
@@ -35,12 +31,9 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
         {
             BoraNowSeeder.Seed();
             var pbo = new ProfileBusinessObject();
-            var countrybo = new CountryBusinessObject();
+        
 
-            var country = new Country("Russia");
-            countrybo.Create(country);
-
-            var profile = new Profile("B", "C", country.Id);
+            var profile = new Profile("B", "C");
 
             var resCreate = pbo.CreateAsync(profile).Result;
             var resGet = pbo.ReadAsync(profile.Id).Result;
@@ -77,22 +70,17 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             var resList = pbo.List();
             var item = resList.Result.FirstOrDefault();
 
-            var countrybo = new CountryBusinessObject();
-
-            var country = new Country("Russia");
-            countrybo.Create(country);
-
-            var profile = new Profile("E", "A", country.Id);
+            var profile = new Profile("E", "A");
 
             item.Description = profile.Description;
             item.PhotoPath = profile.PhotoPath;
-            item.CountryId = profile.CountryId;
+          
 
             var resUpdate = pbo.Update(item);
             resList = pbo.List();
 
             Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Description == profile.Description &&
-                resList.Result.First().PhotoPath == profile.PhotoPath && resList.Result.First().CountryId == profile.CountryId);
+                resList.Result.First().PhotoPath == profile.PhotoPath);
         }
 
         [TestMethod]
@@ -103,22 +91,18 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             var resList = pbo.List();
             var item = resList.Result.FirstOrDefault();
 
-            var countrybo = new CountryBusinessObject();
 
-            var country = new Country("Russia");
-            countrybo.Create(country);
-
-            var profile = new Profile("E", "A", country.Id);
+            var profile = new Profile("E", "A");
 
             item.Description = profile.Description;
             item.PhotoPath = profile.PhotoPath;
-            item.CountryId = profile.CountryId;
+         
 
             var resUpdate = pbo.Update(item);
             resList = pbo.ListAsync().Result;
 
             Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Description == profile.Description &&
-                          resList.Result.First().PhotoPath == profile.PhotoPath && resList.Result.First().CountryId == profile.CountryId);
+                          resList.Result.First().PhotoPath == profile.PhotoPath);
         }
 
         [TestMethod]
