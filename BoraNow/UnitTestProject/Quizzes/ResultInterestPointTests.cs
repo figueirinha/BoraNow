@@ -20,17 +20,27 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var ripbo = new ResultInterestPointBusinessObject();
             var rbo = new ResultBusinessObject();
             var ipbo = new InterestPointBusinessObject();
-            var cbo = new CompanyBusinessObject();
             var vbo = new VisitorBusinessObject();
 
             var qbo = new QuizBusinessObject();
             var quiz = new Quiz("Quiz 1");
             qbo.Create(quiz);
 
-            var visitor = new Visitor("A", "C", DateTime.Now, "M");
+            var countrybo = new CountryBusinessObject();
+            var pbo = new ProfileBusinessObject();
+            var companybo = new CompanyBusinessObject();
+
+            var country = new Country("Holanda");
+            var profile = new Profile("a", "b");
+            var company = new Company("a", "b", "c", "d", profile.Id);
+            countrybo.Create(country);
+            pbo.Create(profile);
+            companybo.Create(company);
+
+
+            var visitor = new Visitor("A", "C", DateTime.Now, "M", profile.Id, country.Id);
             vbo.Create(visitor);
-            var company = new Company("A", "B", "1245646", "1235466");
-            cbo.Create(company);
+
 
             var result = new Result("Quiz 1", DateTime.UtcNow, quiz.Id, visitor.Id);
    
@@ -52,18 +62,28 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var ripbo = new ResultInterestPointBusinessObject();
             var rbo = new ResultBusinessObject();
             var ipbo = new InterestPointBusinessObject();
-            var cbo = new CompanyBusinessObject();
+     
             var vbo = new VisitorBusinessObject();
 
             var qbo = new QuizBusinessObject();
             var quiz = new Quiz("Quiz 1");
             qbo.Create(quiz);
 
-            var visitor = new Visitor("A", "C", DateTime.Now, "M");
-            vbo.Create(visitor);
-            var company = new Company("A", "B", "1245646", "1235466");
-            cbo.Create(company);
+            var countrybo = new CountryBusinessObject();
+            var pbo = new ProfileBusinessObject();
+            var companybo = new CompanyBusinessObject();
 
+            var country = new Country("Holanda");
+            var profile = new Profile("a", "b");
+            var company = new Company("a", "b", "c", "d", profile.Id);
+            countrybo.Create(country);
+            pbo.Create(profile);
+            companybo.Create(company);
+
+
+            var visitor = new Visitor("A", "C", DateTime.Now, "M", profile.Id, country.Id);
+            vbo.Create(visitor);
+       
             var result = new Result("Quiz 1", DateTime.UtcNow, quiz.Id, visitor.Id);
 
             var interestPoint = new InterestPoint("Bar do Rui", "Pesticos&Cocktails", "Rua dos Anjos", "C://images", "14h", "00h", "Sabados", true, true, company.Id);
@@ -107,18 +127,28 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
 
             var rbo = new ResultBusinessObject();
             var ipbo = new InterestPointBusinessObject();
-            var cbo = new CompanyBusinessObject();
+        
             var vbo = new VisitorBusinessObject();
 
             var qbo = new QuizBusinessObject();
             var quiz = new Quiz("Quiz 1");
             qbo.Create(quiz);
 
-            var visitor = new Visitor("A", "E", DateTime.Now, "M");
-            vbo.Create(visitor);
-            var company = new Company("Q", "B", "1245646", "1235466");
-            cbo.Create(company);
+            var countrybo = new CountryBusinessObject();
+            var pbo = new ProfileBusinessObject();
+            var companybo = new CompanyBusinessObject();
 
+            var country = new Country("Holanda");
+            var profile = new Profile("a", "b");
+            var company = new Company("a", "b", "c", "d", profile.Id);
+            countrybo.Create(country);
+            pbo.Create(profile);
+            companybo.Create(company);
+
+
+            var visitor = new Visitor("A", "E", DateTime.Now, "M", profile.Id, country.Id);
+            vbo.Create(visitor);
+       
             var result = new Result("Quiz 2", DateTime.UtcNow, quiz.Id, visitor.Id);
 
             var interestPoint = new InterestPoint("Bar do Rui", "Pesticos&Cocktails", "-", "C://images", "14h", "00h", "D", true, true, company.Id);
@@ -147,17 +177,27 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
 
             var rbo = new ResultBusinessObject();
             var ipbo = new InterestPointBusinessObject();
-            var cbo = new CompanyBusinessObject();
+
             var vbo = new VisitorBusinessObject();
 
             var qbo = new QuizBusinessObject();
             var quiz = new Quiz("Quiz 1");
             qbo.Create(quiz);
 
-            var visitor = new Visitor("A", "E", DateTime.Now, "M");
+            var countrybo = new CountryBusinessObject();
+            var pbo = new ProfileBusinessObject();
+            var companybo = new CompanyBusinessObject();
+
+            var country = new Country("Holanda");
+            var profile = new Profile("a", "b");
+            var company = new Company("a", "b", "c", "d", profile.Id);
+            countrybo.Create(country);
+            pbo.Create(profile);
+            companybo.Create(company);
+
+
+            var visitor = new Visitor("A", "E", DateTime.Now, "M", profile.Id, country.Id);
             vbo.Create(visitor);
-            var company = new Company("Q", "B", "1245646", "1235466");
-            cbo.Create(company);
 
             var result = new Result("Quiz 2", DateTime.UtcNow, quiz.Id, visitor.Id);
 
