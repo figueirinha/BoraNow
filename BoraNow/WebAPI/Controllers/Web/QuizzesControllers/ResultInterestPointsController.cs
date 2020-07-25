@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
-using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Support;
 using WebAPI.Models;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesControllers

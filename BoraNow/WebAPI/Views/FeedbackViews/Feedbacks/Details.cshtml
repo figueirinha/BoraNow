@@ -1,5 +1,69 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Feedbacks;
+@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
+@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
+
+@model FeedbackViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body table-responsive">
+        <h2>Feedback details</h2>
+        <div>
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.Date)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.DateToString)
+                </dd>
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.Stars)
+                </dt>
+                <dd class="col-10">
+                    @switch (Model.Stars)
+                    {
+                        case 1:<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>break;
+                        case 2:<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>break;
+                        case 3:<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>break;
+                        case 4:<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>break;
+                        case 5:<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>break;
+                        default: break;
+                    }
+                </dd>
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+            @{
+                var v = ViewData["Visitors"] as VisitorViewModel;
+                var ip = ViewData["InterestPoints"] as InterestPointViewModel;
+            }
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.VisitorId)
+                </dt>
+                <dd class="col-10">
+                    <a asp-controller="Visitors" asp-action="Details" asp-route-id="@v.Id">@v.FullName</a>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-2">
+                    @Html.DisplayNameFor(model => model.InterestPointId)
+                </dt>
+                <dd class="col-10">
+                    <a asp-controller="InterestPoints" asp-action="Details" asp-route-id="@ip.Id">@ip.Name</a>
+                </dd>
+            </dl>
+            <div class="form-group col-md-3">
+                <input class="btn btn-secondary" type="button" value="Go Back" onclick="location.href='@Url.Action("Index","Feedbacks")';" />
+            </div>
+        </div>
+</div>
+</div>

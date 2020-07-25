@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
-using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Support;
 using WebAPI.Models;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserControllers
 {
     [Route("[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class VisitorsController : Controller
     {
         private readonly VisitorBusinessObject _bo = new VisitorBusinessObject();
@@ -25,7 +26,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
             return new List<BreadCrumb>()
                 { new BreadCrumb(){Icon ="fa-home", Action="Index", Controller="Home", Text="Home"},
                   new BreadCrumb(){Icon = "fa-user-cog", Action="Administration", Controller="Home", Text = "Administration"},
-                  new BreadCrumb(){Icon = "fas fa-search", Action="Index", Controller="Visitors", Text = "Category InterestPoint"}
+                  new BreadCrumb(){Icon = "fas fa-hiking", Action="Index", Controller="Visitors", Text = "Visitors"}
                 };
         }
         private IActionResult RecordNotFound()

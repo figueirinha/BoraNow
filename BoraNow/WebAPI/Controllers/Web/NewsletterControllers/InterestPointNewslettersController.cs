@@ -13,12 +13,13 @@ using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Newsletters;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
-using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Support;
 using WebAPI.Models;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.NewsletterControllers
 {
     [Route("[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class InterestPointNewslettersController : Controller
     {
         private readonly InterestPointNewsletterBusinessObject _bo = new InterestPointNewsletterBusinessObject();
@@ -108,12 +109,22 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
             var getOperation = await _bo.ReadAsync((Guid)id);
             if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
             if (getOperation.Result == null) return RecordNotFound();
+
+            var getIPOperation = await _ipbo.ReadAsync(getOperation.Result.InterestPointId);
+            if (!getIPOperation.Success) return OperationErrorBackToIndex(getIPOperation.Exception);
+            if (getIPOperation.Result == null) return RecordNotFound();
+
+            var getNOperation = await _nbo.ReadAsync(getOperation.Result.NewsLetterId);
+            if (!getNOperation.Success) return OperationErrorBackToIndex(getNOperation.Exception);
+            if (getNOperation.Result == null) return RecordNotFound();
+
             var vm = InterestPointNewsletterViewModel.Parse(getOperation.Result);
             ViewData["Title"] = "Interest Point Newsletter";
 
             var crumbs = GetCrumbs();
             crumbs.Add(new BreadCrumb() { Action = "New", Controller = "InterestPointNewsletters", Icon = "fa-search", Text = "Detail" });
-
+            ViewData["InterestPoints"] = InterestPointViewModel.Parse(getIPOperation.Result);
+            ViewData["Newsletters"] = NewsletterViewModel.Parse(getNOperation.Result);
             ViewData["BreadCrumbs"] = crumbs;
             return View(vm);
         }
@@ -241,7 +252,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.Newsletter
         {
             if (id == null) return NotFound();
             var deleteOperation = await _bo.DeleteAsync((Guid)id);
-            if (!deleteOperation.Success) return View("Error", new ErrorViewModel() { RequestId = deleteOperation.Exception.Message });
+            if (!deleteOperation.Success) return OperationErrorBackToIndex(deleteOperation.Exception);
             return RedirectToAction(nameof(Index));
         }
     }

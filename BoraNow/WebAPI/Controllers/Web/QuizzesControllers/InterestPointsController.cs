@@ -9,12 +9,13 @@ using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Users;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.HtmlComponents;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users;
-using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Suport;
+using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Support;
 using WebAPI.Models;
 
 namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.QuizzesControllers
 {
     [Route("[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class InterestPointsController : Controller
     {
         private readonly InterestPointBusinessObject _bo = new InterestPointBusinessObject();

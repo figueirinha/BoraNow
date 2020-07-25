@@ -2,35 +2,38 @@
 @using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Quizzes;
 
 @model InterestPointNewsletterViewModel
-
 <div class="card">
     <div class="card-header">
         <h2 class="float-left">
             @ViewData["Title"]
         </h2>
     </div>
-    <div class="card-body table-responsive">
-        <h2>Interest Point Newsletters details</h2>
-        <div>        
+    <div class="card-body">
+        <div class="ml-5 mr-5">
+            @{
+                var n = ViewData["Newsletters"] as NewsletterViewModel;
+                var ip = ViewData["InterestPoints"] as InterestPointViewModel;
+            }
             <dl class="row">
-
-                <dt class="col-2">
+                <dt class="col-3">
                     @Html.DisplayNameFor(model => model.NewsLetterId)
                 </dt>
-                <dd class="col-10">
-                    @Html.DisplayFor(model => model.NewsLetterId)
-                </dd>
-                <dt class="col-2">
-                    @Html.DisplayNameFor(model => model.InterestPointId)
-                </dt>
-                <dd class="col-10">
-                    @Html.DisplayFor(model => model.InterestPointId)
+                <dd class="col-9">
+                    <a asp-controller="Newsletters" asp-action="Details" asp-route-id="@n.Id">@n.Title</a>
                 </dd>
             </dl>
+            <dl class="row">
+                <dt class="col-3">
+                    @Html.DisplayNameFor(model => model.InterestPointId)
+                </dt>
+                <dd class="col-9">
+                    <a asp-controller="InterestPoints" asp-action="Details" asp-route-id="@ip.Id">@ip.Name</a>
+                </dd>
+            </dl>
+
         </div>
         <div class="form-group col-md-3">
-            <input type="button" value="Go Back" onclick="location.href='@Url.Action("Index","InterestPointNewsletters")';" />
+            <input class="btn btn-secondary" type="button" value="Go Back" onclick="location.href='@Url.Action("Index","InterestPointNewsletters")';" />
         </div>
     </div>
 </div>
-

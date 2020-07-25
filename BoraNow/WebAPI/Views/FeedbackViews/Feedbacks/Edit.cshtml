@@ -1,5 +1,66 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Feedbacks;
+
+@model FeedbackViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="card-body">
+        <h2>Edit Interest Point Newsletter</h2>
+        <div class="row">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="=" text-danger></div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Stars" class="control-label"></label>
+                    <select asp-for="Stars" class="form-control">
+                        <option value="1">One Star</option>
+                        <option value="2">Two Stars</option>
+                        <option value="3">Three Stars</option>
+                        <option value="4">Four Stars</option>
+                        <option value="5">Five Stars</option>
+                    </select>
+                    <span asp-validation-for="Stars" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InterestPointId" class="control-label"></label>
+                    <select asp-for="InterestPointId" class="form-control" asp-items="@ViewBag.InterestPoints"></select>
+                    <span asp-validation-for="InterestPointId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VisitorId" class="control-label"></label>
+                    <select asp-for="VisitorId" class="form-control" asp-items="@ViewBag.Visitors"></select>
+                    <span asp-validation-for="VisitorId" class="text-danger"></span>
+                </div>
+
+                @Html.Hidden("Id", Model.Id)
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <input type="submit" value="Update" class="btn btn-primary" />
+
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="form-group col-md-3">
+                        <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index","Feedbacks")';" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
