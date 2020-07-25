@@ -121,8 +121,8 @@ namespace WebAPI
         }
         public void SetupRolesAndUsers(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
-            if (roleManager.FindByNameAsync("Client").Result == null) roleManager.CreateAsync(new Role() { Name = "Visitor" }).Wait();
-            if (roleManager.FindByNameAsync("Staff").Result == null) roleManager.CreateAsync(new Role() { Name = "Company" }).Wait();
+            if (roleManager.FindByNameAsync("Visitor").Result == null) roleManager.CreateAsync(new Role() { Name = "Visitor" }).Wait();
+            if (roleManager.FindByNameAsync("Company").Result == null) roleManager.CreateAsync(new Role() { Name = "Company" }).Wait();
             if (roleManager.FindByNameAsync("Admin").Result == null) roleManager.CreateAsync(new Role() { Name = "Admin" }).Wait();
             if (userManager.FindByNameAsync("admin").Result == null)
             {
