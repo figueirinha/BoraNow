@@ -49,17 +49,8 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
-            return View();
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel vm)
-        {
-
             var cListOperation = await _cbo.ListAsync();
             if (!cListOperation.Success) return OperationErrorBackToIndex(cListOperation.Exception);
             var cList = new List<CountryViewModel>();
@@ -72,6 +63,15 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers
                 }
                 ViewBag.Countries = cList.Select(r => new SelectListItem() { Text = r.Name, Value = r.Id.ToString() });
             }
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel vm)
+        {
+           
             var accountBo = new AccountBusinessController(UserManager, RoleManager);
             var person = new Profile(vm.Description, vm.PhotoPath, vm.CountryId);
             var registerOperation = await accountBo.Register(vm.UserName, vm.Email, vm.Password, person, vm.Role);

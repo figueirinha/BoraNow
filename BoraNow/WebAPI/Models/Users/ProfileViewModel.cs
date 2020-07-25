@@ -10,10 +10,15 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
     public class ProfileViewModel
     {
         public Guid Id { get; set; }
+
         [Required(ErrorMessage = "Input a description")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "Insert a photo")]
+
+        [Display(Name = "Picture")]
         public string PhotoPath { get; set; }
+
+        [Display(Name = "Country")]
+        [Required(ErrorMessage = "Input a country")]
         public Guid CountryId { get; set; }
 
         public Profile ToProfile()

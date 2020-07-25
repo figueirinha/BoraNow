@@ -20,7 +20,9 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
         [Display(Name = "Birthdate")]
         public DateTime BirthDate { get; set; }
         public string Gender { get; set; }
-        //public Guid ProfileId { get; set; }
+
+        [Display(Name = "Profile")]
+        public Guid ProfileId { get; set; }
 
         [Display(Name = "Full Name")]
         public string FullName
@@ -41,7 +43,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
 
         public Visitor ToVisitor()
         {
-            return new Visitor(FirstName, LastName, BirthDate, Gender/*, ProfileId*/);
+            return new Visitor(FirstName, LastName, BirthDate, Gender, ProfileId);
         }
 
         public static VisitorViewModel Parse(Visitor visitor)
@@ -52,8 +54,8 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
                 FirstName = visitor.FirstName,
                 LastName = visitor.LastName,
                 BirthDate = visitor.BirthDate,
-                Gender = visitor.Gender
-                //ProfileId = visitor.ProfileId
+                Gender = visitor.Gender,
+                ProfileId = visitor.ProfileId
             };
         }
     }
