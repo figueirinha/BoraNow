@@ -48,7 +48,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             var pbo = new ProfileBusinessObject();
             var resList = pbo.List();
 
-            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+            Assert.IsTrue(resList.Success && resList.Result.Count == 2);
 
         }
 
@@ -59,7 +59,7 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             var pbo = new ProfileBusinessObject();
             var resList = pbo.ListAsync().Result;
 
-            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+            Assert.IsTrue(resList.Success && resList.Result.Count == 2);
 
         }
         [TestMethod]

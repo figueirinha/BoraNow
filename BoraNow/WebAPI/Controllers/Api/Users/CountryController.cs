@@ -53,7 +53,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Users
             return list;
         }
 
-        [HttpPost]
+        [HttpPut]
         public ActionResult Update([FromBody] CountryViewModel vm)
         {
             var currentResult = _bo.Read(vm.Id);

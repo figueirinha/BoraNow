@@ -41,20 +41,20 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
         public void TestListCountry()
         {
             BoraNowSeeder.Seed();
-            var vbo = new CountryBusinessObject();
-            var resList = vbo.List();
+            var cbo = new CountryBusinessObject();
+            var resList = cbo.List();
 
-            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+            Assert.IsTrue(resList.Success && resList.Result.Count == 2);
         }
 
         [TestMethod]
         public void TestListCountryAsync()
         {
             BoraNowSeeder.Seed();
-            var vbo = new CountryBusinessObject();
-            var resList = vbo.ListAsync().Result;
+            var cbo = new CountryBusinessObject();
+            var resList = cbo.ListAsync().Result;
 
-            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+            Assert.IsTrue(resList.Success && resList.Result.Count == 2);
         }
 
         [TestMethod]
@@ -65,22 +65,12 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             var resList = vbo.List();
             var item = resList.Result.FirstOrDefault();
 
-            //var countrybo = new CountryBusinessObject();
-            //var pbo = new ProfileBusinessObject();
-            //var companybo = new CompanyBusinessObject();
-
-            //var country = new Country("narnia");
-            //var profile = new Profile("a", "b", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
-            //var company = new Company("a", "b", "c", "d", profile.Id);
-            //countrybo.Create(country);
-            //pbo.Create(profile);
-            //companybo.Create(company);
 
             var country = new Country("madagascar");
 
             item.Name = country.Name;
           
-            //item.ProfileId = Country.ProfileId;
+      
 
             var resUpdate = vbo.Update(item);
             resList = vbo.List();
@@ -97,16 +87,6 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             var resList = vbo.List();
             var item = resList.Result.FirstOrDefault();
 
-            //var countrybo = new CountryBusinessObject();
-            //var pbo = new ProfileBusinessObject();
-            //var companybo = new CompanyBusinessObject();
-
-            //var country = new Country("narnia");
-            //var profile = new Profile("a", "b", country.Id, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
-            //var company = new Company("a", "b", "c", "d", profile.Id);
-            //countrybo.Create(country);
-            //pbo.Create(profile);
-            //companybo.Create(company);
 
             var country = new Country("madagascar");
 

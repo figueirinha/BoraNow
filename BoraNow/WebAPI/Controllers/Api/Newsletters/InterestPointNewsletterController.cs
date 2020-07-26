@@ -50,7 +50,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Newsletter
             return list;
         }
 
-        [HttpPost]
+        [HttpPut]
         public ActionResult Update([FromBody] InterestPointNewsletterViewModel vm)
         {
             var currentResult = _bo.Read(vm.Id);

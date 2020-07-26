@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Recodme.RD.BoraNow.BusinessLayer.BusinessObjects.Feedbacks;
 using Recodme.RD.BoraNow.DataLayer.Feedbacks;
@@ -53,7 +50,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Api.Feedbacks
             return list;
         }
 
-        [HttpPost]
+        [HttpPut]
         public ActionResult Update([FromBody] FeedbackViewModel fvm)
         {
             var currentResult = _bo.Read(fvm.Id);
