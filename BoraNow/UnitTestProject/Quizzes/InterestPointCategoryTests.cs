@@ -20,9 +20,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var ipcipbo = new InterestPointCategoryInterestPointBusinessObject();
             var ipbo = new InterestPointBusinessObject();
             var cipbo = new CategoryInterestPointBusinessObject();
+            var pbo = new ProfileBusinessObject();
+
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
 
             var c = new CompanyBusinessObject();
-            var company = new Company("A", "B", "12345678", "1234567");
+            var company = new Company("A", "B", "12345678", "1234567", profile.Id);
             c.Create(company);
 
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
@@ -45,9 +49,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
             var ipcipbo = new InterestPointCategoryInterestPointBusinessObject();
             var ipbo = new InterestPointBusinessObject();
             var cipbo = new CategoryInterestPointBusinessObject();
+            var pbo = new ProfileBusinessObject();
+
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
 
             var c = new CompanyBusinessObject();
-            var company = new Company("A", "B", "12345678", "1234567");
+            var company = new Company("A", "B", "12345678", "1234567", profile.Id);
             c.Create(company);
 
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
@@ -96,9 +104,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
       
             var ipbo = new InterestPointBusinessObject();
             var cipbo = new CategoryInterestPointBusinessObject();
+            var pbo = new ProfileBusinessObject();
+
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
 
             var c = new CompanyBusinessObject();
-            var company = new Company("A", "B", "12345678", "1234567");
+            var company = new Company("A", "B", "12345678", "1234567", profile.Id);
             c.Create(company);
 
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);
@@ -129,9 +141,13 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Quizzes
         
             var ipbo = new InterestPointBusinessObject();
             var cipbo = new CategoryInterestPointBusinessObject();
+            var pbo = new ProfileBusinessObject();
+
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
 
             var c = new CompanyBusinessObject();
-            var company = new Company("A", "B", "12345678", "1234567");
+            var company = new Company("A", "B", "12345678", "1234567", profile.Id);
             c.Create(company);
 
             var interestPoint = new InterestPoint("a", "b", "c", "d", "e", "f", "g", true, true, company.Id);

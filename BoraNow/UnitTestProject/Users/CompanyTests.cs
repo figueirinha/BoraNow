@@ -14,8 +14,12 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
         {
             BoraNowSeeder.Seed();
             var cbo = new CompanyBusinessObject();
+            var pbo = new ProfileBusinessObject();
 
-            var company = new Company("B", "C", "123", "234");
+            var profile = new Profile("EE", "AA");
+            pbo.Create(profile);
+
+            var company = new Company("B", "C", "123", "234", profile.Id);
 
             var resCreate = cbo.Create(company);
             var resGet = cbo.Read(company.Id);
@@ -28,8 +32,12 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
         {
             BoraNowSeeder.Seed();
             var cbo = new CompanyBusinessObject();
+            var pbo = new ProfileBusinessObject();
 
-            var company = new Company("B", "C", "123", "234");
+            var profile = new Profile("EE", "AA");
+            pbo.Create(profile);
+
+            var company = new Company("B", "C", "123", "234", profile.Id);
 
 
             var resCreate = cbo.CreateAsync(company).Result;
@@ -66,21 +74,27 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             var cbo = new CompanyBusinessObject();
             var resList = cbo.List();
             var item = resList.Result.FirstOrDefault();
+            var pbo = new ProfileBusinessObject();
+
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
 
 
-            var company = new Company("B", "F", "1263", "2434");
+            var company = new Company("B", "C", "1263", "2434",profile.Id);
 
             item.Name = company.Name;
             item.Representative = company.Representative;
             item.PhoneNumber = company.PhoneNumber;
             item.VatNumber = company.VatNumber;
+            item.ProfileId = company.ProfileId;
 
             var resUpdate = cbo.Update(item);
             resList = cbo.List();
 
             Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Name == company.Name &&
-                resList.Result.First().Representative == company.Representative && resList.Result.First().PhoneNumber == company.PhoneNumber && resList.Result.First().VatNumber == company.VatNumber);
-
+                resList.Result.First().Representative == company.Representative && resList.Result.First().PhoneNumber == company.PhoneNumber
+                 && resList.Result.First().VatNumber == company.VatNumber
+                && resList.Result.First().ProfileId == company.ProfileId);
         }
 
         [TestMethod]
@@ -91,18 +105,27 @@ namespace Recodme.RD.BoraNow.UnitTestProject.Users
             var resList = cbo.List();
             var item = resList.Result.FirstOrDefault();
 
-            var company = new Company("B", "F", "1263", "2434");
+            var pbo = new ProfileBusinessObject();
+
+            var profile = new Profile("II", "AA");
+            pbo.Create(profile);
+
+
+            var company = new Company("B", "C", "1263", "2434", profile.Id);
 
             item.Name = company.Name;
             item.Representative = company.Representative;
             item.PhoneNumber = company.PhoneNumber;
             item.VatNumber = company.VatNumber;
+            item.ProfileId = company.ProfileId;
 
             var resUpdate = cbo.Update(item);
             resList = cbo.ListAsync().Result;
 
             Assert.IsTrue(resUpdate.Success && resList.Success && resList.Result.First().Name == company.Name &&
-            resList.Result.First().Representative == company.Representative && resList.Result.First().PhoneNumber == company.PhoneNumber && resList.Result.First().VatNumber == company.VatNumber);
+            resList.Result.First().Representative == company.Representative && resList.Result.First().PhoneNumber == company.PhoneNumber
+            && resList.Result.First().VatNumber == company.VatNumber
+            && resList.Result.First().ProfileId == company.ProfileId);
         }
 
         [TestMethod]
