@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebAPI.Models;
@@ -19,6 +20,23 @@ namespace WebAPI.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult Administration()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Visitor")]
+        public IActionResult Visitor()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Company")]
+        public IActionResult Company()
+        {
+            return View();
+        }
 
         public IActionResult AboutUs()
         {
