@@ -11,6 +11,8 @@
     </div>
     <div class="card-body">
         <div class="ml-5 mr-5">
+            <h3>Quiz Question Details</h3>
+
             <dl class="row">
                 <dt class="col-2">
                     @Html.DisplayNameFor(model => model.Question)
@@ -20,7 +22,7 @@
                 </dd>
 
                 @{ var qz = ViewData["Quiz"] as QuizViewModel;
-                 }
+                }
 
                 <dt class="col-2">
                     @Html.DisplayNameFor(model => model.QuizId)
@@ -30,7 +32,7 @@
                     <a asp-controller="Quizzes" asp-action="Details" asp-route-id="@qz.Id">@qz.Title</a>
                 </dd>
 
-            </dl>    
+            </dl>
 
             <div class="row">
                 <div class="form-group col-md-3">
