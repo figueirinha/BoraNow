@@ -24,19 +24,18 @@
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="PhotoPath" class="control-label"></label>
                     <input asp-for="PhotoPath" type="file" class="form-control-file" />
                     <span asp-validation-for="PhotoPath" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CountryId" class="control-label"></label>
-                    <select asp-for="CountryId" class="form-control" asp-items="@ViewBag.Countries"></select>
-                    <span asp-validation-for="CountryId" class="text-danger"></span>
+                    <label asp-for="Description">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label asp-for="Role" class="control-label"></label>

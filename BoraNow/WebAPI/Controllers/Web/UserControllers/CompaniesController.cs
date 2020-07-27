@@ -34,19 +34,19 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
         private IActionResult RecordNotFound()
         {
             TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Information, "The record was not found");
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private IActionResult OperationErrorBackToIndex(Exception exception)
         {
             TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, exception);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private IActionResult OperationSuccess(string message)
         {
             TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Success, message);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -110,7 +110,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
         [HttpGet("Create")]
         public async Task<IActionResult> Create()
         {
-            var pListOperation = await _pbo.ListAsync();
+            var pListOperation = await _pbo.ListAsync();            
             if (!pListOperation.Success) return OperationErrorBackToIndex(pListOperation.Exception);
             var pList = new List<ProfileViewModel>();
             foreach (var c in pListOperation.Result)
@@ -138,7 +138,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
                 var c = vm.ToCompany();
                 var createOperation = await _bo.CreateAsync(c);
                 if (!createOperation.Success) return OperationErrorBackToIndex(createOperation.Exception);
-                else return OperationSuccess("The record was successfuly created");
+                else return OperationSuccess("The company account was successfuly registered!");
             }
             return View(vm);
         }
@@ -181,7 +181,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
             {
                 var getOperation = await _bo.ReadAsync((Guid)id);
                 if (!getOperation.Success) return OperationErrorBackToIndex(getOperation.Exception);
-                if (getOperation.Result == null) return NotFound();
+                if (getOperation.Result == null) return RecordNotFound();
                 var result = getOperation.Result;
                 if (!vm.CompareToModel(result))
                 {

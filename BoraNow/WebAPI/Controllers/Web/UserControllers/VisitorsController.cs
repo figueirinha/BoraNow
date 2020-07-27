@@ -37,19 +37,19 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
         private IActionResult RecordNotFound()
         {
             TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Information, "The record was not found");
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private IActionResult OperationErrorBackToIndex(Exception exception)
         {
             TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Danger, exception);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private IActionResult OperationSuccess(string message)
         {
             TempData["Alert"] = AlertFactory.GenerateAlert(NotificationType.Success, message);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -173,7 +173,7 @@ namespace Recodme.RD.BoraNow.PresentationLayer.WebAPI.Controllers.Web.UserContro
                 var Visitor = vm.ToVisitor();
                 var createOperation = await _bo.CreateAsync(Visitor);
                 if (!createOperation.Success) return OperationErrorBackToIndex(createOperation.Exception);
-                return OperationSuccess("The record was successfuly created");
+                return OperationSuccess("The visitor account was successfuly registered!");
             }
             return View(vm);
         }

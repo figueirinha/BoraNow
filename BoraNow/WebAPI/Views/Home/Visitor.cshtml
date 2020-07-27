@@ -1,7 +1,153 @@
-﻿
-@{
-    ViewData["Title"] = "Visitor";
-}
+﻿@using Recodme.RD.BoraNow.PresentationLayer.WebAPI.Models.Users
 
-<h1>Visitor</h1>
+@model VisitorViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            Visitor Profile
+        </h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @*<div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Edit" asp-controller="Profiles" asp-route-id="@Model.ProfileId">
+                        <i class="far fa-file-alt"></i>
+                        <p>Edit Profile</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Edit" asp-controller="Visitors" asp-route-id="@Model.Id">
+                        <i class="far fa-file-alt"></i>
+                        <p>Edit Visitor</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Details" asp-controller="Results" asp-route-id="@Model.ProfileId">
+                        <i class="far fa-file-alt"></i>
+                        <p>Results</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="Results" >
+                        <i class="fas fa-poll"></i>
+                        <p>Results</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="InterestPoints">
+                        <i class="fas fa-map-pin"></i>
+                        <p>Interest Points</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="ResultInterestPoints">
+                        <i class="fas fa-map-pin"></i>
+                        <p>Result IPs</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="CategoryInterestPoints">
+                        <i class="fas fa-search"></i>
+                        <p>Categories</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="InterestPointCategoryInterestPoints">
+                        <i class="fas fa-map-pin"></i>
+                        <p>IP Category IP</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="Newsletters">
+                        <i class="far fa-newspaper"></i>
+                        <p>Newsletters</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="InterestPointNewsletters">
+                        <i class="far fa-newspaper"></i>
+                        <p>IP Newsletters</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="Feedbacks">
+                        <i class="fas fa-comments"></i>
+                        <p>Feedbacks</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="Companies">
+                        <i class="fas fa-building"></i>
+                        <p>Companies</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="Countries">
+                        <i class="fas fa-globe-africa"></i>
+                        <p>Countries</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="Visitors">
+                        <i class="fas fa-hiking"></i>
+                        <p>Visitors</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 mb-4">
+                <div class="card square-button-responsive text-white bg-info-1">
+                    <a asp-action="Index" asp-controller="Profiles">
+                        <i class="fas fa-id-card"></i>
+                        <p>Profiles</p>
+                    </a>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+
 
