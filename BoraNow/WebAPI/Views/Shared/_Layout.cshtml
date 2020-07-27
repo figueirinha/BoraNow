@@ -19,37 +19,29 @@
     <script src="~/lib/bootstrap/dist/js/dataTables.bootstrap4.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body class="bg-nyanza">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-phthalo-green mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="home" asp-action="index">BoraNow</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    BoraNow
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
-                        </li>
-                    </ul>
-                </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse float-left">
                     <ul class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" title="Manage">
+                                <a class="nav-link text-light" title="Manage">
                                     <i class="fas fa-user"></i>
                                     Hello @User.Identity.Name!
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">
+                                <a class="nav-link text-light" asp-controller="Account" asp-action="Logout">
                                     <i class="fas fa-sign-out-alt"></i>
                                     Logout
                                 </a>
@@ -58,13 +50,13 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">
+                                <a class="nav-link text-light" asp-controller="Account" asp-action="Register">
                                     <i class="fas fa-user-plus"></i>
                                     Register
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">
+                                <a class="nav-link text-light" asp-controller="Account" asp-action="Login">
                                     <i class="fas fa-sign-in-alt"></i>
                                     Login
                                 </a>
@@ -72,8 +64,9 @@
                         }
                     </ul>
 
+
                     <ul class="navbar-nav flex-grow-1">
-                        @if (User.IsInRole("admin"))
+                        @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Administration">
@@ -100,12 +93,19 @@
                                 </a>
                             </li>
                         }
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="AboutUs">
+                                <i class="fas fa-address-card"></i>
+                                About Us
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-       
+
         @if (ViewData["BreadCrumbs"] != null)
         {
             <nav aria-label="breadcrumb">
